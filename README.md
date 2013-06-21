@@ -10,14 +10,18 @@ With a Coder SD card installed, your Raspberry Pi will start the Coder web serve
 To install Coder, see the end-user documentation at http://g.co/coder
 
 ### What You'll Find Here
-    coder-base
-        The Coder node.js server and applications that come pre-installed
-    raspbian-addons
-        Modifications and additions to the stock raspian configuration and init structure
-    installer
-        Utility for transfering the coder image to an SD Card
-    findcoder-appengine
-        EXPERIMENTAL: A status server that can be run to help locate multiple Coder devices in a classroom scenario
+
+#### coder-base
+The Coder node.js server and applications that come pre-installed
+
+#### raspbian-addons
+Modifications and additions to the stock raspian configuration and init structure
+
+#### installer
+Utility for transfering the coder image to an SD Card
+
+#### findcoder-appengine
+EXPERIMENTAL: A status server that can be run to help locate multiple Coder devices in a classroom scenario
 
 
         
