@@ -1,0 +1,4 @@
+#requires py2app and python. 
+#note that this doesn't work properly with the osx system build of python
+
+/Library/Frameworks/Python.framework/Versions/2.7/bin/python setup.py py2app

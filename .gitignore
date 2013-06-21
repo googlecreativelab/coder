@@ -1,0 +1,8 @@
+node_modules
+*.img
+*.pyc
+coder-base/certs
+coder-base/device.json
+
+.DS_Store
+Thumbs.db

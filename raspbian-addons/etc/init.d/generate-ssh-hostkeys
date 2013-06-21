@@ -1,0 +1,36 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       generate-ssh-hostkeys
+# Required-Start: $network
+# Required-Stop:  
+# Should-Start:   
+# Should-Stop:    
+# Default-Start:  S
+# Default-Stop:   
+# Description:    Generate ssh host keys if they do not exist
+### END INIT INFO
+
+prog=$(basename $0)
+logger="logger -t $prog"
+
+rsa_key="/etc/ssh/ssh_host_rsa_key"
+dsa_key="/etc/ssh/ssh_host_dsa_key"
+
+# Exit if the hostkeys already exist
+if [ -f $rsa_key -a -f $dsa_key ]; then
+	exit
+fi
+
+# Generate the ssh host keys
+[ -f $rsa_key ] || ssh-keygen -f $rsa_key -t rsa -C 'host' -N ''
+[ -f $dsa_key ] || ssh-keygen -f $dsa_key -t dsa -C 'host' -N ''
+
+# Output the public keys to the console
+# This allows user to get host keys securely through console log
+echo "-----BEGIN SSH HOST KEY FINGERPRINTS-----" | $logger
+ssh-keygen -l -f $rsa_key.pub | $logger
+ssh-keygen -l -f $dsa_key.pub | $logger
+echo "------END SSH HOST KEY FINGERPRINTS------" | $logger
+
+

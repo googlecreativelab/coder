@@ -1,0 +1,131 @@
+/*
+
+Hello Coder!
+
+You're looking at the CSS code. CSS is a language that describes
+how your app looks. This is the place where you can change the
+color, size, and position of things in your program.
+
+
+
+CHANGING BACKGROUND COLOR
+You can use the background-color attribute in the body tag
+to control the color of your page.
+        
+In CSS, colors are written in a code called a hex value. Hex
+values are 6 digits, made of the numbers 0-9 and the letters
+A-F. The first two digits represent red. The second two
+represent green. The final two represent blue. 00 is no color,
+FF is full color. By mixing different values together
+for red, green and blue, you can make all the colors of the
+rainbow.
+        
+
+*/
+
+body {
+    background-color: #D977D4;
+
+    /*
+    See if you can change the background-color above to one of these colors.
+    Then try and invent a color of your own!
+    
+    Example colors:
+        #FF0000 - only red
+        #00FF00 - only green
+        #0000FF - only blue
+        #C0392B - softer red
+        #16A085 - softer green
+        #3498D8 - softer blue
+        #D977D4 - pink
+        #F1C40F - yellow
+        #F39C12 - orange
+        #FFFFFF - white
+        #000000 - black
+        #999999 - grey
+    */
+}
+
+
+/*
+TEXT SIZE AND COLOR
+This block refers to our h1 tag in the html. You can change the 
+text color using the color attribute. background-color changes the
+background color. Unlike the background-color in the body, above,
+these attributes will only affect the h1 area.
+    
+Try to change the text and background colors to something you like.
+    
+See what happens when you change the font-size value to 40px.
+*/
+h1 {
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 60px;
+    display: block;    
+    margin: 0;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 200px;
+    padding-left: 24px;
+}
+
+/*
+MARGINS
+This block affects every p (paragraph) tag in your document. With
+this code, we can change the font size, and even control how far 
+apart to space paragraphs. Try changing margin-top to see how that
+affects spacing.
+*/
+p {
+    width: 100%;
+    margin-top: 50px;
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    padding: 0;
+}
+
+
+/*
+  #animation refers to the id of our canvas tag, which is were 
+  we can draw things. If you look in the html, the tag this affects
+  looks like this:
+  <canvas id="animation"></canvas>
+
+  "absolute" position means that this tag can be positioned anywhere
+  on the screen and won't bump into or affect other tags. In this case
+  we want it to be the full width and height of the screen, and we
+  use a z-index of 1 to put it beneath our page's text content, which
+  has a z-index of 2. Higher z-indexes draw on top of lower ones.
+*/
+#animation {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+/*
+  .pagecontent refers to every tag that has the class called
+  "pagecontent". If you look in the html, you will find a div tag
+  that looks like this:
+  <div class="pagecontent">
+  We're placing everything inside of this and using this class to
+  position this content on top of the animation canvas using z-index.
+*/
+.pagecontent {
+    z-index: 2;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+
+

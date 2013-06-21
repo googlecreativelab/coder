@@ -1,0 +1,15 @@
+{
+	"name": "coder-wificonfig",
+        "description": "wireless settings configuration",
+        "version": "0.0.1",
+        "private": true,
+        "dependencies": {
+                "express": "3.x",
+                "redis": "*",
+                "mustache": "*",
+                "consolidate": "*",
+                "socket.io": "0.x",
+                "express-params": "*",
+		"bcrypt": "*"
+        }
+}

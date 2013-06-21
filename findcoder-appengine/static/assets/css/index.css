@@ -1,0 +1,139 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #e67e22;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #4c4c4c;
+    font-size: 16px;
+    line-height: 1.2em;
+    -webkit-font-smoothing: antialiased;
+}
+
+#coder_nav {
+    width: 100%;
+    background-color: #3e3e3e;
+    position: fixed;
+    height: 60px;
+    min-width: 300px;
+    z-index: 3;
+    top: 0px;
+}
+
+#coder_logo {
+    display:block;
+    color: #fff;
+    font-size: 24px;
+    line-height: 60px;
+    padding-left: 24px;
+    text-transform: uppercase;
+}
+
+#coder_list {
+    display: block;
+    margin-top: 120px;
+    width: 278px;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 120px;
+}
+#fallback {
+    display: block;
+    width: 278px;
+    position: relative;
+    margin: 0 auto;
+    padding-top: 60px;
+}
+
+.device {
+    text-align: center;
+    width: 270px;
+    height: 90px;
+    margin-bottom: 24px;
+    position: relative;
+}
+.device:hover {
+    cursor: pointer;
+}
+.device .bg, .device .shadow {
+    width: 270px;
+    height: 90px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+}
+.device .shadow {
+    background-color: rgba(0,0,0,.1);
+    top: 4px;
+    left: 4px;
+}
+.device:hover .bg {
+    border: 2px solid #ffffff;
+    left: -1px;
+    top: -1px;
+}
+.device:hover .shadow {
+    top: 4px;
+    left: 4px;
+    width: 274px;
+    height: 94px;
+}
+
+.device .name {
+    position: relative;
+    font-size: 20px;
+    line-height: 50px;
+    height: 50px;
+    width: 230px;
+    padding: 20px;
+    text-overflow: ellipsis;
+}
+
+h2 {
+    line-height: 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+}
+.info {
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    margin: 0 0 24px 0;
+}
+.help {
+    font-size: 16px;
+    line-height: 18px;
+    color: #fff;
+    padding: 24px 0 60px 0;
+}
+.help a, .help a:hover, .help a:link, .help a:visited {
+    text-decoration: underline;
+    color: #fff;
+}
+.refresh {
+    padding: 0;
+    height: 24px;
+    width: 270px;
+    margin-bottom: 24px;
+    text-align: center;
+    z-index: 3;
+    line-height: 24px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: rgba( 0,0,0,0.1 );
+    color: #fff;
+    top: 0;
+    right: -90px;
+}
+.refresh:hover {
+    background-color: rgba( 0,0,0,1 );
+    cursor: pointer;
+}

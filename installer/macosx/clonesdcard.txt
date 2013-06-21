@@ -1,0 +1,5 @@
+512byte blocks 4766000
+* 512 / 1024 / 1024 = ~2328M
+Round up to 2400 1M blocks
+
+dd bs=1m if=/dev/rdisk2 of=raspi.img count=2400

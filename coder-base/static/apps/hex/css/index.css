@@ -1,0 +1,146 @@
+
+
+
+#centercontainer {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: 0;
+    margin-left: -150px;
+    width: 300px;
+    margin-top: -150px;
+}
+
+#colorcontrol_top {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #f0f0f0;
+}
+#colorcontrol_bottom {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 50%;
+}
+
+
+.vertslidercontrol {
+    position: absolute;
+    top: 0px;
+    height: 310px;
+    width: 75px;
+}
+#redcontrol {
+    left: 0px;   
+}
+#greencontrol {
+    left: 125px;
+}
+#bluecontrol {
+    left: 250px;
+}
+
+
+#compositecolor {
+    width: 100%;
+    top: 0px;
+    height: 100%;
+    position: absolute;
+}
+
+#compositecolor .swatch {
+    position: absolute;
+    width: 100%;
+    top:0;
+    left: 0;
+    height: 100%;
+}
+
+.sliderbg {
+    width: 55px;
+    height: 255px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+#redcontrol .sliderbg {
+}
+#greencontrol .sliderbg {
+}
+#bluecontrol .sliderbg {
+}
+.slidergroove {
+    width: 2px;
+    height: 200px;
+    position: absolute;
+    left: 27px;
+    top: 32px;
+    background-color: #afafaf;
+}
+#redcontrol .slidergroove {
+}
+#greencontrol .slidergroove {
+}
+#bluecontrol .slidergroove {
+}
+
+.slider {
+    position: absolute;
+    left: 16px;
+    top: 212px;
+    height: 25px;
+    width: 25px;
+    background-color: #000;
+    border-radius: 2px;
+}
+#redcontrol .slider {
+}
+#greencontrol .slider {
+}
+#bluecontrol .slider {
+}
+
+.vertslidercontrol .label {
+    position: absolute;
+    text-align: center;
+    top: 254px;
+    width: 55px;
+    font-size: 24px;
+    line-height: 1em;
+}
+
+#compositecolor .label {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    line-height: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    background-color: rgba(255,255,255,0.8);
+    padding: .5em;
+    margin-left: -60px;
+    margin-top: -23px;
+    border-radius: 2px;
+}
+
+.redtxt {
+    color: #FF0000;
+    /*text-shadow: 1px 1px rgba(100,20,20,.9);*/
+}
+.greentxt {
+    color: #00FF00;
+    /*text-shadow: 1px 1px rgba(20,100,20,.9);*/
+}
+.bluetxt {
+    color: #0000FF;
+    /*text-shadow: 1px 1px rgba(20,20,100,.9);*/
+}
+
+
+
+
+

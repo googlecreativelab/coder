@@ -1,0 +1,36 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       pull-coder-reset
+# Required-Start: 
+# Required-Stop:  
+# Should-Start:   
+# Should-Stop:    
+# Default-Start:  S
+# Default-Stop:   
+# Description:    detect reset.txt on boot partition and clear coder pass if it exists
+### END INIT INFO
+
+prog=$(basename $0)
+logger="logger -t $prog"
+
+reset_file="/boot/reset.txt"
+source_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf.reset"
+dest_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
+source_device_json="/home/pi/cl-project314-coder/coder-base/device.json.reset"
+dest_device_json="/home/pi/cl-project314-coder/coder-base/device.json"
+
+# copy from source to dest if source exists
+if [ -f $reset_file ]; then
+	echo "-----RESET WPA_SUPPLICANT.CONF-----" | $logger
+	cp $source_wpa_conf $dest_wpa_conf
+	chmod 600 $dest_wpa_conf
+	echo "-----RESET DEVICE.JSON-----" | $logger
+	cp $source_device_json $dest_device_json
+	chown pi $dest_device_json
+	chmod 600 $dest_device_json
+	rm -f $reset_file
+fi
+
+
+

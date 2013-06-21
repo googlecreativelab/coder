@@ -1,0 +1,15 @@
+application: gweb-findcoder-dev
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  script: index.app
+- url: /api/coder/.*
+  script: api.coder.app
+
+- url: /assets/
+  static_dir: static/assets
+

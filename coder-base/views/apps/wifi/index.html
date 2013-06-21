@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coder::Wifi Setup</title>
+    <meta charset="utf-8">
+    <!-- Standard Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //the app name of the editor
+        var appurl = "{{&app_url}}";
+        var staticurl = "{{&static_url}}";
+        var pagemode = "{{page_mode}}";
+    </script>
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="/static/common/js/jquery.min.js"></script>
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <!-- End Coder Includes -->
+
+    <!-- Links to this app's files -->
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- End links to this apps files -->
+
+</head>
+<body class="">
+    <div id="coder_nav" class="">
+        <span id="coder_logo">{{device_name}}</span>
+    </div>
+    <div class="centercontainer">
+    <div class="center">
+        
+        <div id="wifi_form" class="form" style="display:none">
+            <h1>Set up Coder's Wifi</h1>
+            <div class="instructions">Enter your network name and password so Coder can connect and you can get started.</div>
+            <div class="formfield selectbox">
+                <div class="selectbg"></div>
+                <select name="network" class="network">
+                    <option name="choose" value="" selected="true">Select Wifi Network</option>
+                    <option name="rescan" value="">Rescan for Available Networks</option>
+                    <option name="spacer" value="">--------------------------------</option>
+                </select>
+            </div>
+            <div class="formfield textinput wifipassword">
+                <span class="label">Wifi Password</span>
+                <input class="pass" type="password"/>
+            </div>
+            <div class="submit disabled">Save Wifi Settings and Reboot</div>
+            <div class="cancel">Cancel</div>
+        </div>
+
+
+        <div id="rebooting_form" class="form" style="display:none">
+            <h1>Switch Your Wireless</h1>
+            <div class="instructions">Unplug Coder's ethernet cable and connect your computer to your normal wireless network. Your Coder will take a minute to restart.<br /><br />If your Coder fails to connect to the wireless network, it will reconnect to the CoderConfig network.</div>
+            <div class="submit disabled">Reconnect to coder.local</div>
+        </div>
+
+
+    </div>
+    </div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,24 @@
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+
+
+network={
+    ssid=""
+    scan_ssid=1
+    key_mgmt=NONE
+    auth_alg=OPEN
+    priority=2
+    disabled=1
+    id_str="anyopen"
+}
+
+network={
+    ssid="CoderConfig"
+    mode=1
+    key_mgmt=NONE
+    id_str="staticadhoc"
+}
+
+
+

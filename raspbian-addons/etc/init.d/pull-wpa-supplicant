@@ -1,0 +1,29 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       pull-wpa-supplicant
+# Required-Start: 
+# Required-Stop:  
+# Should-Start:   
+# Should-Stop:    
+# Default-Start:  S
+# Default-Stop:   
+# Description:    import wpa-supplicant.conf from boot partition if it exists
+### END INIT INFO
+
+prog=$(basename $0)
+logger="logger -t $prog"
+
+source_conf="/boot/wpa_supplicant.conf"
+dest_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
+
+# copy from source to dest if source exists
+if [ -f $source_conf ]; then
+	echo "-----IMPORTING WPA_SUPPLICANT.CONF FROM SD-----" | $logger
+	cp $source_conf $dest_conf
+	chmod 600 $dest_conf
+	rm -f $source_conf
+fi
+
+
+
