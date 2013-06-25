@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Space Game!</title>
+    <meta charset="utf-8">
+    <!-- Standard Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //app name (id) of this app
+        var appurl = "{{&app_url}}";
+        var staticurl = "{{&static_url}}"; //base path to your static files /static/apps/yourapp/
+    </script>
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="/static/common/js/jquery.min.js"></script>
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <script>
+        Coder.addBasicNav();
+    </script>
+    <!-- End Coder Includes -->
+
+    <!-- This app's includes -->
+    <script src="/static/apps/game2d/js/index.js"></script>
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- End apps includes -->
+</head>
+<body class="tools_closed">
+    <div class="leftpanel animation-slide">
+        <div id="codecontainer">
+            <div id="snippetcode"></div>
+        </div>
+        <div class="navbg"></div>
+        <div class="navigation">
+            <span id="resetcode" class="navbutton">Reset</span>
+            <span id="closepanel" class="navbutton">Close Tools</span>
+        </div>
+    </div>
+    <div class="rightpanel animation-slide" id="visualview">
+        <div id="gamecontainer">
+            
+            <!-- in game stats -->
+            <div id="stats">
+                <div class="score">0</div>
+                <div class="lives">3</div>
+            </div>
+
+            <!-- splash screen -->
+            <div id="splash" class="overlay">
+                <h2 class="title">Space Rocks!</h2>
+                <a href="#" id="start" class="start">Start Game</a>
+                <div class="scores">
+                    <h3>High Scores</h3>
+                    <ol class="players"></ol>
+                </div>
+            </div>
+
+        </div>
+        
+
+        <div id="opentools">Hack</div>
+        
+        <div id="opentools_tip" class="tooltip topright" style="display:none">
+            <div class="shadow"><div class="indicator"></div></div>
+            <div class="indicator"></div>
+            <div class="bg"></div>
+            <p>You can tweak the way this game works. Click here to start hacking.</p>
+        </div>
+        
+    </div>
+</body>
+</html>
