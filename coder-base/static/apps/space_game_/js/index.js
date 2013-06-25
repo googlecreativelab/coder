@@ -4,7 +4,7 @@ var MEDIA_PATH = staticurl + '/media/';
 var snippeteditor;
 var gamecontainer;
 var firstColorError = true;
-var Vectoroids;
+var SpaceGame;
 
 $(document).ready( function() {
     
@@ -14,11 +14,11 @@ $(document).ready( function() {
     // Toggle game when editing
 
     snippeteditor.on( 'focus', function() {
-        if ( Vectoroids ) Vectoroids.stop();
+        if ( SpaceGame ) SpaceGame.stop();
     });
 
     snippeteditor.on( 'blur', function() {
-        if ( Vectoroids ) Vectoroids.start();
+        if ( SpaceGame ) SpaceGame.start();
     });
    
     $("#closepanel").click( function(){
@@ -40,10 +40,10 @@ $(document).ready( function() {
 
     // Initialize game
     GameCode.container = gamecontainer.get(0);
-    Vectoroids = Game2D.create( GameCode );
+    SpaceGame = Game2D.create( GameCode );
 
     configureEditor({
-        target: 'Vectoroids',
+        target: 'SpaceGame',
         comment: 'Try changing the variables below and see how they affect the game',
         props: [
             'projectileColor',
@@ -55,13 +55,13 @@ $(document).ready( function() {
             'fillShapes'
         ]
     },{
-        target: 'Vectoroids.ship',
+        target: 'SpaceGame.ship',
         comment: 'The 3 letter name for your ship and high scores',
         props: [
             'name'
         ]
     },{
-        target: 'Vectoroids.ship',
+        target: 'SpaceGame.ship',
         comment: 'Ship properties',
         props: [
             'speed',
@@ -85,7 +85,7 @@ var closeTools = function() {
 
     // Ensure the game knows about dimension changes
     setTimeout( function() {
-        Vectoroids.__resize();
+        SpaceGame.__resize();
     }, 500 );
 };
 
@@ -96,7 +96,7 @@ var openTools = function() {
 
     // Ensure the game knows about dimension changes
     setTimeout( function() {
-        Vectoroids.__resize();
+        SpaceGame.__resize();
     }, 500 );
 };
 
@@ -152,16 +152,16 @@ var configureEditor = function() {
     };
 
 /*
-    Coder.loadData( 'vectoroids:data', function( result ) {
+    Coder.loadData( 'spacegame:data', function( result ) {
         
         if ( result && result.data ) {
 
             console.log( 'LOAD DATA', result );
             
-            Vectoroids.data = JSON.parse( result.data );
+            SpaceGame.data = JSON.parse( result.data );
 
-            if ( Vectoroids.data.code && Vectoroids.data.code !== snippeteditor.getValue() ) {
-                snippeteditor.setValue( Vectoroids.data.code );
+            if ( SpaceGame.data.code && SpaceGame.data.code !== snippeteditor.getValue() ) {
+                snippeteditor.setValue( SpaceGame.data.code );
                 snippeteditor.gotoLine(1);
             }
         }
@@ -172,12 +172,12 @@ var configureEditor = function() {
 
     var saveCode = function() {
 
-        Vectoroids.data.code = snippeteditor.getValue();
-        var data = JSON.stringify( Vectoroids.data );
+        SpaceGame.data.code = snippeteditor.getValue();
+        var data = JSON.stringify( SpaceGame.data );
 
         /*
-        Coder.saveData( 'vectoroids:data', data, function() {
-            console.log( 'SAVE DATA', 'vectoroids:data', +new Date, data );
+        Coder.saveData( 'spacegame:data', data, function() {
+            console.log( 'SAVE DATA', 'spacegame:data', +new Date, data );
         });
         */
     };
@@ -187,8 +187,8 @@ var configureEditor = function() {
         try {
             
             eval( snippeteditor.getValue() );
-            Vectoroids.clear();
-            Vectoroids.draw();
+            SpaceGame.clear();
+            SpaceGame.draw();
 
             clearTimeout( saveTimeout );
             saveTimeout = setTimeout( saveCode, 1500 );
@@ -257,7 +257,7 @@ var Entity = Polygon.extend({
     }
 });
 
-var Vectoroid = Entity.extend({
+var Asteroid = Entity.extend({
 
     init: function( generation ) {
 
@@ -292,8 +292,8 @@ var Vectoroid = Entity.extend({
 
     split: function() {
 
-        var child1 = new Vectoroid( this.generation + 1 );
-        var child2 = new Vectoroid( this.generation + 1 );
+        var child1 = new Asteroid( this.generation + 1 );
+        var child2 = new Asteroid( this.generation + 1 );
 
         child1.translate( this.center );
         child2.translate( this.center );
@@ -501,9 +501,9 @@ var STATES = {
 };
 
 var SOUNDS = {
-    DESTROY_VECTOROID: new Sound( MEDIA_PATH + 'die_vectoroid.mp3' ),
+    DESTROY_VECTOROID: new Sound( MEDIA_PATH + 'die_asteroid.mp3' ),
     DESTROY_SHIP: new Sound( MEDIA_PATH + 'die_ship.mp3' ),
-    SHOOT: new Sound( MEDIA_PATH + 'vectoroids_shoot.mp3' ),
+    SHOOT: new Sound( MEDIA_PATH + 'asteroids_shoot.mp3' ),
     THRUST: new Loop( MEDIA_PATH + 'thrust.mp3' ),
     
     stop: function() {
@@ -536,11 +536,11 @@ var GameCode = {
     fillShapes: true,
     lineThickness: 2,
 
-    minVectoroids: 10,
+    minAsteroids: 10,
     projectileSpeed: 400,
     maxProjectiles: 10,
     projectiles: [],
-    vectoroids: [],
+    asteroids: [],
     canFire: true,
     state: '',
     score: 0,
@@ -560,7 +560,7 @@ var GameCode = {
 
         this.lives = 3;
         this.score = 0;
-        this.vectoroids = [];
+        this.asteroids = [];
         this.projectiles = [];
 
         this.resetShip();
@@ -592,7 +592,7 @@ var GameCode = {
 
             case STATES.INTRO:
 
-                $( '.title' ).text( 'Vectoroids' );
+                $( '.title' ).text( 'Space Game!' );
                 $( '.start' ).text( 'Start Game' );
                 this.getScores();
 
@@ -636,7 +636,7 @@ var GameCode = {
         me.showScores();
 
 /*
-        Coder.loadData( 'vectoroids:data', function( result ) {
+        Coder.loadData( 'spacegame:data', function( result ) {
 
             if ( typeof result.data !== 'undefined' && result.data != null  && result.data != "" ) {
                 me.data = JSON.parse(result.data);
@@ -662,8 +662,8 @@ var GameCode = {
 
         var data = JSON.stringify( this.data );
 /*
-        Coder.saveData( 'vectoroids:data', data, function() {
-            console.log( 'saved data', 'vectoroids:data', +new Date, data );
+        Coder.saveData( 'spacegame:data', data, function() {
+            console.log( 'saved data', 'spacegame:data', +new Date, data );
         });
 */
     },
@@ -699,9 +699,9 @@ var GameCode = {
         }, 1500);
     },
 
-    createVectoroid: function() {
+    createAsteroid: function() {
         
-        var vectoroid = new Vectoroid();
+        var asteroid = new Asteroid();
 
         var x = random( this.width * 0.25 );
         var y = random( this.height * 0.25 );
@@ -709,22 +709,22 @@ var GameCode = {
         if ( chance() ) x = this.width - x;
         if ( chance() ) y = this.height - y;
 
-        vectoroid.translate( new Vector( x, y ) );
-        this.vectoroids.push( vectoroid );
+        asteroid.translate( new Vector( x, y ) );
+        this.asteroids.push( asteroid );
     },
 
-    destroyVectoroid: function( vectoroid ) {
+    destroyAsteroid: function( asteroid ) {
 
         SOUNDS.DESTROY_VECTOROID.play();
 
-        var index = this.vectoroids.indexOf( vectoroid );
+        var index = this.asteroids.indexOf( asteroid );
 
         if ( index > -1 ) {
             
-            this.vectoroids.splice( index, 1 );
+            this.asteroids.splice( index, 1 );
             
-            if ( vectoroid.generation < 3 ) {
-                this.vectoroids = this.vectoroids.concat( vectoroid.split() );
+            if ( asteroid.generation < 3 ) {
+                this.asteroids = this.asteroids.concat( asteroid.split() );
             }
         }
     },
@@ -732,19 +732,19 @@ var GameCode = {
     update: function() {
 
         var dtSeconds = this.dt / 1000;
-        var i, j, n, m, vectoroid, projectile;
+        var i, j, n, m, asteroid, projectile;
 
-        // Update vectoroids
+        // Update asteroids
 
-        while ( this.vectoroids.length < this.minVectoroids ) {
-            this.createVectoroid();
+        while ( this.asteroids.length < this.minAsteroids ) {
+            this.createAsteroid();
         }
 
-        for ( i = 0, n = this.vectoroids.length; i < n; i++ ) {
+        for ( i = 0, n = this.asteroids.length; i < n; i++ ) {
 
-            vectoroid = this.vectoroids[i];
-            vectoroid.wrap( 0, 0, this.width, this.height );
-            vectoroid.update( dtSeconds );
+            asteroid = this.asteroids[i];
+            asteroid.wrap( 0, 0, this.width, this.height );
+            asteroid.update( dtSeconds );
         }
 
         // Update projectiles
@@ -815,50 +815,50 @@ var GameCode = {
     draw: function() {
 
         var shipColor = this.shipColor;
-        var i, j, n, m, color, vectoroid, projectile, child1, child2;
+        var i, j, n, m, color, asteroid, projectile, child1, child2;
 
         this.container.style.backgroundColor = this.backgroundColor;
         this.container.style.color = this.textColor;
 
-        // Draw vectoroids
+        // Draw asteroids
 
         this.graphics.lineWidth = min( 10, max( 0, abs( this.lineThickness ) ) );
         this.graphics.globalCompositeOperation = 'lighter';
 
-        for ( i = 0, n = this.vectoroids.length; i < n; i++ ) {
+        for ( i = 0, n = this.asteroids.length; i < n; i++ ) {
 
-            vectoroid = this.vectoroids[i];
+            asteroid = this.asteroids[i];
 
-            color = this.enemyColors[ vectoroid.seed * this.enemyColors.length | 0 ];
+            color = this.enemyColors[ asteroid.seed * this.enemyColors.length | 0 ];
 
             this.graphics.strokeStyle = color;
             this.graphics.fillStyle = color;
 
-            // Check for vectoroid-projectile collision
+            // Check for asteroid-projectile collision
 
             for ( j = 0, m = this.projectiles.length; j < m; j++ ) {
 
                 projectile = this.projectiles[j];
 
-                // If projectile is hitting vectoroid
+                // If projectile is hitting asteroid
 
-                if ( vectoroid.contains( projectile.vertices[0] ) ) {
+                if ( asteroid.contains( projectile.vertices[0] ) ) {
 
                     this.score += 20;
                     
                     this.projectiles.splice( j, 1 );
-                    this.destroyVectoroid( vectoroid );
+                    this.destroyAsteroid( asteroid );
 
-                    n = this.vectoroids.length;
+                    n = this.asteroids.length;
                     m = this.projectiles.length;
 
                     break;
                 }
             }
 
-            // Check for vectoroid-ship collision
+            // Check for asteroid-ship collision
 
-            if ( !this.ship.invincible && this.ship.intersects( vectoroid ) ) {
+            if ( !this.ship.invincible && this.ship.intersects( asteroid ) ) {
 
                 if ( this.lives <= 1 ) {
 
@@ -868,15 +868,15 @@ var GameCode = {
 
                     SOUNDS.DESTROY_SHIP.play();
 
-                    this.destroyVectoroid( vectoroid );
-                    n = this.vectoroids.length;
+                    this.destroyAsteroid( asteroid );
+                    n = this.asteroids.length;
                     
                     this.resetShip();
                     this.lives--;
                 }
             }
 
-            vectoroid.draw( this.graphics );
+            asteroid.draw( this.graphics );
             
             if ( this.fillShapes ) {
                 this.graphics.globalAlpha = 0.5;
@@ -890,7 +890,7 @@ var GameCode = {
 
             if ( this.drawBounds ) {
 
-                vectoroid.drawBounds( this.graphics );
+                asteroid.drawBounds( this.graphics );
                 this.graphics.globalAlpha = 0.5;
                 this.graphics.stroke();
             }
