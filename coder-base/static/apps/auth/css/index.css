@@ -79,6 +79,22 @@ h1 {
     border-color: rgba(255,0,0,0.5);
 }
 
+.errormessage {
+    border: 2px solid transparent;
+    width: 376px;
+    padding: 10px 10px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    border-radius: 3px;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
 .submit {
     font-size: 21px;
     font-weight: bold;
@@ -93,6 +109,7 @@ h1 {
 }
 .submit:hover {
     background-color: rgba(0,0,0,1);
+    cursor: pointer;
 }
 
 .cancel {
@@ -106,6 +123,7 @@ h1 {
 }
 .cancel:hover {
     background-color: rgba(0,0,0,1);
+    cursor: pointer;
 }
 
 

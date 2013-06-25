@@ -87,9 +87,11 @@ var testAddPasswordSubmitEnable = function() {
     var $form = $('#addpassword_form');
     var pass = $form.find('.pass').val();
     var pass_repeat = $form.find('.pass_repeat').val();
+    $form.find('.pass, .pass_repeat').removeClass('error');
+    $form.find('.errormessage').css('visibility','hidden');
+    
     if ( isValidPassword(pass) && pass === pass_repeat ) {
-        $form.find('.submit').removeClass('disabled');
-        $form.find('.pass, .pass_remove').removeClass('error');
+        $form.find('.submit').removeClass('disabled');    
     } else {
         $form.find('.submit').addClass('disabled');
     }
@@ -100,9 +102,10 @@ var testChangePasswordSubmitEnable = function() {
     var oldpass = $form.find('.oldpass').val();
     var pass = $form.find('.pass').val();
     var pass_repeat = $form.find('.pass_repeat').val();
+    $form.find('.errormessage').css('visibility','hidden');
+    $form.find('.oldpass, .pass, .pass_repeat').removeClass('error');
     if ( oldpass !== "" && isValidPassword(pass) && pass === pass_repeat ) {
         $form.find('.submit').removeClass('disabled');
-        $form.find('.oldpass, .pass, .pass_remove').removeClass('error');
     } else {
         $form.find('.submit').addClass('disabled');
     }
@@ -249,16 +252,19 @@ var addPasswordClick = function() {
     $this = $(this);
     var $form = $('#addpassword_form');
 
-    $form.find('.pass, .pass_remove').removeClass('error');
+    $form.find('.pass, .pass_repeat').removeClass('error');
+    $form.find('.errormessage').css('visibility','hidden');
     var pass = $this.parent().find('.pass').val();
     var pass_repeat = $this.parent().find('.pass_repeat').val();
     
     if ( !isValidPassword(pass) ) {
         $form.find('.pass').addClass('error');
+        $form.find('.errormessage').text( getPasswordProblem(pass) ).css('visibility','visible');
         return;
     }
     if ( pass !== pass_repeat ) {
         $form.find('.pass_repeat').addClass('error');
+        $form.find('.errormessage').text( "new password does not match" ).css('visibility','visible');
         return;
     }
     
@@ -273,7 +279,7 @@ var addPasswordClick = function() {
                 window.location.href="/app/auth";
             } else {
                 $form.find('.pass').addClass('error');
-                $form.find('.instructions').text( data.error );
+                $form.find('.errormessage').text( data.error ).css('visibility','visible');
             }
         }
     );
@@ -284,21 +290,25 @@ var changePasswordClick = function() {
     $this = $(this);
     var $form = $('#changepassword_form');
 
-    $form.find('.oldpass, .pass, .pass_remove').removeClass('error');
+    $form.find('.oldpass, .pass, .pass_repeat').removeClass('error');
+    $form.find('.errormessage').css('visibility','hidden');
     var oldpass = $this.parent().find('.oldpass').val();
     var pass = $this.parent().find('.pass').val();
     var pass_repeat = $this.parent().find('.pass_repeat').val();
     
     if ( oldpass === "" ) {
         $form.find('.oldpass').addClass('error');
+        $form.find('.errormessage').text( "your current password is required" ).css('visibility','visible');
         return;
     }
     if ( !isValidPassword(pass) ) {
         $form.find('.pass').addClass('error');
+        $form.find('.errormessage').text( getPasswordProblem(pass) ).css('visibility','visible');
         return;
     }
     if ( pass !== pass_repeat ) {
         $form.find('.pass_repeat').addClass('error');
+        $form.find('.errormessage').text( "new password does not match" ).css('visibility','visible');
         return;
     }
     
@@ -314,7 +324,7 @@ var changePasswordClick = function() {
                 window.location.href="/app/auth";
             } else {
                 $form.find('.oldpass').addClass('error');
-                $form.find('.instructions').text( data.error );
+                $form.find('.errormessage').text( data.error ).css('visibility','visible');
             }
         }
     );
@@ -335,12 +345,24 @@ var isValidDeviceName = function( name ) {
     return true;
 };
 
+var getPasswordProblem = function( pass ) {
+    if ( !pass || pass === '' ) {
+        return "the password is empty";
+    }
+    if ( pass.length < 6 ) {
+        return "the password should contain at least 6 characters";
+    }
+    if ( !pass.match(/[a-z]/) || 
+        !pass.match(/[A-Z0-9\-\_\.\,\;\:\'\"\[\]\{\}\!\@\#\$\%\^\&\*\(\)\\].*[A-Z0-9\-\_\.\,\;\:\'\"\[\]\{\}\!\@\#\$\%\^\&\*\(\)\\]/) ) {
+        return "your password must contain a lower case letter and at least two upper case letters or numbers";
+    }
+};
 var isValidPassword = function( pass ) {
     if ( !pass || pass === '' ) {
         return false;
     }
     //at least 6 characters
-    if ( pass.length <= 8 ) {
+    if ( pass.length < 6 ) {
         return false;
     }
     //contains lower case

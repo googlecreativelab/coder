@@ -335,7 +335,7 @@ exports.api_addpassword_handler = function( req, res ) {
     if ( !pass || pass === "" || !isValidPassword( pass ) ) {
         res.json({
             status: 'error', 
-            error: "Invalid password." 
+            error: getPasswordProblem( pass ) 
         });
         return;
     }
@@ -411,7 +411,7 @@ exports.api_changepassword_handler = function( req, res ) {
             || !bcrypt.compareSync( oldpass, device_settings.password_hash ) ) {
         res.json({
             status: 'error', 
-            error: "Invalid password." 
+            error: "old password was incorrect" 
         });
         return;
     }
@@ -419,7 +419,7 @@ exports.api_changepassword_handler = function( req, res ) {
     if ( !pass || pass === "" || !isValidPassword( pass ) ) {
         res.json({
             status: 'error', 
-            error: "Invalid password." 
+            error: getPasswordProblem( pass ) 
         });
         return;
     }
@@ -565,12 +565,25 @@ var hostnameFromDeviceName = function( name ) {
     return hostname;
 };
 
+var getPasswordProblem = function( pass ) {
+    if ( !pass || pass === '' ) {
+        return "the password is empty";
+    }
+    if ( pass.length < 6 ) {
+        return "the password should contain at least 6 characters";
+    }
+    if ( !pass.match(/[a-z]/) || 
+        !pass.match(/[A-Z0-9\-\_\.\,\;\:\'\"\[\]\{\}\!\@\#\$\%\^\&\*\(\)\\].*[A-Z0-9\-\_\.\,\;\:\'\"\[\]\{\}\!\@\#\$\%\^\&\*\(\)\\]/) ) {
+        return "your password must contain a lower case letter and at least two upper case letters or numbers";
+    }
+};
+
 var isValidPassword = function( pass ) {
     if ( !pass || pass === '' ) {
         return false;
     }
     //at least 6 characters
-    if ( pass.length <= 8 ) {
+    if ( pass.length < 6 ) {
         return false;
     }
     //contains lower case
