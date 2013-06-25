@@ -17,8 +17,8 @@ logger="logger -t $prog"
 reset_file="/boot/reset.txt"
 source_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf.reset"
 dest_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
-source_device_json="/home/pi/cl-project314-coder/coder-base/device.json.reset"
-dest_device_json="/home/pi/cl-project314-coder/coder-base/device.json"
+source_device_json="/home/pi/coder/coder-base/device.json.reset"
+dest_device_json="/home/pi/coder/coder-base/device.json"
 
 # copy from source to dest if source exists
 if [ -f $reset_file ]; then
