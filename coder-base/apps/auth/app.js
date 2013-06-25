@@ -509,7 +509,10 @@ exports.api_login_handler = function( req, res ) {
             return;
         }
     } 
-    res.json( { status: 'error' } );
+    res.json( { 
+        status: 'error',
+        error: 'invalid password'
+    } );
 };
 exports.api_logout_handler = function( req, res ) {
     req.session.authenticated = false;

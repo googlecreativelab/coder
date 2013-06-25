@@ -118,8 +118,10 @@ var setupLoginFields = function() {
     $('#login_form .formfield.textinput input').focus( hideTextLabel );
     $('#login_form .formfield.textinput input').blur( onBlurTextInput );
     $('#login_form .formfield.textinput input').change( testLoginSubmitEnable );
-    $('#login_form .formfield.textinput input').keydown( function() { 
-        setTimeout( testLoginSubmitEnable, 0 );
+    $('#login_form .formfield.textinput input').keydown( function(e) { 
+        if (e.which != 13) {
+            setTimeout( testLoginSubmitEnable, 0 );
+        }
     });
 
     //submit on enter or button click
@@ -139,9 +141,11 @@ var setupLogoutFields = function() {
     $('#logout_form .formfield.textinput input').focus( hideTextLabel );
     $('#logout_form .formfield.textinput input').blur( onBlurTextInput );
     $('#logout_form .formfield.textinput input').change( testLoginSubmitEnable );
-    $('#logout_form .formfield.textinput input').keydown( function() { 
-        setTimeout( testLoginSubmitEnable, 0 );
-    });        
+    $('#logout_form .formfield.textinput input').keydown( function(e) { 
+        if (e.which != 13) {
+            setTimeout( testLoginSubmitEnable, 0 );
+        }
+    });  
 
     //submit on enter or button click
     $('#logout_form .formfield.textinput .pass').keypress(function (e) {
@@ -160,9 +164,11 @@ var setupConfigureFields = function() {
     $('#configure_form .formfield.textinput input').focus( hideTextLabel );
     $('#configure_form .formfield.textinput input').blur( onBlurTextInput );
     $('#configure_form .formfield.textinput input').change( testConfigureSubmitEnable );
-    $('#configure_form .formfield.textinput input').keydown( function() { 
-        setTimeout( testConfigureSubmitEnable, 0 );
-    });        
+    $('#configure_form .formfield.textinput input').keydown( function(e) { 
+        if (e.which != 13) {
+            setTimeout( testConfigureSubmitEnable, 0 );
+        }
+    });  
 
     $('#configure_form .submit').click( configureClick );
 };
@@ -172,9 +178,18 @@ var setupAddPasswordFields = function() {
     $('#addpassword_form .formfield.textinput input').focus( hideTextLabel );
     $('#addpassword_form .formfield.textinput input').blur( onBlurTextInput );
     $('#addpassword_form .formfield.textinput input').change( testAddPasswordSubmitEnable );
-    $('#addpassword_form .formfield.textinput input').keydown( function() { 
-        setTimeout( testAddPasswordSubmitEnable, 0 );
-    });        
+    $('#addpassword_form .formfield.textinput input').keydown( function(e) { 
+        if (e.which != 13) {
+            setTimeout( testAddPasswordSubmitEnable, 0 );
+        }
+    });
+
+    $('#addpassword_form .formfield.textinput .pass_repeat').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            addPasswordClick();
+        }
+    });
 
     $('#addpassword_form .submit').click( addPasswordClick );
 };
@@ -185,10 +200,19 @@ var setupChangePasswordFields = function() {
     $('#changepassword_form .formfield.textinput input').focus( hideTextLabel );
     $('#changepassword_form .formfield.textinput input').blur( onBlurTextInput );
     $('#changepassword_form .formfield.textinput input').change( testChangePasswordSubmitEnable );
-    $('#changepassword_form .formfield.textinput input').keydown( function() { 
-        setTimeout( testChangePasswordSubmitEnable, 0 );
+    $('#changepassword_form .formfield.textinput input').keydown( function(e) { 
+        if (e.which != 13) {
+            setTimeout( testChangePasswordSubmitEnable, 0 );
+        }
     });        
 
+    $('#changepassword_form .formfield.textinput .pass_repeat').keypress(function (e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            changePasswordClick();
+        }
+    });
+    
     $('#changepassword_form .submit').click( changePasswordClick );
     $('#changepassword_form .cancel').click( function() {
         window.location.href="/";
@@ -201,7 +225,8 @@ var loginClick = function( what ) {
     if ( pagemode === "logout" ) {
         $form = $('#logout_form');
     }
-
+    
+    $form.find('.errormessage').css('visibility','hidden');
     $form.find('.pass').removeClass('error');
     $.post( 
         appurl + '/api/login', 
@@ -213,7 +238,7 @@ var loginClick = function( what ) {
             if( data.status === "success" ) {
                 window.location.href="/app/coder";
             } else {
-                
+                $form.find('.errormessage').text( data.error ).css('visibility','visible');
                 $form.find('.pass').addClass('error');
             }
         }
@@ -249,13 +274,12 @@ var configureClick = function() {
 };
 
 var addPasswordClick = function() {
-    $this = $(this);
     var $form = $('#addpassword_form');
 
     $form.find('.pass, .pass_repeat').removeClass('error');
     $form.find('.errormessage').css('visibility','hidden');
-    var pass = $this.parent().find('.pass').val();
-    var pass_repeat = $this.parent().find('.pass_repeat').val();
+    var pass = $form.find('.pass').val();
+    var pass_repeat = $form.find('.pass_repeat').val();
     
     if ( !isValidPassword(pass) ) {
         $form.find('.pass').addClass('error');
@@ -287,14 +311,14 @@ var addPasswordClick = function() {
 
 
 var changePasswordClick = function() {
-    $this = $(this);
+    
     var $form = $('#changepassword_form');
 
     $form.find('.oldpass, .pass, .pass_repeat').removeClass('error');
     $form.find('.errormessage').css('visibility','hidden');
-    var oldpass = $this.parent().find('.oldpass').val();
-    var pass = $this.parent().find('.pass').val();
-    var pass_repeat = $this.parent().find('.pass_repeat').val();
+    var oldpass = $form.find('.oldpass').val();
+    var pass = $form.find('.pass').val();
+    var pass_repeat = $form.find('.pass_repeat').val();
     
     if ( oldpass === "" ) {
         $form.find('.oldpass').addClass('error');
