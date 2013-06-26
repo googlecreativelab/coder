@@ -18,6 +18,11 @@
  * limitations under the License.
  */
 
+if (typeof console === "undefined" || typeof console.log === "undefined") {
+    console = {};
+    console.log = function() {};
+}
+
 var Coder = {
     coderlib_url: "/app/coderlib",
     appname: '',

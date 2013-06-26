@@ -85,8 +85,10 @@ exports.listApps = function() {
         var info = fs.statSync( appdir + filename );
         if ( info.isDirectory() ) {
             var appinfo = null;
+            var metastat = null;
             try {
-            appinfo = fs.statSync( appdir + filename + "/app.js" );
+                appinfo = fs.statSync( appdir + filename + "/app.js" );
+                metastat = fs.statSync( appdir + filename + "/meta.json" );
             } catch ( e ) {
             }
             if ( typeof appinfo !== 'undefined' && appinfo && appinfo.isFile() ) {
@@ -108,7 +110,7 @@ exports.listApps = function() {
                     metainfo.hidden = (typeof metafile.hidden !== 'undefined') ? metafile.hidden : metainfo.hidden;
                 } catch( e ) {
                 }
-                apps[filename] = { appname: filename, metadata: metainfo };
+                apps[filename] = { appname: filename, metadata: metainfo, ctime: metastat.ctime.getTime() };
             }
         }
     }

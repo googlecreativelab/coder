@@ -95,7 +95,7 @@ var handleFileImport = function( ev ) {
     if ( files && files.length > 0 ) {
         var importfile = files[0];
 
-        console.log( importfile );
+        //console.log( importfile );
         if (!importfile.type.match('application/zip')) {
             alert('This doesn\'t appear to be a Coder project zip file');
             return false;
@@ -114,8 +114,8 @@ var handleFileImport = function( ev ) {
             cache: false,
             data: fdata,
             success: function( data ) {
-                console.log('upload returned');
-                console.log(data);
+                //console.log('upload returned');
+                //console.log(data);
                 if ( data.status === 'success' ) {
                     var newappid = data.appname;
                     window.location.href = '/app/editor/edit/' + encodeURIComponent(newappid);
@@ -218,7 +218,7 @@ var saveSettings = function() {
         $.post('/app/auth/api/devicename/set',
             { 'device_name': $('#coder_name').val() },
             function(d) {
-                console.log( d );
+                //console.log( d );
                 if ( d.status === 'success' ) {
                     device_name = d.device_name;
                     $("#coder_logo").text( device_name );
@@ -236,7 +236,7 @@ var saveSettings = function() {
         $.post('/app/auth/api/coderowner/set',
             { 'coder_owner': $('#coder_ownername').val() },
             function(d) {
-                console.log( d );
+                //console.log( d );
                 if ( d.status === 'success' ) {
                     coder_owner = d.coder_owner;
                 }
@@ -261,7 +261,7 @@ var saveSettings = function() {
         $.post('/app/auth/api/codercolor/set',
             { 'coder_color': hexcolor },
             function(d) {
-                console.log( d );
+                //console.log( d );
                 if ( d.status === 'success' ) {
                     coder_color = d.coder_color;
                     $("#coder_nav").css('background-color', coder_color);
@@ -283,6 +283,8 @@ var saveSettings = function() {
 
 var buildAppList = function(apps){
     
+    
+    //get the app color from our own app (appname is set globally in template)
     metadata = apps[appname].metadata;
     $('.userbgcolor').css('background-color', metadata.color);
 
@@ -304,9 +306,25 @@ var buildAppList = function(apps){
         };
     };
 
-    //console.log( apps );
-    for ( var x in apps ) {
-        var app = apps[x];
+
+
+    //Sort the apps by more recently modified
+    var sortedapps = [];
+    for ( var k in apps ) {
+        sortedapps.push( apps[k] );
+    }
+    sortedapps.sort( function(a,b) {
+        if ( a.ctime < b.ctime ) {
+            return 1;
+        } else if ( b.ctime < a.ctime ) {
+            return -1;
+        } else {
+            return 0;
+        }
+    });
+
+    for ( var x=0; x<sortedapps.length; x++ ) {
+        var app = sortedapps[x];
         
         //don't show hidden apps
         //console.log( app.metadata );
@@ -373,7 +391,7 @@ var createAppClicked = function() {
                 app_color: rgb2hex( $("#createform .colorchit.active").first().css('background-color') )
             },
             function(d) {
-                console.log( d );
+                //console.log( d );
                 var newappid = d.appname;
                 window.location.href = '/app/editor/edit/' + encodeURIComponent(newappid);
             }
