@@ -24,7 +24,8 @@ dest_device_json="/home/coder/coder-dist/coder-base/device.json"
 if [ -f $reset_file ]; then
 	echo "-----RESET WPA_SUPPLICANT.CONF-----" | $logger
 	cp $source_wpa_conf $dest_wpa_conf
-	chmod 600 $dest_wpa_conf
+	chown root:wpaconfig $dest_wpa_conf
+	chmod 660 $dest_wpa_conf
 	echo "-----RESET DEVICE.JSON-----" | $logger
 	cp $source_device_json $dest_device_json
 	chown coder $dest_device_json

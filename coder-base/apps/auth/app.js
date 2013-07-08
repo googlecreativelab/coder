@@ -32,7 +32,6 @@ var device_settings = {
     coder_color: '#3e3e3e'
 };
 
-var setpipass = '/home/coder/coder-dist/coder-base/sudo_scripts/setpipass';
 
 exports.settings={};
 //These are dynamically updated by the runtime
@@ -346,6 +345,7 @@ exports.api_addpassword_handler = function( req, res ) {
     //device_settings.device_name = devicename;
     var erroutput = "";
     var output = "";
+    var setpipass = process.cwd() + '/sudo_scripts/setpipass';
     var setpass = spawn( '/usr/bin/sudo', [setpipass] );
     setpass.stdout.on( 'data', function( d ) {
         output += d;
@@ -430,6 +430,7 @@ exports.api_changepassword_handler = function( req, res ) {
     //device_settings.device_name = devicename;
     var erroutput = "";
     var output = "";
+    var setpipass = process.cwd() + '/sudo_scripts/setpipass';
     var setpass = spawn( '/usr/bin/sudo', [setpipass] );
     setpass.stdout.on( 'data', function( d ) {
         output += d;

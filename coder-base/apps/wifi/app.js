@@ -22,6 +22,8 @@ var mustache = require('mustache');
 var util = require('util');
 var fs = require('fs');
 
+var sudoscripts = process.cwd() + '/sudo_scripts';
+
 exports.settings={};
 //These are dynamically updated by the runtime
 //settings.appname - the app id (folder) where your app is installed
@@ -154,7 +156,7 @@ var saveWifiConfigEntry = function( configdata ) {
 
 exports.api_reboot_handler = function( req, res ) {
     var spawn = require('child_process').spawn;
-    var rebootproc = spawn( '/sbin/shutdown', ['-r', 'now'] );
+    var rebootproc = spawn( '/usr/bin/sudo', [ sudoscripts + '/reboot'] );
     rebootproc.addListener( 'exit', function( code, signal ) {
         res.json( { status: 'success' } );
     });        
@@ -166,19 +168,19 @@ exports.api_wifi_list_handler = function( req, res ) {
     var data = "";
 
     var scanStep1 = function( ) {
-        var scanproc = spawn( '/sbin/wpa_cli', ['ap_scan', '2'] );
+        var scanproc = spawn( '/usr/bin/sudo', [ sudoscripts + '/wpa_cli_apscan'] );
         scanproc.addListener( 'exit', function( code, signal ) {
             scanStep2();
         });        
     };
     var scanStep2 = function( ) {
-        var scanproc = spawn( '/sbin/wpa_cli', ['scan'] );
+        var scanproc = spawn( '/usr/bin/sudo', [ sudoscripts + '/wpa_cli_scan'] );
         scanproc.addListener( 'exit', function( code, signal ) {
             scanStep3();
         });        
     };
     var scanStep3 = function( ) {
-        var scanproc = spawn( '/sbin/wpa_cli', ['scan_results'] );
+        var scanproc = spawn( '/usr/bin/sudo', [ sudoscripts + '/wpa_cli_scanresults'] );
         scanproc.stdout.on( 'data', function(d) { data += d; } );        
         scanproc.addListener( 'exit', function( code, signal ) {
             returnData();
