@@ -1,5 +1,5 @@
 # The init.d script will only run if this variable non-empty.
-CODER_USER="root"             # !!!CHANGE THIS!!!!
+CODER_USER="coder"             # !!!should not be root!!!!
 
 # Should we run at startup?
 RUN_AT_STARTUP="YES"
