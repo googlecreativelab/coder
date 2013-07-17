@@ -169,8 +169,9 @@ var setupConfigureFields = function() {
             setTimeout( testConfigureSubmitEnable, 0 );
         }
     });  
-
     $('#configure_form .submit').click( configureClick );
+    $('#configure_form .device_name').val( 'My Coder' ).parent().find('.label').hide();
+    testConfigureSubmitEnable();
 };
 var setupAddPasswordFields = function() {
     $('#addpassword_form .formfield.textinput .label').click( focusTextInput );
