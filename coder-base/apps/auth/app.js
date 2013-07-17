@@ -120,14 +120,20 @@ exports.logout = function( req ) {
 
 
 exports.index_handler = function( req, res ) {
+    
+    var firstuse = "?firstuse";
+    if ( typeof( req.param('firstuse') ) === 'undefined' ) {
+        firstuse = "";
+    }
+    
     if ( !exports.isConfigured() ) {
-        res.redirect('/app/auth/configure');
+        res.redirect('/app/auth/configure?firstuse');
     } else if ( !exports.hasPassword() ) {
-        res.redirect('/app/auth/addpassword');
+        res.redirect('/app/auth/addpassword?firstuse');
     } else if ( !exports.isAuthenticated(req) ) {
-        res.redirect('/app/auth/login');
+        res.redirect('/app/auth/login' + firstuse);
     } else {
-        res.redirect('/app/coder');
+        res.redirect('/app/coder' + firstuse);
     }
 };
 

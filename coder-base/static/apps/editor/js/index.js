@@ -70,6 +70,9 @@ $(document).ready( function() {
     $("#settingscontainer input").on('change', checkChangedSettings );
     $("#settingscontainer input").on('keydown', function() { setTimeout( checkChangedSettings, 0); } );
 
+    $("#editornav .application_name").click( function() {
+        window.location.href = '/app/' + edit_appname;
+    });
     //uncomment to open preview by default
     //togglePreview();
     

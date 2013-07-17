@@ -64,7 +64,25 @@ $(document).ready( function() {
     $("#settingscontainer .logout").click( function() {
         window.location.href="/app/auth/logout";
     });
+    
+    if ( typeof getParams['firstuse'] !== 'undefined' ) {
+        buildIntroduction();
+    }
 });
+
+
+var buildIntroduction = function() {
+    $('#introduction').fadeIn();
+    $('.gotit').click( function() {
+        $('#introduction').fadeOut(function() {
+            $(this).hide();
+        });
+    });
+};
+
+
+
+
 
 var revertSettings = function() {
     activateCurrentCoderColor();

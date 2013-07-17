@@ -3,7 +3,7 @@
 
 
 #additem {
-    background-color: #bdc3c7;
+    background-color: #2ecc71;
 }
 
 #applist {
@@ -71,7 +71,7 @@
     position: absolute;
     background-image: url(/static/common/media/coder_icons.png);
     background-position: -167px 0px;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 #addapp_button:hover #addapp_icon {
     background-color: rgba(255,255,255,0.1);
@@ -411,4 +411,79 @@
     cursor: pointer;
 }
 
+#introduction {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:4;
+}
 
+
+.intromessage {
+    width: 450px;
+    position: absolute;
+    top: 400px;
+    color: #fff;
+    left: 50%;
+    margin-left: -200px;
+    text-align: center;
+}
+
+.intromessage h1 {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: bold;
+    margin:0;
+    padding: 0 0 20px 0;
+}
+.intromessage p {
+    font-size: 21px;
+    line-height: 1.2em;
+    padding: 0 0 20px 0;
+    margin:0;
+}
+.intromessage a, .intromessage a:hover, .intromessage a:active, .intromessage a:visited {
+    color: #333;
+    text-decoration: underline;
+}
+.gotit {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 60px;
+    border-radius: 4px;
+    width: 400px;
+    margin-left:25px;
+    margin-bottom: 24px;
+    background-color: rgba(0,0,0,0.5);
+}
+.gotit:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,1);;
+}
+#dontshow {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+.dontshowmsg {
+    vertical-align: middle;
+}
+
+#myapps_tip {
+    position: absolute;
+    left: 440px;
+    top: 220px;
+}
+#newapp_tip {
+    position: absolute;
+    left: 140px;
+    top: 220px;
+}
+#settings_tip {
+    position: absolute;
+    right: 60px;
+    top: 20px;
+}

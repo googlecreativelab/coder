@@ -58,3 +58,18 @@ if ( typeof appname != 'nothing' ) {
 if ( typeof appurl != 'nothing' ) {
     Coder.appurl = appurl;
 }
+
+var getParams = (function(qs){
+    var params = {};
+    if ( typeof qs !== 'undefined' ) {
+        for ( var x=0; x<qs.length; x++ ) {
+            var param = qs[x].split('=');
+            if (param.length == 2) {
+                params[param[0]] = decodeURIComponent(param[1].replace(/\+/g, " "));
+            } else {
+                params[param[0]] = '';
+            }
+        }
+    }
+    return params;
+})(window.location.search.substr(1).split('&'));

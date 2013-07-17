@@ -236,7 +236,10 @@ var loginClick = function( what ) {
         function( data ) {
             console.log( data );
             if( data.status === "success" ) {
-                window.location.href="/app/coder";
+                if ( typeof getParams['firstuse'] !== 'undefined' ) {
+                    firstuse = '?firstuse';
+                }
+                window.location.href="/app/coder" + firstuse;
             } else {
                 $form.find('.errormessage').text( data.error ).css('visibility','visible');
                 $form.find('.pass').addClass('error');
@@ -300,7 +303,11 @@ var addPasswordClick = function() {
         function( data ) {
             console.log( data );
             if( data.status === "success" ) {
-                window.location.href="/app/auth";
+                var firstuse = '';
+                if ( typeof getParams['firstuse'] !== 'undefined' ) {
+                    firstuse = '?firstuse';
+                }
+                window.location.href="/app/auth" + firstuse;
             } else {
                 $form.find('.pass').addClass('error');
                 $form.find('.errormessage').text( data.error ).css('visibility','visible');
@@ -460,5 +467,6 @@ var updateAnimation = function() {
     }
     setTimeout( updateAnimation, 1000/60 );
 };
+
 
 

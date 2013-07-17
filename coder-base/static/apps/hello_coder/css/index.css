@@ -59,17 +59,34 @@ Try to change the text and background colors to something you like.
 See what happens when you change the font-size value to 40px.
 */
 h1 {
-    background-color: #000000;
-    color: #ffffff;
-    font-size: 24px;
-    line-height: 60px;
-    display: block;    
-    margin: 0;
-    text-transform: uppercase;
+    text-align: center;
+    background-color: #FFFFFF;
+    color: #D977D4;
+    font-size: 42px;
+    line-height: 60px;    
     margin: 0;
     padding: 0;
-    margin-bottom: 200px;
-    padding-left: 24px;
+    font-weight: bold;
+    
+    
+    /*
+       This lets us set a width on the block.
+       Otherwise it will default to the full
+       page width.
+     */
+    width: 400px;
+
+    /*
+       We can center the block using relative
+       positioning, placing it 50% of the page
+       width from the left. The negative
+       margin-left compensates for half the 
+       width of the block to complete the
+       centering.
+    */
+    position: relative;
+    left: 50%;
+    margin-left: -200px;
 }
 
 /*
@@ -85,7 +102,6 @@ p {
     margin-bottom: 10px;
     font-size: 28px;
     line-height: 28px;
-    font-weight: bold;
     text-align: center;
     color: #ffffff;
     padding: 0;
@@ -118,11 +134,13 @@ p {
   <div class="pagecontent">
   We're placing everything inside of this and using this class to
   position this content on top of the animation canvas using z-index.
+  It also uses padding-top to position all of the text content 200px
+  down from the top of the page.
 */
 .pagecontent {
     z-index: 2;
     position: relative;
-    height: 100%;
+    padding-top: 200px;
     width: 100%;
 }
 
