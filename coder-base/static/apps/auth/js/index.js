@@ -236,6 +236,7 @@ var loginClick = function( what ) {
         function( data ) {
             console.log( data );
             if( data.status === "success" ) {
+		var firstuse = "";
                 if ( typeof getParams['firstuse'] !== 'undefined' ) {
                     firstuse = '?firstuse';
                 }
