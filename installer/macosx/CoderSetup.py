@@ -27,47 +27,57 @@ from Tkinter import *
 import tkFont
 import threading
 
-BGCOLOR = "#f0f0f0"
-ACTIVECOLOR = "#55E7FF"
-TEXTCOLOR = "#999999"
-PROGRESSBG = "#909090"
-
+WINWIDTH = 776
+WINHEIGHT = 390
+BGCOLOR = "#3BD7EA"
+ACTIVECOLOR = "#3BD7EA"
+TEXTCOLOR = "#FFFFFF"
+PROGRESSBG = "#FFFFFF"
+BTNTEXT = "#2AD4E7"
+BTNCOLOR = "#FFFFFF"
 
 class Application(Frame):
 
+    def createStartButton(self, master, onclick):
+        b = Label( master )
+        b.config( text="START", highlightthickness=1, highlightbackground=ACTIVECOLOR, background=BTNCOLOR, foreground=BTNTEXT, width=12, height=3 )
+        b.bind("<Button-1>", onclick)
+        b.place( x=336, y=80, anchor=NW )
+        return b
+    
     def createNextButton(self, master, onclick):
         b = Label( master )
-        b.config( text="NEXT", highlightthickness=1, highlightbackground=ACTIVECOLOR, width=10, height=3, foreground=TEXTCOLOR )
+        b.config( text="NEXT", highlightthickness=1, highlightbackground=ACTIVECOLOR, background=BTNCOLOR, foreground=BTNTEXT, width=12, height=3 )
         b.bind("<Button-1>", onclick)
-        b.place( x=900, y=230, anchor=NW )
+        b.place( x=336, y=80, anchor=NW )
         return b
     
     def createDoneButton(self, master, onclick):
         b = Label( master )
-        b.config( text="DONE", highlightthickness=1, highlightbackground=ACTIVECOLOR, width=10, height=3, foreground=TEXTCOLOR )
+        b.config( text="OK", highlightthickness=1, highlightbackground=ACTIVECOLOR, background=BTNCOLOR, foreground=BTNTEXT, width=12, height=3 )
         b.bind("<Button-1>", onclick)
-        b.place( x=900, y=230, anchor=NW )
+        b.place( x=336, y=80, anchor=NW )
         return b
     
     def createStartOverButton(self, master, onclick):
         b = Label( master )
-        b.config( text="START OVER", highlightthickness=1, highlightbackground=ACTIVECOLOR, width=15, height=3, foreground=TEXTCOLOR )
+        b.config( text="START OVER", highlightthickness=1, highlightbackground=ACTIVECOLOR, background=BTNCOLOR, foreground=BTNTEXT, width=12, height=3 )
         b.bind("<Button-1>", onclick)
-        b.place( x=860, y=230, anchor=NW )
+        b.place( x=336, y=80, anchor=NW )
         return b
     
     def createFormatButton(self, master, onclick):
         b = Label( master )
-        b.config( text="FORMAT", highlightthickness=1, highlightbackground=ACTIVECOLOR, width=15, height=3, foreground=TEXTCOLOR )
+        b.config( text="INSTALL", highlightthickness=1, highlightbackground=ACTIVECOLOR, background=BTNCOLOR, foreground=BTNTEXT, width=12, height=3 )
         b.bind("<Button-1>", onclick)
-        b.place( x=860, y=230, anchor=NW )
+        b.place( x=336, y=80, anchor=NW )
         return b
     
     def createInstructionTxt(self, master, text):
-        instructionFont = tkFont.Font(family="Helvetica", size=20)
+        instructionFont = tkFont.Font(family="Helvetica", size=18)
         instruction = Label( master, background=BGCOLOR, foreground=TEXTCOLOR, font=instructionFont )
         instruction["text"] = text
-        instruction.place( relx=0.5, y=50, anchor=N )
+        instruction.place( relx=0.5, y=14, anchor=N )
         return instruction
 
 
@@ -79,35 +89,36 @@ class Application(Frame):
         #self.QUIT.place( relx=0, rely=1, anchor=SW )
 
 
-        self.step1Frame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.step1Frame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
 
-        self.step1Frame.instruction = self.createInstructionTxt( self.step1Frame, "Remove any SD Cards from your computer and click Next." )
-        self.step1Frame.nextButton = self.createNextButton( self.step1Frame, self.preStep2 )
+        self.step1Frame.instruction = self.createInstructionTxt( self.step1Frame, "Remove any SD Cards from your computer and click Start." )
+        self.step1Frame.nextButton = self.createStartButton( self.step1Frame, self.preStep2 )
 
 
-        self.step2Frame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.step2Frame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
         self.step2Frame.nextButton = self.createNextButton( self.step2Frame, self.preStep3 )
-        self.step2Frame.instruction = self.createInstructionTxt( self.step2Frame, "Now insert the SD Card you wish to format with Coder." )
+        self.step2Frame.instruction = self.createInstructionTxt( self.step2Frame, "Insert an SD Card you wish to format with Coder." )
         
 
-        self.step3Frame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.step3Frame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
         self.step3Frame.nextButton = self.createFormatButton( self.step3Frame, self.preStep4 )
-        self.step3Frame.instruction = self.createInstructionTxt( self.step3Frame, "Click Format to completely erase this SD Card and install Coder." )
-        self.step3Frame.progress = Meter( self.step3Frame, width=800, height=2, bg=PROGRESSBG, progcolor=ACTIVECOLOR )
+        self.step3Frame.instruction = self.createInstructionTxt( self.step3Frame, "Click Install to format this SD Card and install Coder." )
+        self.step3Frame.progress = Meter( self.step3Frame, width=600, height=6, bg=PROGRESSBG, progcolor=ACTIVECOLOR )
 
         
-        self.step4Frame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.step4Frame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
         self.step4Frame.instruction = Label( self.step4Frame )
-        self.step4Frame.instruction = self.createInstructionTxt( self.step4Frame, "You can now use this card in Raspberry Pi to run Coder." )
+        self.step4Frame.instruction = self.createInstructionTxt( self.step4Frame, "Coder has been successfully installed. You may now remove your SD Card.\nFollow instructions at goo.gl/coder to get started." )
+        self.step4Frame.instruction.place( relx=0.5, y=8, anchor=N )
         self.step4Frame.doneButton = self.createDoneButton( self.step4Frame, self.doneClick )
 
-        self.errorFrame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.errorFrame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
         self.errorFrame.soButton = self.createStartOverButton( self.errorFrame, self.step1 )
         self.errorFrame.instruction = Label( self.errorFrame )
         self.errorFrame.instruction = self.createInstructionTxt( self.errorFrame, "Error" )
 
 
-        self.workingFrame = Frame( width=1000, height=300, background=BGCOLOR )
+        self.workingFrame = Frame( width=WINWIDTH, height=190, background=BGCOLOR )
         self.workingFrame.instruction = Label( self.workingFrame )
         self.workingFrame.instruction = self.createInstructionTxt( self.workingFrame, "Thinking..." )
 
@@ -117,7 +128,7 @@ class Application(Frame):
         self.logo.config( background=BGCOLOR, image = self.logoimg )
 
 
-        self.logo.place( x=340, y=100, anchor=NW )
+        self.logo.place( x=170, y=55, anchor=NW )
         #self.logo.config( image = self.logoimg )
         #self.logo.geometry("+%d+%d" % (self.winfo_rootx()+50,
         #                                      self.winfo_rooty()+50))
@@ -189,7 +200,7 @@ class Application(Frame):
             self.errorRetry( "Your card wasn't correctly detected. Let's try again." )
             #self.errorRetry( "Error: found " + str( len( self.newDrives ) ) + " new disks inserted but expected 1" )
         else:
-            self.showWorking( "Device found." )
+            self.showWorking( "SD Card found." )
             self.update()
             time.sleep(2)
             self.step3()
@@ -197,8 +208,8 @@ class Application(Frame):
     def step3( self, event=None ):
         self.unPlace()
         self.step3Frame.progress.place_forget()
-        self.step3Frame.nextButton.place( x=860, y=230, anchor=NW )
-        self.step3Frame.instruction['text'] = "Click Format to completely erase this SD Card and install Coder."
+        self.step3Frame.nextButton.place( x=336, y=80, anchor=NW )
+        self.step3Frame.instruction['text'] = "Click Install to format this SD Card and install Coder."
         self.step3Frame.place( relx=0, rely=1, anchor=SW )
 
 
@@ -207,8 +218,8 @@ class Application(Frame):
 
         self.update_idletasks();
         self.step3Frame.nextButton.place_forget()
-        self.step3Frame.progress.place( relx=0.5, y=100, anchor=N )
-        self.step3Frame.instruction['text'] = "Writing to SD Card..."
+        self.step3Frame.progress.place( relx=0.5, y=85, anchor=N )
+        self.step3Frame.instruction['text'] = "Installing Coder on your SD Card."
         self.update_idletasks();
 
         formatProgress = 0.0
@@ -251,7 +262,7 @@ class Application(Frame):
 
     def __init__(self, master=None):
         Frame.__init__(self, master)
-        self.config(width = 1000, height = 500, background="#f0f0f0")
+        self.config(width = WINWIDTH, height = WINHEIGHT, background=BGCOLOR)
         self.createMenu()
         self.pack_propagate(0)
         self.pack()
@@ -364,7 +375,7 @@ formatThread = None
 root = Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-root.geometry("1000x500+%d+%d" % (screen_width/2-500, screen_height/2-250))
+root.geometry("%dx%d+%d+%d" % (WINWIDTH, WINHEIGHT, screen_width/2-500, screen_height/2-250))
 root.wm_title("Coder for Pi")
 root.wm_client("Coder for Pi")
 root.lift()

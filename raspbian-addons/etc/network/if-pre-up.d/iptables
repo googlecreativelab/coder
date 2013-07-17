@@ -1,0 +1,4 @@
+#!/bin/sh
+#restore iptables on boot
+
+iptables-restore < /etc/iptables.up.rules

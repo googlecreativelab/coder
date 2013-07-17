@@ -21,7 +21,8 @@ dest_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
 if [ -f $source_conf ]; then
 	echo "-----IMPORTING WPA_SUPPLICANT.CONF FROM SD-----" | $logger
 	cp $source_conf $dest_conf
-	chmod 600 $dest_conf
+	chown root:wpaconfig $dest_conf
+	chmod 660 $dest_conf
 	rm -f $source_conf
 fi
 

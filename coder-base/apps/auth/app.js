@@ -351,7 +351,8 @@ exports.api_addpassword_handler = function( req, res ) {
     //device_settings.device_name = devicename;
     var erroutput = "";
     var output = "";
-    var setpass = spawn( '/usr/bin/sudo', ['/usr/bin/passwd', 'pi'] );
+    var setpipass = process.cwd() + '/sudo_scripts/setpipass';
+    var setpass = spawn( '/usr/bin/sudo', [setpipass] );
     setpass.stdout.on( 'data', function( d ) {
         output += d;
     });
@@ -435,7 +436,8 @@ exports.api_changepassword_handler = function( req, res ) {
     //device_settings.device_name = devicename;
     var erroutput = "";
     var output = "";
-    var setpass = spawn( '/usr/bin/sudo', ['/usr/bin/passwd', 'pi'] );
+    var setpipass = process.cwd() + '/sudo_scripts/setpipass';
+    var setpass = spawn( '/usr/bin/sudo', [setpipass] );
     setpass.stdout.on( 'data', function( d ) {
         output += d;
     });

@@ -69,7 +69,7 @@ var apphandler = function( req, res, appdir ) {
     auth = require(appdir + "auth" + "/app");
     user = auth.isAuthenticated(req, res);
     if ( !user && publicAllowed.indexOf( appname ) < 0) {
-        res.redirect("https://" + getHost(req) + ":" + config.listenPort  + '/app/auth' ); 
+        res.redirect("https://" + getHost(req) + ":" + config.httpsVisiblePort  + '/app/auth' ); 
         return;
     }
 
@@ -262,8 +262,8 @@ var redirectapp = express();
 params.extend( redirectapp );
 redirectapp.engine( 'html', cons.mustache );
 redirectapp.all( /.*/, function( req, res ) {
-    util.log( 'redirect: ' + getHost(req) + " " + config.listenPort + " " + req.url );
-    res.redirect("https://" + getHost(req) + ":" + config.listenPort  + req.url); 
+    util.log( 'redirect: ' + getHost(req) + " " + config.httpsVisiblePort + " " + req.url );
+    res.redirect("https://" + getHost(req) + ":" + config.httpsVisiblePort  + req.url); 
 });
 
 startSSL();

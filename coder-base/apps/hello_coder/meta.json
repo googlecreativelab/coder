@@ -1,6 +1,10 @@
 {
     "created": "2013-05-08",
+<<<<<<< HEAD
     "modified": "2013-07-17",
+=======
+    "modified": "2013-07-08",
+>>>>>>> 22cc3296fd20d049c9cee6e700e6e8a80380909c
     "color": "#d977d4",
     "author": "Jason Striegel",
     "name": "Hello Coder",
