@@ -66,13 +66,30 @@ $(document).ready( function() {
     });
     
     if ( typeof getParams['firstuse'] !== 'undefined' ) {
-        buildIntroduction();
+        setTimeout( function(){
+            buildIntroduction();
+        }, 400 );
+    } else {
+        $('#introduction').css('display','none');
     }
 });
 
 
 var buildIntroduction = function() {
-    $('#introduction').fadeIn();
+    $('#introduction').css({
+        'display': 'none',
+        'visibility': 'visible'
+    }).fadeIn( 'slow', function() {
+        setTimeout( function() {
+            $('#myapps_tip').css({'visibility':'visible'}).hide().fadeIn();
+        }, 1000);
+        setTimeout( function() {
+            $('#newapp_tip').css({'visibility':'visible'}).hide().fadeIn();
+        }, 2000);
+        setTimeout( function() {
+            $('#settings_tip').css({'visibility':'visible'}).hide().fadeIn();
+        }, 3000);
+    });
     $('.gotit').click( function() {
         $('#introduction').fadeOut(function() {
             $(this).hide();
