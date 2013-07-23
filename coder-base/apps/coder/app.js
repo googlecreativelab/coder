@@ -215,9 +215,9 @@ exports.api_app_import_handler = function( req, res, pathmatches ) {
 
         var importfile = fs.readFileSync( tmpfolder + '/app/meta.json', 'utf-8' );
         var importinfo = JSON.parse(importfile);
-
+        
         if ( !importinfo || !importinfo.color  
-                || !importinfo.author || !importinfo.name 
+                || typeof(importinfo.author) === 'undefined' || !importinfo.name 
                 || !importinfo.created || !importinfo.modified ) {
 
             res.json({
