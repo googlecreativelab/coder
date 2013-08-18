@@ -67,6 +67,13 @@ exports.api_wifi_configure_handler = function( req, res ) {
         });
     }
 
+    if ( type !== 'OPEN' && type != 'WEP' && password.length < 8 ) {
+        res.json({
+            'status': 'error',
+            'error': 'short password'
+        });
+    }
+
     if ( type !== 'WPAPSK' && type != 'WEP' && type != 'OPEN' ) {
         res.json({
             'status': 'error',

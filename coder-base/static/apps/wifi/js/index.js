@@ -183,7 +183,11 @@ var saveClick = function() {
         } else if ( $selected.attr('data-nettype') !== "OPEN" 
                 && pass === "" ) {
             $form.find('.pass').addClass('error');
-        }
+        } else if ( $selected.attr('data-nettype') !== "OPEN" 
+		&& $selected.attr('data-nettype') !== "WEP"
+		&& pass.length < 8 ) {
+            $form.find('.pass').addClass('error');
+	}
         return;
     }
     
