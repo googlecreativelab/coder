@@ -1,29 +1,36 @@
 #!/bin/sh
 
 ### BEGIN INIT INFO
-# Provides:       pull-wpa-supplicant
+# Provides:       pull-hostname
 # Required-Start: 
 # Required-Stop:  
 # Should-Start:   
 # Should-Stop:    
 # Default-Start:  S
 # Default-Stop:   
-# Description:    import wpa-supplicant.conf from boot partition if it exists
+# Description:    import hostname from boot partition if it exists
 ### END INIT INFO
 
 prog=$(basename $0)
 logger="logger -t $prog"
 
-source_conf="/boot/coder_settings/wpa_supplicant.txt"
-dest_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
+source_conf="/boot/coder_settings/hostname.txt"
+dest_conf="/etc/hostname"
+
 
 # copy from source to dest if source exists
 if [ -f $source_conf ]; then
 	echo "-----IMPORTING WPA_SUPPLICANT.CONF FROM SD-----" | $logger
 	cp $source_conf $dest_conf
-	chown root:wpaconfig $dest_conf
-	chmod 660 $dest_conf
-	rm -f $source_conf
+	chown root:root $dest_conf
+	chmod 644 $dest_conf
+
+	HOSTNAME="$(cat /etc/hostname)"
+	hostname "$HOSTNAME"	
+	
+	# Should we delete or re-import every time? 
+	# Opting to import every time.
+	# rm -f $source_conf
 fi
 
 

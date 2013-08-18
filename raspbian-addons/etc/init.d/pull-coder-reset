@@ -14,7 +14,7 @@
 prog=$(basename $0)
 logger="logger -t $prog"
 
-reset_file="/boot/reset.txt"
+reset_file="/boot/coder_settings/reset.txt"
 source_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf.reset"
 dest_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
 source_device_json="/home/coder/coder-dist/coder-base/device.json.reset"
