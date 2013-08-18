@@ -1,6 +1,6 @@
 # Coder for Raspberry Pi
 # A simple platform for experimenting with web stuff.
-# http://g.co/coder
+# http://goo.gl/coder
 #
 # Copyright 2013 Google Inc. All Rights Reserved.
 #
