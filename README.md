@@ -3,7 +3,7 @@
 
 Coder is a free piece of software that turns a Raspberry Pi into a super simple platform that educators and parents can use to teach the basics of building for the web. New coders can craft small projects in HTML, CSS, and Javascript, right from the web browser.
 
-http://googlecreativelab.github.io/coder
+http://goo.gl/coder
 
 ### What You'll Find Here
 
