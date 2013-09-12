@@ -1,8 +1,296 @@
-<html>
-    <head>
-        <title>__</title>
-    </head>
-    <body>
-        <pre>&lt;&gt;**&lt;&gt;</pre>
-    </body>
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Product">
+<head> 
+    <title>Coder for Raspberry Pi</title>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+    <link href="assets/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/index.js?v=2"></script>
+    <meta itemprop="name" content="Coder for Raspberry Pi">
+    <meta itemprop="description" content="A simple way to make web stuff on Raspberry Pi.">
+    <meta itemprop="image" content="http://googlecreativelab.github.io/coder/assets/images/introvideo_cropped_640.jpg">
+</head>
+<body>
+    <div class="fixedbg">
+    </div>
+    <div class="fixedbar">
+        <div id="slideup">
+            <a href="#top" class="logo animate"><h1>Coder <span class="forpi">for Raspberry Pi</span></h1></a>
+            <!-- div class="download button">Download Coder</div -->
+            <div class="links">
+                <!-- a id="nav_introduction" href="#introduction" class="animate">Intro</a -->
+                <a id="nav_gettingstarted" href="#gettingstarted" class="animate">Get Started</a>
+                <a id="nav_download" href="#download" class="animate">Download</a>
+                <a id="nav_faq" href="#faq" class="animate">FAQ</a>
+                <a id="nav_contribute" href="#contribute" class="animate">Contribute</a>
+            </div>
+        </div>
+    </div>
+    <div class="masthead">
+        <a name="top" class="anchor"></a>
+        <canvas id="animation"></canvas>
+        <h1>Coder <span class="forpi">for Raspberry Pi</span></h1>
+        <!-- div class="download button">Download Coder</div -->
+        <!-- div class="links">
+            <a href="#introduction" data-navtarget="introduction" class="animate">Introducing Coder</a>
+            <a href="#gettingstarted" data-navtarget="gettingstarted" class="animate">Getting Started</a>
+            <a href="#download" data-navtarget="download" class="animate">Download</a>
+            <a href="#faq" data-navtarget="faq" class="animate">FAQ</a>
+        </div -->
+    </div>
+    <div class="section">
+        <a name="introduction" class="anchor"></a>
+        <h2>A simple way to make web stuff on Raspberry Pi.</h2>
+        <div id="introvideo">
+            <img src="assets/images/introvideo_cropped_640.jpg" class="videoframe">
+            <img src="assets/images/play.png" class="playbutton">
+        </div>
+        <p>Coder is a free, open source project that turns a Raspberry Pi into a simple platform that educators and parents can use to teach the basics of building for the web. New coders can craft small projects in HTML, CSS, and Javascript, right from the web browser. 
+        </p>
+        <a href="http://storage.googleapis.com/coder-images/coder_v0.4.zip" target="_blank" class="button inline trackdl" data-version="0.4">Download Coder</a>
+        <p class="download-details inline">1.04GB | Coder v0.4<br/>Requires Raspberry Pi</p>
+        <div class="clear"></div>
+    </div>
+    <div class="section">
+        <a name="gettingstarted" class="anchor"></a>
+        <h2>How to Install and Connect.</h2>
+        <div class="setup switch">
+            <div class="wired left">Wired</div>
+            <div class="wifi right">WiFi</div>
+        </div>
+        <div class="setup instructions">
+            <div class="switchpanel wired">
+                <div class="step"><img src="assets/images/download.png" /><div class="stepnum">1.</div><p><a href="#download" class="animate">Download</a> and run the Coder Installer with any 4GB SD Card.</p><p>Mac users, just run the provided installer.<br />PC users, check out our <a href="#windows" class="animate">Windows-specific Instructions</a> for more installation details.</p></div>
+                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your Pi and your computer are plugged into the network, and power it up.</p><p>Give your Pi a minute to start up and then move on to step 3.</p></div>
+                <div class="step last"><img src="assets/images/wired.png" /><div class="stepnum">3.</div><p>Visit coder.local in Chrome to connect to your new Coder and start&nbsp;playing.</p></div>
+                <div class="clear"></div>
+            </div>
+            <div class="switchpanel wifi">
+                <div class="step"><img src="assets/images/download.png" /><div class="stepnum">1.</div><p><a href="#download" class="animate">Download</a> and run the Coder Installer with any 4GB SD Card.</p><p>Mac users, just run the provided installer.<br />PC users, check out our <a href="#windows" class="animate">Windows-specific Instructions</a> for more installation details.</p></div>
+                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your WiFi module is plugged in, and power it up.</p><p>Give your Pi a minute to start up and then move on to step 3.</p></div>
+                <div class="step last"><img src="assets/images/wifi.png" /><div class="stepnum">3.</div><p>Join the new WiFi network "Coder Setup," then visit coder.local in Chrome, and follow the on-screen instructions.</p></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- div class="callout">Starting from scratch? Get going for less than $50 with our recommended <a href="#shoppinglist" class="animate">shopping list</a>.</div -->
+    </div>
+    <div class="section">
+        <a name="tour" class="anchor"></a>
+        <h2>Getting to Know Coder.</h2>
+        <p>Coder is designed for creating, editing, and running simple web apps. Coder apps are built using the standard building blocks of the web (HTML, CSS, and Javascript), and they can be crafted directly in your web browser. Click through the images below for a quick tour of Coder.</p>
+        
+        <div class="tour">
+            <div class="tournav">
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_01.png" />
+                <p>Your Coder's landing page contains all of your apps, organized by most recent. You can create new apps by clicking the Green '+' app in the top left. The gear in the top right opens your Coder's settings where you can change things like your name, password, wireless settings, and more.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_02.png" />
+                <p>Click on any app to open it up. They work just like a website. Clicking the little "&lt;/&gt;" icon in the top right corner will take you inside the app's source code and into Coder's editor.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_03.png" />
+                <p>This is Coder's development environment. It's a simple browser-based editor with quick access to all the files that make up your app. It also has a few extra tools to tweak, preview, save, and export your work.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_04.png" />
+                <p>The top bar of the editor lets you flip between HTML, CSS, JS, and Node files. Every single Coder app is made from just these four pieces.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_05.png" />
+                <p>The folder icon opens a list of all the media associated with an app. This is where you can upload things like photos for use in your program.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_06.png" />
+                <p>The eye icon opens a preview of your app. You can see your work update live as you create your program.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_07.png" />
+                <p>Finally, the gear icon opens a project's settings. Here you can name your app, give yourself credit as the author, change its color on the homescreen, or export the whole thing to share with other coders.</p>
+            </div>
+            <div class="slide">
+                <img class="outerglow" src="assets/images/tour_08.png" />
+                <p>Now that you know your way around, let's start coding!</p>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <div class="section">
+        <a name="shoppinglist" class="anchor"></a>
+        <h2>Starting From Scratch?</h2>
+        <p>To get started with Coder for Raspberry Pi, you're going to need, you guessed it, a Raspberry Pi. Get going for less than $50 with our recommended shopping list.</p>
+        <div class="product">
+            <img src="assets/images/raspi_b.png" />
+            <h3>Raspberry Pi Model B</h3>
+            <div class="cost">$35</div>
+            <div class="availability">
+                <a class="store trackout" target="_blank" href="https://www.google.com/search?q=raspberry+pi+model+b">Get One</a>
+            </div>
+        </div>
+        <div class="product right">
+            <img src="assets/images/5v_adapter.png" />
+            <h3>5V 1A Power Supply</h3>
+            <div class="cost">$6</div>
+            <div class="availability">
+                <a class="store trackout" target="_blank" href="https://www.google.com/search?q=5V+1A+micro+usb+power+supply+raspberry+pi">Get One</a>
+            </div>
+        </div>
+        <div class="product">
+            <img src="assets/images/sd_card.png" />
+            <h3>4GB (or larger) SD Card</h3>
+            <div class="cost">$8</div>
+            <div class="availability">
+                <a class="store trackout" target="_blank" href="https://www.google.com/search?q=4+GB+class+10+sd+card">Get One</a>
+            </div>
+        </div>
+        <div class="product right">
+            <img src="assets/images/wifi_card.png" />
+            <h3>Miniature WiFi (802.11b/g/n) Module for Pi</h3>
+            <div class="cost">$12 (optional)</div>
+            <div class="availability">
+                <a class="store trackout" target="_blank" href="https://www.google.com/search?q=miniature+usb+802.11+adapter+raspberry+pi">Get One</a> 
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <a name="download" class="anchor"></a>
+        <h2>Download the Coder Raspberry Pi Image.</h2>
+        <p>Once you've done your shopping, you'll need to download the Coder SD card image, and transfer it to your SD card. This is a big download, so it may take a few minutes.</p>
+        <a class="download button trackdl" data-version="0.4" target="_blank" href="http://storage.googleapis.com/coder-images/coder_v0.4.zip">Download Coder</a>
+        <p class="download-details">Coder v0.4 | 1.04GB Download</p>
+        <p class="last">An install program for Mac OS X is included, which will help you transfer the disk image to your SD Card. If you are using a PC, check out the instructions on the <a class="trackout" href="http://elinux.org/RPi_Easy_SD_Card_Setup#Using_Windows_7_or_Windows_XP">Raspberry Pi Wiki</a>. There are several utilities that will allow you to install the image.</p>
+    </div>
+    <div class="section">
+        <h2>Get the Code.</h2>
+        <p>Coder is open source, so everyone can help make it better. Fix bugs, build new features, and help make Coder the simplest way for new coders to learn how to create things for the web.</p>
+        <a class="button trackout" target="_blank" href="http://github.com/googlecreativelab/coder/">Coder on Github</a>
+    </div>
+    <div class="section">
+        <a name="windows" class="anchor"></a>
+        <h2>Windows-specific Instructions</h2>
+        <div class="faq">
+            <h3>Making a Coder SD Card on a PC.</h3>
+            <p>Windows users can format their SD Card using the SD Card Association's <a class="trackout" href="https://www.sdcard.org/downloads/formatter_4/" target="_blank">formatting tool</a>.</p>
+        </div>
+        <div class="faq">
+            <h3>Connecting to coder.local.</h3>
+            <p>To connect to Coder using a Windows PC, you'll first need to install Apple's <a class="trackout" href="http://support.apple.com/kb/DL999" target="_blank">Bonjour Print Services for Windows</a>. Once this piece of software is installed, you'll be able to visit http://coder.local in Chrome or IE.</p>
+        </div>
+    </div>
+    <div class="section">
+        <a name="faq" class="anchor"></a>
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq first rollup">
+            <h3>What is Coder, and what can I do with it?</h3>
+            <p>Coder is an experiment for Raspberry Pi, built by a small team of Googlers in New York. It’s a free piece of software that turns a Raspberry Pi into a simple, tiny, personal web server and web-based development environment--just what you need for crafting HTML, CSS, and Javascript while you’re learning to code. It just takes ten minutes to set up and you’re ready to start experimenting with building real web stuff.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>Who is it for?</h3>
+            <p>Coder makes it more accessible to build web things on Raspberry Pi. For those new to coding for the web, it’s a private platform for building web programs. If you’re already a web programmer, Coder can also be a fun sandbox for experimenting with new ideas, or making demos for other people to learn from.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>How much does it cost and what do I need to get started?</h3>
+            <p>Coder is an open source piece of software that’s free to download. To run it on your Mac or PC, you’ll need a Raspberry Pi computer, a compatible power cord, the Google Chrome browser, and a 4GB (or larger) SD Card. You should be able to get an entire set-up for less than $50 – see our <a href="#shoppinglist" class="animate">shopping list</a>.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>I’ve never coded before. How do I get started?</h3>
+            <p>There are a ton of resources for learning HTML, CSS and Javascript&mdash;<a class="trackout" href="http://www.codecademy.com/">Codecademy</a> and <a class="trackout" href="https://www.khanacademy.org/cs/tutorials/programming-basics">Khan Academy</a>, to name two&mdash;and you can use Coder to accompany this instruction as you experiment with making your own programs. When you're ready to get started, read through the included Hello Coder application to aquaint yourself with how a Coder program works.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>Can I share my Coder projects with other people?</h3>
+            <p>You can export any of your projects as a zip file and share them with anyone you’d like.</p>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Using Coder</h2>
+        <div class="faq rollup">
+            <h3>How do I put Coder on my home network?</h3>
+            <p>Coder can run off of a standard wired Ethernet connection. If you’d like to use a WiFi connection instead, you’ll need a compatible USB WiFi module for Raspberry Pi. For more on setting up Coder with a WiFi connection, see the WiFi link in the <a href="#gettingstarted" class="animate">Getting Started</a> section.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>How do I sign in to Coder?</h3>
+            <p>You connect to Coder via a web browser on another computer which is on the same network. To access your Coder, just wait a minute for it to boot, then visit http://coder.local on your computer.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>Can I have more than one Coder device on my network?</h3>
+            <p>Currently, this requires a bit of manual configuration of each device. We’re working on making this easier, but here's a guide for <a href="https://github.com/googlecreativelab/coder/wiki/Using-Multiple-Coder-Devices-(Lab-Setup)">Using Multiple Coder Devices</a>, which you'll find useful for setting up a small lab with several units.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>I forgot my Coder's password!</h3>
+            <p>To reset your Coder's password, place the Coder SD Card in another computer and place a file named "reset.txt" in the coder_settings directory. The reset.txt file doesn't need anything in it, and you can make it with any text editor. The next time your Coder boots using this card, it will find the reset.txt file and ask you to set a password, similar to the first time you started your Coder. All of your other data will remain on the device.</p>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Privacy and Security</h2>
+        <div class="faq rollup">
+            <h3>What happens to the stuff I make on Coder? Who can see it?</h3>
+            <p>During setup, you will be asked to create a password for your Raspberry Pi, which you’ll need to be able to program and access your Coder. Everything you create on Coder is stored and hosted on your own Raspberry Pi, and your programs are private and accessible only to people who know your Coder password. A Raspberry Pi running Coder should be used behind a firewall, such as that provided by a typical WiFi router or home broadband network. In that configuration, a Coder device will only be accessible on your local network, and not the entire web.</p>
+        </div>
+        <div class="faq rollup">
+            <h3>Is there an age requirement for using Coder?</h3>
+            <p>Coder was designed to be an easy way to experiment with creating simple web applications, programmed using HTML and Javascript. There’s no specific age requirement&mdash;consider it appropriate for anyone who holds basic computer skills and is interested in learning to program.</p>
+        </div>
+    </div>
+    <div class="section last">
+        <a name="contribute" class="anchor"></a>
+        <h2>Contributing</h2>
+        <p>There are a ton of ways to contribute to the Coder project, and we'd love to have your help. Here are just a few ways you can get involved.</p>
+        
+        <div class="faq">
+            <h3>Make Coder better</h3>
+            <p>Help fix bugs, respond to feature requests, and make Coder the most accessible way for new coders to learn to make things for the web. Coder is open source and hosted on Github. </p>
+            <a href="http://github.com/googlecreativelab/coder/" target="_blank" class="button trackout">Coder on Github</a>
+        </div>
+        <div class="faq">
+            <h3>Make and share Coder stuff</h3>
+            <p>Use the #Coder hashtag on Google+ and show people how to make cool things. How-tos, demos and samples are a great way to teach and learn.</p>
+            <a href="https://plus.google.com/s/%23coder" target="_blank" class="button trackout">#Coder on G+</a>
+        </div>
+        <div class="faq">
+            <h3>Teach with Coder</h3>
+            <p>Support coding events and seek out opportunities to show other parents and teachers how to make things for the web.</p>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="madewith bottom"></div>
+        <div class="links">
+            <a href="http://www.google.com/intl/en/policies/" class="trackout">Privacy and Terms</a>
+            <div class="plusholder">
+                <div class="g-plusone"></div>
+            </div>
+            <script type="text/javascript">
+              (function() {
+                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                po.src = 'https://apis.google.com/js/plusone.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+              })();
+            </script>
+        </div>
+    </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-41998892-1', 'googlecreativelab.github.io');
+  ga('send', 'pageview');
+
+  $(document).ready( function() {
+    $('a.trackdl').click(function() {
+      var version = $(this).attr('data-version');      
+      ga('send', 'event', 'download', 'click', version ); 
+    });
+    $('a.trackout').click(function() {
+      var destination = $(this).attr('href');      
+      ga('send', 'event', 'outbound', 'click', destination ); 
+    });
+  });
+</script>
+</body>
 </html>
