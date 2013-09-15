@@ -90,26 +90,26 @@ exports.api_wifi_configure_handler = function( req, res ) {
 
 
     var wpatemplate = "network={\n" +
-    	"\tssid=\"[ssid]\"\n" +
-    	"\tpsk=\"[password]\"\n" +
-    	"\tscan_ssid=1\n" +
-    	"\tpriority=10\n" +
-	"}\n";
+        "\tssid=\"[ssid]\"\n" +
+        "\tpsk=\"[password]\"\n" +
+        "\tscan_ssid=1\n" +
+        "\tpriority=10\n" +
+    "}\n";
 
     var weptemplate = "network={\n" +
-    	"\tssid=\"[ssid]\"\n" +
-    	"\twep_key0=\"[password]\"\n" +
-    	"\tscan_ssid=1\n" +
-    	"\tkey_mgmt=NONE\n" +
-    	"\tpriority=10\n" +
-	"}\n";
+        "\tssid=\"[ssid]\"\n" +
+        "\twep_key0=\"[password]\"\n" +
+        "\tscan_ssid=1\n" +
+        "\tkey_mgmt=NONE\n" +
+        "\tpriority=10\n" +
+    "}\n";
 
     var opentemplate = "network={\n" +
-    	"\tssid=\"[ssid]\"\n" +
-    	"\tscan_ssid=1\n" +
-    	"\tkey_mgmt=NONE\n" +
-    	"\tpriority=10\n" +
-	"}\n";
+        "\tssid=\"[ssid]\"\n" +
+        "\tscan_ssid=1\n" +
+        "\tkey_mgmt=NONE\n" +
+        "\tpriority=10\n" +
+    "}\n";
 
 
     var confentry="";
@@ -198,7 +198,7 @@ exports.api_wifi_list_handler = function( req, res ) {
         var access_points = {};
         var debug="";
 
-	    var addHighestSignal = function( ssid, type, signal ) {
+        var addHighestSignal = function( ssid, type, signal ) {
             if ( !access_points[ssid] ) {
                 access_points[ssid] = { ssid: ssid, type: type, signal: signal };
             } else if ( access_points[ssid].signal < signal ) {
