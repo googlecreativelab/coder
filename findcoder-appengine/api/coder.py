@@ -17,12 +17,9 @@
 # limitations under the License.
 
 import webapp2
-import os
 import time
-import logging
 import re
 import json
-import math
 from google.appengine.api import memcache
 
 CACHETIME = 120
