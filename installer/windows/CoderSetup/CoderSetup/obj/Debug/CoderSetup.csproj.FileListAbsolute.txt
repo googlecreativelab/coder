@@ -1,8 +1,0 @@
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\bin\Debug\CoderSetup.exe
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\bin\Debug\CoderSetup.pdb
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.Properties.Resources.resources
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.csproj.GenerateResource.Cache
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.exe
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.pdb
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.FormMain.resources
-D:\Documents\GitHub\coder\installer\windows\CoderSetup\CoderSetup\obj\Debug\CoderSetup.csprojResolveAssemblyReference.cache

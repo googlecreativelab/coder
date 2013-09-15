@@ -9,10 +9,9 @@ Thumbs.db
 
 # Windows Installer
 [Dd]ebug/
-![Rr]elease/
+[Rr]elease/
 x64/
 build/
-![Bb]in/
 [Oo]bj/
 !*.exe
 !*.dll
