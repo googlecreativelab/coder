@@ -6,3 +6,13 @@ coder-base/device.json
 
 .DS_Store
 Thumbs.db
+
+# Windows Installer
+[Dd]ebug/
+![Rr]elease/
+x64/
+build/
+![Bb]in/
+[Oo]bj/
+!*.exe
+!*.dll
