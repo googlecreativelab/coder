@@ -335,7 +335,7 @@ exports.listMedia = function( appname ) {
     var path = process.cwd(); //root application path. different from __dirname
     var mediadir = path + "/static/apps/" + appname + "/media/";
     var media = {};
-    var files = fs.readdirSync(mediadir);
+    var files = fs.existsSync(mediadir) ? fs.readdirSync(mediadir) : {};
     for ( var x in files ) {
         var filename = files[x];
         var info = fs.statSync( mediadir + filename );
