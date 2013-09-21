@@ -196,22 +196,57 @@ exports.api_app_import_handler = function( req, res, pathmatches ) {
     try { forceRemoveDir( tmpfolder ); } catch (e) {}
     try { fs.mkdirSync( tmpfolder ); } catch (e) { success = false; }
 
+    var isValidBundle = function( check_path ) {
+
+        // Return true if find the signature of an app bundle
+        // in 'check_path', otherwise return false.
+
+        if (    fs.existsSync( check_path + '/app/meta.json' )
+             && fs.existsSync( check_path + '/app/app.js')
+             && fs.existsSync( check_path + '/views/index.html')
+             && fs.existsSync( check_path + '/static/css/index.css')
+             && fs.existsSync( check_path + '/static/js/index.js') ) {
+           return true;
+        } else {
+           return false;
+        }
+    }
 
     var completeImport = function() {
 
-        if ( !fs.existsSync( tmpfolder + '/app/meta.json' ) 
-                || !fs.existsSync( tmpfolder + '/app/app.js') 
-                || !fs.existsSync( tmpfolder + '/views/index.html') 
-                || !fs.existsSync( tmpfolder + '/static/css/index.css') 
-                || !fs.existsSync( tmpfolder + '/static/js/index.js') ) {
+        if ( !isValidBundle( tmpfolder )) {
 
-            res.json({
-                status: "error",
-                error: "Invalid application bundle"
-            });
-            return;        
+            // If don't find app signature in the top level of the
+            // unzipped file, also look for it in any subdirectories
+            // that are found (max one deep at present).
+
+            var found = false;
+            var files = fs.readdirSync( tmpfolder + '/' );
+
+            var fullpath = '';
+
+            for (var x in files) {
+
+                fullpath = tmpfolder + '/' + files[x];
+
+                if ( fs.statSync( fullpath ).isDirectory() ) {
+                    if ( isValidBundle( fullpath ) ) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if ( found ) {
+                tmpfolder = fullpath;
+            } else {
+                res.json({
+                    status: "error",
+                    error: "Invalid application bundle"
+                });
+                return;
+            }
         }
-
 
         var importfile = fs.readFileSync( tmpfolder + '/app/meta.json', 'utf-8' );
         var importinfo = JSON.parse(importfile);
