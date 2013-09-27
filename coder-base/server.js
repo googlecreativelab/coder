@@ -36,20 +36,22 @@ var querystring = require('querystring');
 var loadApp = function( loadpath ) {
 
     var userapp = null;
-    if ( config.cacheApps ) {
-        userapp = require(loadpath);
-    } else {
+	try{
+		if ( config.cacheApps ) {
+			userapp = require(loadpath);
+		} else {
 
-        var cached = require.cache[loadpath + '.js'];
-        if ( cached ) {
-            userapp = require(loadpath);
-            if ( userapp.on_destroy ) {
-                userapp.on_destroy();
-            }
-            delete require.cache[loadpath + ".js"];
-        }
-        userapp = require(loadpath);
-    }
+			var cached = require.cache[loadpath + '.js'];
+			if ( cached ) {
+				userapp = require(loadpath);
+				if ( userapp.on_destroy ) {
+					userapp.on_destroy();
+				}
+				delete require.cache[loadpath + ".js"];
+			}
+			userapp = require(loadpath);
+		}
+	} catch ( err ) { userapp = null; }
     return userapp;
 };
 
@@ -61,6 +63,10 @@ var apphandler = function( req, res, appdir ) {
     var modpath = appdir + appname;
     var userapp = loadApp( modpath + "/app" );
     
+	if ( userapp === null ) {
+		res.send( 'App not found.' );
+		return;
+	}
 
     util.log( "GET: " + apppath + " " + appname );
 
