@@ -32,6 +32,7 @@ var util = require('util');
 var cons = require('consolidate');
 var params = require('express-params');
 var querystring = require('querystring');
+var path = require('path');
 
 var loadApp = function( loadpath ) {
 
@@ -136,11 +137,13 @@ var startSSLRedirect = function() {
 
 var startSSL = function() {
 
+    privateKeyFile=path.normalize('certs/server.key');
+    certificateFile=path.normalize('certs/server.cert');
     var privateKey="";
     var certificate="";
     try {
-        privateKey = fs.readFileSync('certs/server.key').toString();
-        certificate = fs.readFileSync('certs/server.cert').toString();
+        privateKey = fs.readFileSync(privateKeyFile).toString();
+        certificate = fs.readFileSync(certificateFile).toString();
     } catch ( e ) {
         util.print( "no certificate found. generating self signed cert.\n" );
     }
@@ -150,30 +153,30 @@ var startSSL = function() {
     } else {
         var spawn = require('child_process').spawn;
         
-        var genSelfSignedCert = function() {
+        var genSelfSignedCert = function(keyFile, certFile) {
             var genkey = spawn( 'openssl', [
                 'req', '-x509', '-nodes',
                 '-days', '365',
                 '-newkey', 'rsa:2048',
-                '-keyout', 'certs/server.key',
-                '-out', 'certs/server.cert',
+                '-keyout', keyFile,
+                '-out', certFile,
                 '-subj',
                 '/C=' + config.country + '/ST=' + config.state + "/L=" + config.locale + "/CN=" + config.commonName + "/subjectAltName=" + config.subjectAltName
             ]);
             genkey.stdout.on('data', function(d) { util.print(d) } );
             genkey.stderr.on('data', function(d) { util.print(d) } );
             genkey.addListener( 'exit', function( code, signal ) {
-                fs.chmodSync('certs/server.key', '600');
+                fs.chmodSync(privateKeyFile, '600');
                 loadServer();
             });
         };        
         var loadServer = function() {
-            privateKey = fs.readFileSync('certs/server.key').toString();
-            certificate = fs.readFileSync('certs/server.cert').toString();
+            privateKey = fs.readFileSync(privateKeyFile).toString();
+            certificate = fs.readFileSync(certificateFile).toString();
             https.createServer({ key: privateKey, cert: certificate }, sslapp).listen( config.listenPort, config.listenIP );
         };
 
-        genSelfSignedCert();
+        genSelfSignedCert(privateKeyFile, certificateFile);
     }
 };
 
