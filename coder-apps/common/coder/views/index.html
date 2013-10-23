@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Coder</title>
+    <meta charset="utf-8">
+    <!-- Standard Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //the app id
+        var appurl = "{{&app_url}}";
+        var coder_color = "{{coder_color}}";
+        var coder_owner = "{{&coder_owner}}";
+        var device_name = "{{&device_name}}";
+    </script>
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="/static/common/js/jquery.min.js"></script>
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <!-- End Coder Includes -->
+
+    <!-- Links to this app's files -->
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- End links to this apps files -->
+
+</head>
+<body class="">
+<div id="coder_nav" class="">
+<span id="coder_logo">{{device_name}}</span>
+<div class="buttonlabel" id="settings_button"><div class="hilight"></div></div>
+</div>
+
+
+<div id="applist"><div id="additem" class="appitem">
+    <div id="addapp_button"><div id="addapp_icon"></div></div>
+    <div id="createform" style="display:none">
+        <div class="formfield textinput">
+            <span class="label">Name your app</span>
+            <input class="newapp_name" type="text"/>
+        </div>
+        <div class="formfield newapp_color">
+            <div class="colorchit" style="background-color:#16a085;"></div>
+            <div class="colorchit" style="background-color:#1abc9c;"></div>
+            <div class="colorchit" style="background-color:#2ecc71;"></div>
+            <div class="colorchit" style="background-color:#5adf95;"></div>
+            <div class="colorchit" style="background-color:#80d4ea;"></div>
+            <div class="colorchit" style="background-color:#3498d8;"></div>
+            <div class="colorchit" style="background-color:#298089;"></div>
+            <div class="colorchit" style="background-color:#eda5dd;"></div>
+            <div class="colorchit" style="background-color:#d977d4;"></div>
+            <div class="colorchit" style="background-color:#9b59b6;"></div>
+            <div class="colorchit" style="background-color:#8e44ad;"></div>
+            <div class="colorchit" style="background-color:#f9de2a;"></div>
+            <div class="colorchit" style="background-color:#f1c40f;"></div>
+            <div class="colorchit" style="background-color:#f39c12;"></div>
+            <div class="colorchit" style="background-color:#e67e22;"></div>
+            <div class="colorchit" style="background-color:#d35400;"></div>
+            <div class="colorchit" style="background-color:#e74c3c;"></div>
+            <div class="colorchit" style="background-color:#c0392b;"></div>
+            <div class="colorchit" style="background-color:#bdc3c7;"></div>
+            <div class="colorchit" style="background-color:#95a5a6;"></div>
+            <div class="colorchit" style="background-color:#7f8c8d;"></div>
+            <div class="colorchit" style="background-color:#34495e;"></div>
+            <div class="colorchit" style="background-color:#2c3e50;"></div>
+            <div class="colorchit" style="background-color:#3e3e3e;"></div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="submit newapp_textcolor">Create</div>
+        <div class="cancel newapp_textcolor">Cancel</div>
+        <div class="import"><input type="file" name="import_file" id="import_file" /></div>
+    </div>
+</div></div>
+<div id="appitem_template" class="appitem" style="display:none">
+    <div class="textcenter"><h2 class="appname"></h2></div>
+    <div class="editbutton" style="display:none">&lt;/&gt;</div>
+</div>
+<div id="settingscontainer" class="sidepanel">
+    <h1>Settings</h1>
+    <div class="logout">Log Out</div>
+    <div class="formfield">
+        <div class="label">Your Coder's Name</div>
+        <input type="text" id="coder_name" />
+    </div>
+    <div class="formfield">
+        <div class="label">Your Name</div>
+        <input type="text" id="coder_ownername" />
+    </div>
+    <div class="formfield">
+        <div class="label">Coder Color</div>
+        <div class="colorchit" style="background-color:#16a085;"></div>
+        <div class="colorchit" style="background-color:#1abc9c;"></div>
+        <div class="colorchit" style="background-color:#2ecc71;"></div>
+        <div class="colorchit" style="background-color:#5adf95;"></div>
+        <div class="colorchit" style="background-color:#80d4ea;"></div>
+        <div class="colorchit" style="background-color:#3498d8;"></div>
+        <div class="colorchit" style="background-color:#298089;"></div>
+        <div class="colorchit" style="background-color:#eda5dd;"></div>
+        <div class="colorchit" style="background-color:#d977d4;"></div>
+        <div class="colorchit" style="background-color:#9b59b6;"></div>
+        <div class="colorchit" style="background-color:#8e44ad;"></div>
+        <div class="colorchit" style="background-color:#f9de2a;"></div>
+        <div class="colorchit" style="background-color:#f1c40f;"></div>
+        <div class="colorchit" style="background-color:#f39c12;"></div>
+        <div class="colorchit" style="background-color:#e67e22;"></div>
+        <div class="colorchit" style="background-color:#d35400;"></div>
+        <div class="colorchit" style="background-color:#e74c3c;"></div>
+        <div class="colorchit" style="background-color:#c0392b;"></div>
+        <div class="colorchit" style="background-color:#bdc3c7;"></div>
+        <div class="colorchit" style="background-color:#95a5a6;"></div>
+        <div class="colorchit" style="background-color:#7f8c8d;"></div>
+        <div class="colorchit" style="background-color:#34495e;"></div>
+        <div class="colorchit" style="background-color:#2c3e50;"></div>
+        <div class="colorchit" style="background-color:#3e3e3e;"></div>
+        <div style="clear:both"></div>
+    </div>
+    <div class="formfield setupbuttons">
+        <div class="changepass">Change Password</div>
+    </div>
+    <div class="save">Save</div>
+    <div class="cancel">Cancel</div>
+</div>
+
+<div id="introduction" style="visibility:hidden">
+    
+    <div class="intromessage">
+        <h1>Getting Started</h1>
+        <p>Check out the quick tips above. For a more detailed tour, go to <a href="http://goo.gl/coder" target="_blank">goo.gl/coder</a>. When you're ready to dive in, just click 'Got It'.</p>
+        <div class="finished">
+            <div class="gotit">Got It</div>            
+        </div>
+    </div>
+    <img src="/static/apps/coder/media/myapps_tip.png" id="myapps_tip" style="visibility:hidden"/>
+    <img src="/static/apps/coder/media/settings_tip.png" id="settings_tip" style="visibility:hidden"/>
+    <img src="/static/apps/coder/media/newapp_tip.png" id="newapp_tip" style="visibility:hidden"/>
+        
+</div>
+
+</body>
+</html>

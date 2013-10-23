@@ -1,0 +1,133 @@
+
+body {
+    background-color: #f1c40f;
+    color: #fff;
+}
+
+.form {
+    text-align: center;
+    width: 400px;
+    left: 50%;
+    margin-top: 60px;
+    margin-left: -200px;
+    position: relative;
+}
+
+#animation {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.centercontainer {
+    display: table;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top:0px;
+    left:0px;
+}
+.center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+h1 {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: bold;
+    margin:0;
+    padding: 0 0 20px 0;
+}
+
+.instructions {
+    font-size: 21px;
+    line-height: 1.2em;
+    padding: 0 0 20px 0;
+}
+
+.formfield {
+    position: relative;
+    width: 400px;
+}
+.formfield.textinput .label {
+    position: absolute;
+    color: #999;
+    top:13px;
+    left:10px;
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.formfield input[type=text], .formfield input[type=password] {
+    border: 2px solid transparent;
+    width: 376px;
+    padding: 10px 10px;
+    background-color: #fff;
+    color: #666;
+    height: 20px;
+    line-height: 16px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 3px;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 24px;
+}
+
+.formfield input.error {
+    border-color: rgba(255,0,0,0.5);
+}
+
+.errormessage {
+    border: 2px solid transparent;
+    width: 376px;
+    padding: 10px 10px;
+    background-color: #e74c3c;
+    color: #ffffff;
+    min-height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    border-radius: 3px;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+.submit {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 60px;
+    border-radius: 4px;
+    width:400px;
+    margin-bottom: 24px;
+    background-color: rgba(0,0,0,0.6);
+}
+.submit.disabled, .submit.disabled:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+.submit:hover {
+    background-color: rgba(0,0,0,1);
+    cursor: pointer;
+}
+
+.cancel {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 60px;
+    border-radius: 4px;
+    width:400px;
+    margin-bottom: 24px;
+    background-color: rgba(0,0,0,0.6);
+}
+.cancel:hover {
+    background-color: rgba(0,0,0,1);
+    cursor: pointer;
+}
+
+
+
+
+
+

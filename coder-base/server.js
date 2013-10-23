@@ -70,7 +70,8 @@ var apphandler = function( req, res, appdir ) {
     auth = require(appdir + "auth" + "/app");
     user = auth.isAuthenticated(req, res);
     if ( !user && publicAllowed.indexOf( appname ) < 0) {
-        res.redirect("https://" + getHost(req) + ":" + config.httpsVisiblePort  + '/app/auth' ); 
+        util.log( "redirect: " + "https://" + getHost(req) + ":" + config.httpsVisiblePort + '/app/auth' );
+        res.redirect("https://" + getHost(req) + ":" + config.httpsVisiblePort + '/app/auth' ); 
         return;
     }
 
@@ -234,6 +235,9 @@ var getHost = function( req ) {
     var host = req.connection.address().address;
     if ( typeof req.headers.host !== "undefined" ) {
         host = req.headers.host;
+        if ( host.match(/:/g) ) {
+            host = host.slice( 0, host.indexOf(":") );
+        }
     }
     return host;
 };
@@ -265,7 +269,7 @@ var redirectapp = express();
 params.extend( redirectapp );
 redirectapp.engine( 'html', cons.mustache );
 redirectapp.all( /.*/, function( req, res ) {
-    util.log( 'redirect: ' + getHost(req) + " " + config.httpsVisiblePort + " " + req.url );
+    util.log( 'redirect: ' + getHost(req) + ":" + config.httpsVisiblePort + " " + req.url );
     res.redirect("https://" + getHost(req) + ":" + config.httpsVisiblePort  + req.url); 
 });
 
