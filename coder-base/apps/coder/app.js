@@ -41,7 +41,7 @@ exports.settings={};
 
 exports.get_routes = [
     { path:'/', handler:'index_handler' },
-    { path: /^\/export\/download\/(\w+\.zip)$/, handler:'export_download_handler' },
+    { path: /^\/export\/download\/(\w+)\.zip$/, handler:'export_download_handler' },
 ];
 
 
@@ -155,18 +155,79 @@ exports.export_download_handler = function( req, res, pathmatches ) {
         return;
     }
 
-    var exportfile = 'appexport.zip';
     var path = process.cwd();
-    if ( !fs.existsSync( path + '/tmp/' + exportfile ) ) {
+    if ( !fs.existsSync( path + '/apps/' + exportname + '/app.js' ) ) {
         res.json({
             status: "error",
-            error: "Export file doesn't exist"
+            error: "Application doesn't exist"
+        });
+        return;        
+    }
+
+    var success = true;
+    var exportkey = uuid( 16 );
+    var uuidfolder = path + '/tmp/' + exportkey;
+    try { forceRemoveDir( uuidfolder ); } catch (e) {}
+    try { fs.mkdirSync( uuidfolder ); } catch (e) { success = false; }
+    var tmpfolder = uuidfolder + '/' + exportname;
+    try { fs.mkdirSync( tmpfolder ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/app' ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/static' ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/static/css' ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/static/js' ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/static/media' ); } catch (e) { success = false; }
+    try { fs.mkdirSync( tmpfolder + '/views' ); } catch (e) { success = false; }
+    
+    if ( !success ) {
+        res.json({
+            status: "error",
+            error: "Cannot create export directory."
         });
         return;        
     }
     
-    res.download( path + '/tmp/' + exportfile, exportname );
     
+    //app node.js file
+    copyFile( path + '/apps/' + exportname + '/app.js', tmpfolder + '/app/app.js' );
+    //app meta.json file
+    copyFile( path + '/apps/' + exportname + '/meta.json', tmpfolder + '/app/meta.json' );
+    //html view
+    copyFile( path + '/views/apps/' + exportname + '/index.html', tmpfolder + '/views/index.html' );
+    //css data
+    copyFile( path + '/static/apps/' + exportname + '/css/index.css', tmpfolder + '/static/css/index.css' );
+    //index.js file
+    copyFile( path + '/static/apps/' + exportname + '/js/index.js', tmpfolder + '/static/js/index.js' );
+   
+    var mediadir = path + "/static/apps/" + exportname + "/media/";
+    var mediafiles = fs.readdirSync( mediadir );
+    for ( var x in mediafiles ) {
+        var filename = mediafiles[x];
+        var info = fs.statSync( mediadir + filename );
+        if ( typeof info !== 'undefined' && info && info.isFile() ) {
+            copyFile( mediadir + filename, tmpfolder + '/static/media/' + filename );
+        }
+    }
+    
+	res.writeHead( 200, {
+		'Content-Type': 'application/octet-stream'
+		,'Content-disposition': 'attachment; filename=' + exportname + '.zip'
+	} );
+
+	var zip = spawn( 'zip', [ '-r', '-', '.' ], { cwd: uuidfolder } );
+	zip.stdout.on( 'data', function ( data ){
+		res.write( data );
+	} );
+	zip.on( 'close', function ( code ) {
+		res.end();
+		zip = null;
+    		try { forceRemoveDir( uuidfolder ); } catch (e) {}
+	} );
+	req.on( 'close', function () {
+		if ( zip !== null ) {
+			if ( zip ) { zip.kill('SIGTERM'); }
+    		try { forceRemoveDir( uuidfolder ); } catch (e) {}
+		}
+	} );
     
 };
 
@@ -191,14 +252,16 @@ exports.api_app_import_handler = function( req, res, pathmatches ) {
 
     var path = process.cwd();
     var success = true;
-    var importkey = 'appimport'; //TODO: maybe this should be random and auto-cleaned
+    var importkey = uuid( 16 );
     var tmpfolder = path + '/tmp/' + importkey;
+    var uuidfolder = tmpfolder;
     try { forceRemoveDir( tmpfolder ); } catch (e) {}
     try { fs.mkdirSync( tmpfolder ); } catch (e) { success = false; }
 
 
     var completeImport = function() {
 
+    	tmpfolder += '/' + (fs.readdirSync( tmpfolder ))[0];
         if ( !fs.existsSync( tmpfolder + '/app/meta.json' ) 
                 || !fs.existsSync( tmpfolder + '/app/app.js') 
                 || !fs.existsSync( tmpfolder + '/views/index.html') 
@@ -270,6 +333,7 @@ exports.api_app_import_handler = function( req, res, pathmatches ) {
             }
         }
 
+    	try { forceRemoveDir( uuidfolder ); } catch (e) {}
 
         res.json({
             status: "success",
@@ -279,17 +343,19 @@ exports.api_app_import_handler = function( req, res, pathmatches ) {
     };
 
 
-    var uploadPath = tmpfolder + '/appimport.zip';
+    var uploadPath = tmpfolder + '/' + importkey + '.zip';
     fs.readFile(req.files['import_file'].path, function (err, data) {
         fs.writeFile(uploadPath, data, function (err) {
             
-            var unzip = spawn('unzip', ['appimport.zip'], { cwd: tmpfolder });
+            var unzip = spawn('unzip', [importkey + '.zip'], { cwd: tmpfolder });
             unzip.stdout.on('data', function (data) {
             });
             unzip.stderr.on('data', function (data) {
             });
             unzip.on('exit', function (code) {
+		fs.unlinkSync( uploadPath );
                 if(code !== 0) {
+    		    try { forceRemoveDir( tmpfolder ); } catch (e) {}
                     res.json({
                         status: "error",
                         error: "unzip error: " + code
@@ -328,68 +394,9 @@ exports.api_app_export_handler = function( req, res, pathmatches ) {
         return;        
     }
     
-    var success = true;
-    var exportkey = 'appexport'; //TODO: maybe this should be random and auto-cleaned
-    var tmpfolder = path + '/tmp/' + exportkey;
-    try { forceRemoveDir( tmpfolder ); } catch (e) {}
-    try { fs.unlinkSync( path + '/tmp/' + exportkey + '.zip' ); } catch (e) {}
-    try { fs.mkdirSync( tmpfolder ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/app' ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/static' ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/static/css' ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/static/js' ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/static/media' ); } catch (e) { success = false; }
-    try { fs.mkdirSync( tmpfolder + '/views' ); } catch (e) { success = false; }
-    
-    if ( !success ) {
-        res.json({
-            status: "error",
-            error: "Cannot create export directory."
-        });
-        return;        
-    }
-    
-    
-    //app node.js file
-    copyFile( path + '/apps/' + apptoexport + '/app.js', tmpfolder + '/app/app.js' );
-    //app meta.json file
-    copyFile( path + '/apps/' + apptoexport + '/meta.json', tmpfolder + '/app/meta.json' );
-    //html view
-    copyFile( path + '/views/apps/' + apptoexport + '/index.html', tmpfolder + '/views/index.html' );
-    //css data
-    copyFile( path + '/static/apps/' + apptoexport + '/css/index.css', tmpfolder + '/static/css/index.css' );
-    //index.js file
-    copyFile( path + '/static/apps/' + apptoexport + '/js/index.js', tmpfolder + '/static/js/index.js' );
-   
-    var mediadir = path + "/static/apps/" + apptoexport + "/media/";
-    var mediafiles = fs.readdirSync( mediadir );
-    for ( var x in mediafiles ) {
-        var filename = mediafiles[x];
-        var info = fs.statSync( mediadir + filename );
-        if ( typeof info !== 'undefined' && info && info.isFile() ) {
-            copyFile( mediadir + filename, tmpfolder + '/static/media/' + filename );
-        }
-    }
-
-    var zip = spawn('zip', ['-r', '../appexport.zip', '.', '-i', '*'], { cwd: tmpfolder });
-    zip.stdout.on('data', function (data) {
-        //console.log('coder::api_app_export_handler zip: ' + data );
-    });
-    zip.stderr.on('data', function (data) {
-        //console.log('coder::api_app_export_handler zip error: ' + data );
-    });
-    zip.on('exit', function (code) {
-        if(code !== 0) {
-            res.json({
-                status: "error",
-                error: "zip error: " + code
-            });
-        } else {
-            res.json({
-                status: "success",
-                file: apptoexport + ".zip"
-            });
-        }
+    res.json({
+        status: "success",
+        file: apptoexport + ".zip"
     });
 
 };
@@ -493,3 +500,13 @@ var forceRemoveDir = function( path ) {
     //util.log( 'remove directory ' + path );
     fs.rmdirSync( path );
 };
+
+var uuid = function ( num ) {
+	var text = "";
+	var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+	for( var i=0; i < num; i++ )
+	text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+	return text;
+}

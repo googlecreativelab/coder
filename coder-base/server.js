@@ -36,21 +36,23 @@ var path = require('path');
 
 var loadApp = function( loadpath ) {
 
-    var userapp = null;
-    if ( config.cacheApps ) {
-        userapp = require(loadpath);
-    } else {
+	try{
+		var userapp = null;
+		if ( config.cacheApps ) {
+			userapp = require(loadpath);
+		} else {
 
-        var cached = require.cache[loadpath + '.js'];
-        if ( cached ) {
-            userapp = require(loadpath);
-            if ( userapp.on_destroy ) {
-                userapp.on_destroy();
-            }
-            delete require.cache[loadpath + ".js"];
-        }
-        userapp = require(loadpath);
-    }
+			var cached = require.cache[loadpath + '.js'];
+			if ( cached ) {
+				userapp = require(loadpath);
+				if ( userapp.on_destroy ) {
+					userapp.on_destroy();
+				}
+				delete require.cache[loadpath + ".js"];
+			}
+			userapp = require(loadpath);
+		}
+	} catch ( err ) { userapp = null; }
     return userapp;
 };
 
@@ -61,9 +63,13 @@ var apphandler = function( req, res, appdir ) {
     var apppath = req.params[1];
     var modpath = appdir + appname;
     var userapp = loadApp( modpath + "/app" );
-    
 
     util.log( "GET: " + apppath + " " + appname );
+	
+	if ( userapp === null ) {
+		res.send('app not found.');
+		return;
+	}
 
     //Redirect to sign-in for unauthenticated users
     publicAllowed = ["auth"]; //apps that are exempt from any login (should only be auth)
