@@ -8,7 +8,10 @@ http://goo.gl/coder
 ### What You'll Find Here
 
 #### coder-base
-The Coder node.js server and applications that come pre-installed
+The Coder node.js server and application files
+
+#### coder-apps
+The Coder applications that come pre-installed in the Coder distribution
 
 #### raspbian-addons
 Modifications and additions to the stock raspian configuration and init structure
