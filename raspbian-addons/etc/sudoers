@@ -27,4 +27,4 @@ root	ALL=(ALL:ALL) ALL
 #includedir /etc/sudoers.d
 pi ALL=(ALL) NOPASSWD: ALL
 
-coder ALL= NOPASSWD: /home/coder/coder-dist/coder-base/sudo_scripts/setpipass
+coder ALL= NOPASSWD: /home/coder/coder-dist/coder-base/sudo_scripts/*
