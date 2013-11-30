@@ -19,7 +19,7 @@ base=$1
 
 ./install_common.sh $base
 
-./install_app.sh auth $base ./common/
-./install_app.sh coder $base ./common/
-./install_app.sh wifi $base ./common/
+./install_app.sh auth $base ./pi/
+./install_app.sh coder $base ./pi/
+./install_app.sh wifi $base ./pi/
 
