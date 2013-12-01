@@ -20,7 +20,7 @@
 
 
 var express = require('express');
-var io = require('socket.io');
+var socketio = require('socket.io');
 var net = require('http');
 var http = require('http');
 var https = require('https');
@@ -33,7 +33,8 @@ var cons = require('consolidate');
 var params = require('express-params');
 var querystring = require('querystring');
 var path = require('path');
-
+var cookie = require('cookie');
+var connect = require('connect');
 var loadApp = function( loadpath ) {
 
     var userapp = null;
@@ -136,6 +137,7 @@ var startSSLRedirect = function() {
     http.createServer( redirectapp ).listen( config.httpListenPort, config.listenIP );
 };
 
+var server;
 var startSSL = function() {
 
     privateKeyFile=path.normalize('certs/server.key');
@@ -150,7 +152,9 @@ var startSSL = function() {
     }
     
     if ( privateKey !== "" && certificate !== "" ) {
-        https.createServer({ key: privateKey, cert: certificate }, sslapp).listen( config.listenPort, config.listenIP );
+        server = https.createServer({ key: privateKey, cert: certificate }, sslapp);
+	server.listen( config.listenPort, config.listenIP );
+        initSocketIO( server );
     } else {
         var spawn = require('child_process').spawn;
         
@@ -174,11 +178,108 @@ var startSSL = function() {
         var loadServer = function() {
             privateKey = fs.readFileSync(privateKeyFile).toString();
             certificate = fs.readFileSync(certificateFile).toString();
-            https.createServer({ key: privateKey, cert: certificate }, sslapp).listen( config.listenPort, config.listenIP );
+            server = https.createServer({ key: privateKey, cert: certificate }, sslapp);
+            server.listen( config.listenPort, config.listenIP );
+            initSocketIO( server );
         };
 
         genSelfSignedCert(privateKeyFile, certificateFile);
     }
+};
+
+var io;
+var initSocketIO = function( server ) {
+    io = socketio.listen( server );
+    io.set('log level', 1); //this can cause a recursion problem since we are piping log info to a socket
+
+    // sync session data with socket
+    // via https://github.com/DanielBaulig/sioe-demo/blob/master/app.js
+    io.set('authorization', function (handshake, accept) {
+        if (!handshake.headers.cookie) {
+            console.log('no cookie sent with socket connection');
+            return accept('No cookie transmitted.', false);
+        }
+
+        handshake.cookie = cookie.parse(handshake.headers.cookie);
+        handshake.sessionID = connect.utils.parseSignedCookie(handshake.cookie['connect.sid'], storesecret);
+
+        if (handshake.cookie['connect.sid'] == handshake.sessionID) {
+            return accept('Cookie is invalid', false );
+        }
+
+        handshake.sessionStore = sslapp.sessionStore;
+
+        if (!handshake.sessionID) {
+            return accept('Session cookie could not be found', false);
+        }
+
+        handshake.sessionStore.get(handshake.sessionID, function (err, session) {
+            if (err) {
+                console.log( 'error loading session' );
+                return accept('Error', false);
+            }
+
+            var s = handshake.session = new express.session.Session(handshake, session );
+            return accept(null, true);
+        });
+    });
+
+    io.sockets.on('connection', function (socket) {
+        // socket.emit('news', { hello: 'world' });
+        // socket.on('my other event', function (data) {
+        //     console.log(data);
+        // });
+
+        var sess = socket.handshake.session;
+
+        socket.on('appdata', function(data) {
+            if ( !sess.authenticated ) {
+                return;
+            }
+            if ( data.appid !== undefined && data.appid.match(/^\w+$/) && data.key !== undefined ) {
+                var appname = data.appid;
+                var userapp = loadApp( __dirname + '/apps/' + appname + "/app" );
+		var auth = require( __dirname + "/apps/auth/app" );
+                userapp.settings.appname = appname;
+                userapp.settings.viewpath="apps/" + appname;
+                userapp.settings.appurl="/app/" + appname;
+                userapp.settings.staticurl = "/static/apps/" + appname;
+                userapp.settings.device_name = auth.getDeviceName();
+                userapp.settings.coder_owner = auth.getCoderOwner();
+                userapp.settings.coder_color = auth.getCoderColor();
+                if ( userapp.settings.device_name === "" ) {
+                    userapp.settings.device_name = "Coder";
+                }
+                if ( userapp.settings.coder_color === "" ) {
+                    userapp.settings.coder_color = "#3e3e3e";
+                }
+        
+                var route;
+                var key = data.key;
+                var routes = userapp.socketio_routes;
+                if ( routes ) {
+                    var found = false;
+                    for ( var i in routes ) {
+                        route = routes[i];
+                        if ( route['key'] instanceof RegExp ) {
+                            var m = route['path'].exec( key );
+                            if ( m ) {      
+                                userapp[route['handler']]( socket, data.data, m );
+                                found = true;
+                                break;
+                            }
+                        
+                        } else if ( route['key'] === key ) {
+                            userapp[route['handler']]( socket, data.data );
+                            found = true;
+                            break;
+                        }       
+
+                    }
+                }
+            }
+        });
+    });
 };
 
 var pingEnabled = config.enableStatusServer;
@@ -244,15 +345,18 @@ var getHost = function( req ) {
 
 //HTTPS handles all normal traffic
 var sslapp = express();
+var storesecret = crypto.randomBytes(16).toString('utf-8');
 params.extend( sslapp );
+sslapp.sessionStore = new express.session.MemoryStore();
 sslapp.engine( 'html', cons.mustache );
 sslapp.set( 'view engine', 'html' );
 sslapp.set( 'views', __dirname + '/views' );
 sslapp.use( express.bodyParser() );
 sslapp.use( express.cookieParser() );
 sslapp.use( express.session({ 
-    secret: crypto.randomBytes(16).toString('utf-8'),
-    store: new express.session.MemoryStore()
+    secret: storesecret,
+    key: 'connect.sid',
+    store: sslapp.sessionStore
 }));
 sslapp.use( '/static', express.static( __dirname + '/static' ) );
 sslapp.get( '/', function( req, res ) {
@@ -262,6 +366,7 @@ sslapp.get( '/', function( req, res ) {
 sslapp.all( /^\/app\/(\w+)\/(.*)$/, function( req, res ) { apphandler( req, res,  __dirname + '/apps/'); } );
 sslapp.all( /^\/app\/(\w+)\/$/, function( req, res ) { apphandler( req, res,  __dirname + '/apps/'); } );
 sslapp.all( /^\/app\/(\w+)$/, function( req, res ) { apphandler( req, res,  __dirname + '/apps/'); } );
+
 
 
 //HTTP is all redirected to HTTPS
@@ -280,4 +385,22 @@ pingStatusServer();
 process.on('uncaughtException', function(err) {
     console.log('WARNING: unhandled exception: ' + err );
 });
+
+// Allow front end console to receive server logs over a socket connection.
+// Note that util.log will still only go to stdout
+var origlog = console.log;
+console.log = function(d) {
+    origlog.call( console, d );
+    if ( io ) {
+        io.set('log level', 1);
+        var clients = io.sockets.clients();
+        for ( var x=0; x<clients.length; x++ ) {
+            var c = clients[x];
+            var sess = c.handshake.session;
+            if ( sess.authenticated ) {
+                c.emit('SERVERLOG', d);
+            }
+        }
+    }
+};
 

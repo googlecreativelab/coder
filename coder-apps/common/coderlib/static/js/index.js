@@ -23,10 +23,16 @@ if (typeof console === "undefined" || typeof console.log === "undefined") {
     console.log = function() {};
 }
 
+var socketReady = false;
+var onSocketReady = null;
+
+
 var Coder = {
     coderlib_url: "/app/coderlib",
     appname: '',
     appurl: '',
+    socket: null,
+    socketListeners: {},
     
     listApps: function( callback ) {
         $.get( Coder.coderlib_url + "/api/app/list", function(data){
@@ -50,6 +56,72 @@ var Coder = {
             });
         });
     },
+    
+    connectSocket: function( callback ) {
+        var doConnect = function() {
+            Coder.socket = io.connect(window.location.protocol + window.location.hostname + ':' + window.location.port +'/' );
+            Coder.socket.on('connect', function() {
+                console.log('socket connected');
+                
+                if ( callback ) {
+                    callback();
+                }
+            });
+            Coder.socket.on('SERVERLOG', function(d) {
+                console.log('SERVERLOG: ' + JSON.stringify(d));
+            });
+            Coder.socket.on('appdata', function(data) {
+                console.log('appdata received');
+                console.log( data );
+                if ( data && data.key !== undefined ) {
+                    if ( Coder.socketListeners[data.key] !== undefined ) {
+                        for ( var x=0; x<Coder.socketListeners[data.key].length; x++ ) {
+                            var handler = Coder.socketListeners[data.key][x];
+                            var appdata = data.data;
+                            handler( appdata );
+                        }
+                    }
+                }
+            });
+        };
+        
+        if ( socketReady ) {
+            doConnect();
+        } else {
+            onSocketReady = doConnect;
+        }
+    },
+    
+    sendData: function( appid, key, data ) {
+        if ( Coder.socket !== null ) {
+            Coder.socket.emit( 'appdata', { 
+                appid: appid,
+                key: key,
+                data: data
+            });
+        }
+    },
+    
+    addSocketListener: function( key, handler ) {
+        if ( Coder.socketListeners[key] === undefined ) {
+            Coder.socketListeners[key] = [];
+        }
+        Coder.socketListeners[key].push( handler );
+    },
+    
+    removeSocketListener: function( key, handler ) {
+        if ( Coder.socketListeners[key] !== undefined && handler !== null ) {
+            var updated = [];
+            for ( var x=0; x<Coder.socketListeners[key].length; x++ ) {
+                if ( Coder.socketListeners[key][x] !== handler ) {
+                    updated.push( Coder.socketListeners[key][x] );
+                }
+                Coder.socketListeners[key] = updated;
+            }
+        } else if ( Coder.socketListeners[key] !== undefined ) {
+            Coder.socketListeners[key] = [];
+        }
+    }
 };
 
 if ( typeof appname != 'nothing' ) {
@@ -58,6 +130,29 @@ if ( typeof appname != 'nothing' ) {
 if ( typeof appurl != 'nothing' ) {
     Coder.appurl = appurl;
 }
+
+var loadSocketIO = function() {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '/socket.io/socket.io.js';
+    
+    script.onreadystatechange = socketIOReady;
+    script.onload = socketIOReady;
+    head.appendChild(script);
+};
+var socketIOReady = function() {
+    socketReady = true;
+    if ( onSocketReady ) {
+        onSocketReady();
+    }
+};
+loadSocketIO();
+
+
+
+
+
 
 var getParams = (function(qs){
     var params = {};
@@ -73,3 +168,6 @@ var getParams = (function(qs){
     }
     return params;
 })(window.location.search.substr(1).split('&'));
+
+
+
