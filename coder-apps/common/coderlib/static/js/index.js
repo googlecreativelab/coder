@@ -23,16 +23,13 @@ if (typeof console === "undefined" || typeof console.log === "undefined") {
     console.log = function() {};
 }
 
-var socketReady = false;
-var onSocketReady = null;
+
 
 
 var Coder = {
     coderlib_url: "/app/coderlib",
     appname: '',
     appurl: '',
-    socket: null,
-    socketListeners: {},
     
     listApps: function( callback ) {
         $.get( Coder.coderlib_url + "/api/app/list", function(data){
@@ -57,71 +54,86 @@ var Coder = {
         });
     },
     
-    connectSocket: function( callback ) {
-        var doConnect = function() {
-            Coder.socket = io.connect(window.location.protocol + window.location.hostname + ':' + window.location.port +'/' );
-            Coder.socket.on('connect', function() {
-                console.log('socket connected');
-                
-                if ( callback ) {
-                    callback();
-                }
-            });
-            Coder.socket.on('SERVERLOG', function(d) {
-                console.log('SERVERLOG: ' + JSON.stringify(d));
-            });
-            Coder.socket.on('appdata', function(data) {
-                console.log('appdata received');
-                console.log( data );
-                if ( data && data.key !== undefined ) {
-                    if ( Coder.socketListeners[data.key] !== undefined ) {
-                        for ( var x=0; x<Coder.socketListeners[data.key].length; x++ ) {
-                            var handler = Coder.socketListeners[data.key][x];
-                            var appdata = data.data;
-                            handler( appdata );
+    
+    socketConnection: {
+        socket: null,
+        listeners: {},
+        socketReady: false,
+        onSocketReady: null,
+
+        init: function( callback ) {
+            var doConnect = function() {
+                var socket = io.connect(window.location.protocol + window.location.hostname + ':' + window.location.port +'/' );
+                Coder.socketConnection.socket = socket;
+                socket.on('connect', function() {
+                    console.log('socket connected');
+                    
+                    socket.on('SOCKETID', function(socketid) {
+                        Coder.socketConnection.socketID = socketid;
+                        if ( callback ) {
+                            callback(socketid);
+                        }
+                    });
+                });
+                socket.on('SERVERLOG', function(d) {
+                    console.log('SERVERLOG: ' + JSON.stringify(d));
+                });
+                socket.on('appdata', function(data) {
+                    console.log('appdata received');
+                    console.log( data );
+                    if ( data && data.key !== undefined ) {
+                        if ( Coder.socketConnection.listeners[data.key] !== undefined ) {
+                            for ( var x=0; x<Coder.socketConnection.listeners[data.key].length; x++ ) {
+                                var handler = Coder.socketConnection.listeners[data.key][x];
+                                var appdata = data.data;
+                                handler( appdata );
+                            }
                         }
                     }
-                }
-            });
-        };
-        
-        if ( socketReady ) {
-            doConnect();
-        } else {
-            onSocketReady = doConnect;
-        }
-    },
-    
-    sendData: function( appid, key, data ) {
-        if ( Coder.socket !== null ) {
-            Coder.socket.emit( 'appdata', { 
-                appid: appid,
-                key: key,
-                data: data
-            });
-        }
-    },
-    
-    addSocketListener: function( key, handler ) {
-        if ( Coder.socketListeners[key] === undefined ) {
-            Coder.socketListeners[key] = [];
-        }
-        Coder.socketListeners[key].push( handler );
-    },
-    
-    removeSocketListener: function( key, handler ) {
-        if ( Coder.socketListeners[key] !== undefined && handler !== null ) {
-            var updated = [];
-            for ( var x=0; x<Coder.socketListeners[key].length; x++ ) {
-                if ( Coder.socketListeners[key][x] !== handler ) {
-                    updated.push( Coder.socketListeners[key][x] );
-                }
-                Coder.socketListeners[key] = updated;
+                });
+            };
+            
+            if ( Coder.socketConnection.socketReady ) {
+                doConnect();
+            } else {
+                Coder.socketConnection.onSocketReady = doConnect;
             }
-        } else if ( Coder.socketListeners[key] !== undefined ) {
-            Coder.socketListeners[key] = [];
-        }
-    }
+        }, //end socket init
+        
+        //Sends [data] to the current [appid]'s socket handler for [key]
+        sendData: function( key, data ) {
+            if ( Coder.socketConnection.socket !== null ) {
+                Coder.socketConnection.socket.emit( 'appdata', { 
+                    appid: Coder.appname,
+                    key: key,
+                    data: data
+                });
+            }
+        },
+        
+        //Listens on the socket for [key] and calls [handler](data)
+        addListener: function( key, handler ) {
+            if ( Coder.socketConnection.listeners[key] === undefined ) {
+                Coder.socketConnection.listeners[key] = [];
+            }
+            Coder.socketConnection.listeners[key].push( handler );
+        },
+        removeListener: function( key, handler ) {
+            if ( Coder.socketConnection.listeners[key] !== undefined && handler !== null ) {
+                var updated = [];
+                for ( var x=0; x<Coder.socketConnection.listeners[key].length; x++ ) {
+                    if ( Coder.socketConnection.listeners[key][x] !== handler ) {
+                        updated.push( Coder.socketConnection.listeners[key][x] );
+                    }
+                    Coder.socketConnection.listeners[key] = updated;
+                }
+            } else if ( Coder.socketConnection.listeners[key] !== undefined ) {
+                Coder.socketConnection.listeners[key] = [];
+            }
+        },           
+        
+    }, //End Coder.socketConnection
+    
 };
 
 if ( typeof appname != 'nothing' ) {
@@ -130,28 +142,6 @@ if ( typeof appname != 'nothing' ) {
 if ( typeof appurl != 'nothing' ) {
     Coder.appurl = appurl;
 }
-
-var loadSocketIO = function() {
-    var head = document.getElementsByTagName('head')[0];
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = '/socket.io/socket.io.js';
-    
-    script.onreadystatechange = socketIOReady;
-    script.onload = socketIOReady;
-    head.appendChild(script);
-};
-var socketIOReady = function() {
-    socketReady = true;
-    if ( onSocketReady ) {
-        onSocketReady();
-    }
-};
-loadSocketIO();
-
-
-
-
 
 
 var getParams = (function(qs){
@@ -170,4 +160,23 @@ var getParams = (function(qs){
 })(window.location.search.substr(1).split('&'));
 
 
+
+//Load Socket IO Scripts
+(function() {
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '/socket.io/socket.io.js';
+ 
+    var socketIOReady = function() {
+        Coder.socketConnection.socketReady = true;
+        if ( Coder.socketConnection.onSocketReady ) {
+            Coder.socketConnection.onSocketReady();
+        }
+    };
+ 
+    script.onreadystatechange = socketIOReady;
+    script.onload = socketIOReady;
+    head.appendChild(script);
+})();
 

@@ -34,18 +34,24 @@ exports.index_handler = function( req, res ) {
 };
 
 exports.on_socket_connect = function( socket, data ) {
-    console.log( 'socket connect: ' + socket.handshake.sessionID );
+    console.log( 'socket connect from ID: ' + socket.socketID );
     console.log( data );
-    connections[data.id] = {
+    
+    connections[socket.socketID] = {
         socket: socket,
         name: data.name,
-        id: data.id
+        id: socket.socketID
     };
+    socket.on('disconnect', function() {
+        console.log( 'socket disconnect from ID: ' + socket.socketID );
+        delete connections[socket.socketID];
+    });
     
 };
 
 exports.on_socket_message = function( socket, data ) {
     console.log( 'socket message from: ' );
+ 
     console.log( socket.handshake.sessionID );
     var me = connections[data.id];
     if ( me ) {

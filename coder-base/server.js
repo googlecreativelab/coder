@@ -35,6 +35,8 @@ var querystring = require('querystring');
 var path = require('path');
 var cookie = require('cookie');
 var connect = require('connect');
+
+
 var loadApp = function( loadpath ) {
 
     var userapp = null;
@@ -55,6 +57,21 @@ var loadApp = function( loadpath ) {
     return userapp;
 };
 
+var applyAppSettings = function( userapp, appname, auth ) {
+    userapp.settings.appname = appname;
+    userapp.settings.viewpath="apps/" + appname;
+    userapp.settings.appurl="/app/" + appname;
+    userapp.settings.staticurl = "/static/apps/" + appname;
+    userapp.settings.device_name = auth.getDeviceName();
+    userapp.settings.coder_owner = auth.getCoderOwner();
+    userapp.settings.coder_color = auth.getCoderColor();
+    if ( userapp.settings.device_name === "" ) {
+        userapp.settings.device_name = "Coder";
+    }
+    if ( userapp.settings.coder_color === "" ) {
+        userapp.settings.coder_color = "#3e3e3e";
+    }
+};
 
 var apphandler = function( req, res, appdir ) {
 
@@ -83,19 +100,7 @@ var apphandler = function( req, res, appdir ) {
         apppath = "/" + apppath;        
     }
 
-    userapp.settings.appname = appname;
-    userapp.settings.viewpath="apps/" + appname;
-    userapp.settings.appurl="/app/" + appname;
-    userapp.settings.staticurl = "/static/apps/" + appname;
-    userapp.settings.device_name = auth.getDeviceName();
-    userapp.settings.coder_owner = auth.getCoderOwner();
-    userapp.settings.coder_color = auth.getCoderColor();
-    if ( userapp.settings.device_name === "" ) {
-        userapp.settings.device_name = "Coder";
-    }
-    if ( userapp.settings.coder_color === "" ) {
-        userapp.settings.coder_color = "#3e3e3e";
-    }
+    applyAppSettings( userapp, appname, auth );
 
     var routes = [];
     if ( req.route.method === 'get' ) {
@@ -188,9 +193,10 @@ var startSSL = function() {
 };
 
 var io;
+var socketMap={};
 var initSocketIO = function( server ) {
     io = socketio.listen( server );
-    io.set('log level', 1); //this can cause a recursion problem since we are piping log info to a socket
+    io.set('log level', 1); //TODO: hack to fix recursion problem since we are piping log info to a socket
 
     // sync session data with socket
     // via https://github.com/DanielBaulig/sioe-demo/blob/master/app.js
@@ -224,13 +230,29 @@ var initSocketIO = function( server ) {
         });
     });
 
+    
+    var genRandomID = function() {
+        var id = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i=0; i < 32; i++ ) {
+            id += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+        return id;
+    }
+
+
     io.sockets.on('connection', function (socket) {
-        // socket.emit('news', { hello: 'world' });
-        // socket.on('my other event', function (data) {
-        //     console.log(data);
-        // });
 
         var sess = socket.handshake.session;
+
+        socket.socketID = genRandomID();
+	socketMap[socket.socketID] = socket;
+        socket.emit('SOCKETID', socket.socketID);
+
+        socket.on('disconnect', function() {
+            delete( socketMap[socket.socketID] );
+        });
 
         socket.on('appdata', function(data) {
             if ( !sess.authenticated ) {
@@ -240,19 +262,7 @@ var initSocketIO = function( server ) {
                 var appname = data.appid;
                 var userapp = loadApp( __dirname + '/apps/' + appname + "/app" );
 		var auth = require( __dirname + "/apps/auth/app" );
-                userapp.settings.appname = appname;
-                userapp.settings.viewpath="apps/" + appname;
-                userapp.settings.appurl="/app/" + appname;
-                userapp.settings.staticurl = "/static/apps/" + appname;
-                userapp.settings.device_name = auth.getDeviceName();
-                userapp.settings.coder_owner = auth.getCoderOwner();
-                userapp.settings.coder_color = auth.getCoderColor();
-                if ( userapp.settings.device_name === "" ) {
-                    userapp.settings.device_name = "Coder";
-                }
-                if ( userapp.settings.coder_color === "" ) {
-                    userapp.settings.coder_color = "#3e3e3e";
-                }
+                applyAppSettings( userapp, appname, auth );
         
                 var route;
                 var key = data.key;
@@ -281,6 +291,24 @@ var initSocketIO = function( server ) {
         });
     });
 };
+// Allow front end console to receive server logs over a socket connection.
+// Note that util.log will still only go to stdout
+var origlog = console.log;
+console.log = function(d) {
+    origlog.call( console, d );
+    if ( io ) {
+        io.set('log level', 1);
+        var clients = io.sockets.clients();
+        for ( var x=0; x<clients.length; x++ ) {
+            var c = clients[x];
+            var sess = c.handshake.session;
+            if ( sess.authenticated ) {
+                c.emit('SERVERLOG', d);
+            }
+        }
+    }
+};
+
 
 var pingEnabled = config.enableStatusServer;
 var pingStatusServer = function() {
@@ -385,22 +413,4 @@ pingStatusServer();
 process.on('uncaughtException', function(err) {
     console.log('WARNING: unhandled exception: ' + err );
 });
-
-// Allow front end console to receive server logs over a socket connection.
-// Note that util.log will still only go to stdout
-var origlog = console.log;
-console.log = function(d) {
-    origlog.call( console, d );
-    if ( io ) {
-        io.set('log level', 1);
-        var clients = io.sockets.clients();
-        for ( var x=0; x<clients.length; x++ ) {
-            var c = clients[x];
-            var sess = c.handshake.session;
-            if ( sess.authenticated ) {
-                c.emit('SERVERLOG', d);
-            }
-        }
-    }
-};
 
