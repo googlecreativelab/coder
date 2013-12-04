@@ -13,6 +13,6 @@
 		"bcrypt": "0.7.4",
 		"connect": "*",
 		"cookie": "*",
-		"gpio": "*",
+		"gpio": "*"
         }
 }
