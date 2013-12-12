@@ -165,6 +165,27 @@ A, A:hover, A:visited, A:active {
     padding: 256px 0 0 0;
 }
 
+.masthead A.new_callout,
+.masthead A.new_callout:visited,
+.masthead A.new_callout:active,
+.masthead A.new_callout:hover {
+    display: block;
+    position: absolute;
+    top:0;
+    right:60px;
+    padding: 8px;
+    border-radius: 0 0 6px 6px;
+    background-color: #ffbe00;
+    color: #fff;
+    font-family: dosissemibold, sans-serif;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.masthead A.new_callout:hover {
+}
 
 .fixedbar .logo H1 {
     position: absolute;
