@@ -355,7 +355,7 @@ var setupEditor = function( panelid, editorid, data, serverid, editmode ) {
         readOnly: false // should not apply in readOnly mode
     }); 
  
-    $('#' + editorid).css('font-size', '16px');
+    //$('#' + editorid).css('font-size', '16px');
     $('#' + panelid).hide();
 
     return editor;

@@ -132,6 +132,9 @@ BODY, HTML {
     -o-transform: rotate(-90deg);
     transform: rotate(-90deg);
 }
+#coder_home a:hover {
+    color: #C0C0C0;
+}
 
 .previewEnabled #editcontainer {
     right: 50%;
@@ -157,7 +160,11 @@ BODY, HTML {
     bottom: 0px;
     position: absolute;
     z-index: 100;
+    font-size: 16px;
+    line-height: 1.4em;
 }
+
+
 
 #editornav .label_divider {
     height: 100%;
@@ -260,7 +267,7 @@ BODY, HTML {
 .settingsEnabled #editornav #settings_button, 
 .mediaEnabled #editornav #media_button {
     background-color: rgba( 255,255,255,.2 );
-    border-color: #ffffff;
+    border-color: rgba( 255,255,255,.5 );
 }
 
 .previewEnabled #editornav {
@@ -280,16 +287,16 @@ BODY, HTML {
 #addmedia_button {
     height: 40px;
     width: 40px;
-    margin: 24px;
+    margin: 18px;
     background-color: transparent;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     position: relative;
     background-image: url(/static/common/media/coder_icons.png);
     background-position: -167px 0px;
     opacity: 0.4
 }
 #addmedia_button:hover {
-    background-color: rgba(255,255,255,0.2);
+    /*background-color: rgba(255,255,255,0.2);*/
     opacity: 1;
     cursor: pointer;
 }
@@ -297,6 +304,7 @@ BODY, HTML {
     width: 100%;
     height: 100%;
     opacity: 0;
+    cursor: pointer;
 }
 
 #medialist .mediaitem {
@@ -353,7 +361,6 @@ BODY, HTML {
 
 .sidepanel .save, .sidepanel .cancel,
 .editpanel .save, .editpanel .cancel,
-.sidepanel .export_app,
 .sidepanel .remove_app {
     position: absolute;
     bottom: 24px;
@@ -362,7 +369,7 @@ BODY, HTML {
     height: 20px;
     text-align: center;
     display: inline-block;
-    background-color: #333;
+    background-color: #A0A0A0;
     border-radius: 4px;
     color: #fff;
     z-index: 101;
@@ -371,13 +378,11 @@ BODY, HTML {
     display:none;
     font-family: Arial, sans-serif;
 }
-.sidepanel .save, .sidepanel .cancel,
-.sidepanel .export_app {
+.sidepanel .save, .sidepanel .cancel {
     color: #333;
     background-color: rgba( 255,255,255, 0.8 );
 }
-.sidepanel .save:hover, .sidepanel .cancel:hover,
-.sidepanel .export_app:hover {
+.sidepanel .save:hover, .sidepanel .cancel:hover {
     background-color: #fff;
     cursor: pointer;
 }
@@ -388,22 +393,37 @@ BODY, HTML {
 
 .sidepanel .export_app {
     display: block;
-    position: relative;
-    top: 0;
-    left: 24px;
-    margin-top: 12px;
+    position: absolute;
+    bottom: 17px;
+    right: 18px;
+    background-image: url(/static/common/media/coder_icons.png);
+    background-position: -276px -1px;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    opacity: 0.8;
+}
+.sidepanel .export_app:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
 .sidepanel .remove_app {
     display: block;
     color: #ddd;
-    margin: 24px;
-    bottom:0px;
-    right:0px;
+    top:24px;
+    right:-8px;
+    background-image: url(/static/common/media/coder_icons.png);
+    background-position: -329px -4px;
+    background-color: transparent;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    opacity: 0.5;    
 }
 .sidepanel .remove_app:hover {
-    background-color: rgba(231, 76, 60, 1);
-    color: #fff;
+    opacity: 1;
 }
 .sidepanel.changed .remove_app {
     display: none;
@@ -460,6 +480,7 @@ BODY, HTML {
     margin: 20px 24px 0 24px;
     border-top: 1px solid #999;
     color: #999;
+    position: relative;
 }
 .sidepanel .appinfo .item {
     font-size: 12px;

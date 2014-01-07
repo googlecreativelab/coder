@@ -50,6 +50,12 @@
     top: 0px;
     right: 0px;
     padding: 12px;
+    opacity: 0.5;
+    font-weight: bold;
+}
+.appitem .editbutton:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
 #addapp_button {
@@ -67,14 +73,14 @@
     margin-left: -20px;
     margin-top: -20px;
     background-color: transparent;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     position: absolute;
     background-image: url(/static/common/media/coder_icons.png);
     background-position: -167px 0px;
     opacity: 0.8;
 }
 #addapp_button:hover #addapp_icon {
-    background-color: rgba(255,255,255,0.1);
+    /*background-color: rgba(255,255,255,0.1);*/
     opacity: 1;
     cursor: pointer;
 }
@@ -194,6 +200,10 @@
     margin: 0;
     border: 0;
     background-color: #f00;
+    cursor: pointer;
+}
+#import_file:hover {
+    cursor: pointer;
 }
 
 
@@ -226,7 +236,7 @@
 }
 .settingsEnabled #settings_button {
     background-color: rgba( 255,255,255,.2 );
-    border-color: #ffffff;
+    border-color: rgba( 255,255,255,.4 );
 }
 
 
