@@ -18,15 +18,13 @@ $(document).ready( function() {
         // enabled is set below by a button click.
         var blinkval = 0;
         setInterval( function() {
-        
-            if ( blinkval ) {
-                blinkval = 0;
-            } else {
-                blinkval = 1;
-            }
 
             if ( enabled ) {
-                
+                if ( blinkval ) {
+                    blinkval = 0;
+                } else {
+                    blinkval = 1;
+                }
                 Coder.socketConnection.sendData( 'gpio', {
                     command: "set",
                     value: blinkval
@@ -39,19 +37,33 @@ $(document).ready( function() {
         //Enable or disable the blinker
         var enabled = false;
         $("#on").click( function() {
-            Coder.socketConnection.sendData( 'gpio', {
-                command: "set",
-                value: 1
-            });
+            lightOn();
             enabled = true;
         });
         $("#off").click( function() {
-            Coder.socketConnection.sendData( 'gpio', {
-                command: "set",
-                value: 0
-            });
+            lightOff();
             enabled = false;
         });
+        $("#toggle").click( function() {
+            enabled = false;
+            if ( blinkval ) {
+                blinkval = 0;
+                lightOff();
+            } else {
+                blinkval = 1;
+                lightOn();
+            }
+        });
+        $("#push").on("mousedown", function() {
+            enabled = false;
+            blinkval = 1;
+            lightOn();
+        }).on("mouseup", function() {
+            enabled = false;
+            blinkval = 0;
+            lightOff();
+        });
+
         
     });
 
@@ -59,11 +71,22 @@ $(document).ready( function() {
 
 });
 
-
+var lightOn = function() {
+    Coder.socketConnection.sendData( 'gpio', {
+        command: "set",
+        value: 1
+    });
+};
+var lightOff = function() {
+    Coder.socketConnection.sendData( 'gpio', {
+        command: "set",
+        value: 0
+    });
+};
 
 var addOutputMessage = function( text ) {
     var $output = $("#output");
     $output.prepend( $("<p/>").text( text ) );
     console.log( text );
-}
+};
 

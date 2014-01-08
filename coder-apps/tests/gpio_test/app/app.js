@@ -1,7 +1,7 @@
 var gpio = require("gpio");
 gpio.logging = true;
 
-var gpioID = 7; //pin 26, bottom right header
+var gpioID = 4; //actually pin 7, 4 down on left header
 var gpioDevice;
 var connected = false; //ensure only one process talks to us at a time.
 
