@@ -2,3 +2,41 @@
 .pagecontent {
     padding: 24px;
 }
+
+#buttonval {
+    width: 100px;
+    height: 100px;
+    background-color: #000000;
+}
+#buttonval.on {
+    background-color: #F03050;
+}
+
+
+.button {
+    cursor: pointer;
+    width: 200px;
+    height: 150px;
+    margin: 24px 0;
+    background-color: #3498D8;
+    line-height: 150px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+}
+
+.button.press {
+    background-color: #2488A8;
+}
+
+
+#output {
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height: 150px;
+    color: #fff;
+    background-color: #000;
+    overflow: hidden;
+}
