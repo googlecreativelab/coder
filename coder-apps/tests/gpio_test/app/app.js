@@ -119,8 +119,12 @@ var enableGPIO = function() {
     // Set up the LED output GPIO
     console.log("Setting up LED as an output on GPIO " + ledGPIOID );
     ledDevice = gpio.export( ledGPIOID, {
-        direction: "out",
         ready: function() {
+            // This works around a bug in gpio, where sometimes this device
+            // doesn't become immediately available.
+            setTimeout( function() {
+                ledDevice.setDirection("out");
+            }, 100); //wait 100 ms before setting direction
         }
     });
     
