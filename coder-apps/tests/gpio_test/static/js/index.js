@@ -31,7 +31,6 @@ $(document).ready( function() {
 
         // Each connection gets a unique ID.
         addOutputMessage( "Connected with ID: " + Coder.socketConnection.socketID );
-        addOutputMessage( "Click ON or OFF to enable blinking" );
         
         // Send a "connect" message to our Node page when we first connect.
         Coder.socketConnection.sendData( 'connect', {} );

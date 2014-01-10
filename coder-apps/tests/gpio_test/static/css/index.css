@@ -1,12 +1,31 @@
 
 .pagecontent {
     padding: 24px;
+    min-width: 880px;
+}
+
+.buttons {
+    float: left;
+    width: 240px;
+}
+.diagram {
+    width: 640px;
+    float: left;
+    padding-bottom: 100px;
+}
+.clear {
+    clear: both;
 }
 
 #buttonval {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 150px;
+    margin: 24px 0;
+    color: #fff;
     background-color: #000000;
+    text-align: center;
+    font-weight: bold;
+    line-height: 150px;
 }
 #buttonval.on {
     background-color: #F03050;
@@ -31,11 +50,11 @@
 
 
 #output {
-    position: absolute;
+    position: fixed;
     left:0;
     right:0;
     bottom:0;
-    height: 150px;
+    height: 100px;
     color: #fff;
     background-color: #000;
     overflow: hidden;
