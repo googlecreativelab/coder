@@ -31,23 +31,13 @@ exports.settings={};
 
 exports.get_routes = [
     { path:'/', handler:'index_handler'},
-
-    { path: '/api/app/list', handler: 'api_app_list_handler' },
-    { path: '/api/app/import', handler: 'api_app_import_handler' },
-    { path: '/api/app/export', handler: 'api_app_export_handler' },
-    { path: '/api/app/rename', handler: 'api_app_rename_handler' },
-    { path: '/api/app/remove', handler: 'api_app_remove_handler' },
-
-    { path: '/api/data/get', handler: 'api_data_get_handler' },
-    { path: '/api/data/set', handler: 'api_data_set_handler' },
-
-
-    { path: '/api/reboot', handler: 'api_reboot_handler' }
+    { path: '/api/app/list', handler: 'api_app_list_handler' }
 ];
 
 
 exports.post_routes = [
-    { path: '/api/app/create', handler: 'api_app_create_handler' },
+    { path: '/api/data/get', handler: 'api_data_get_handler' },
+    { path: '/api/data/set', handler: 'api_data_set_handler' },
 ];
 
 exports.on_destroy = function() {

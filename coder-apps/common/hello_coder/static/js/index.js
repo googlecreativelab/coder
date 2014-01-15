@@ -49,6 +49,11 @@ var initialize = function() {
     $canvas.attr('width', w);
     $canvas.attr('height', h);
     
+    // Make sure numLines isn't a crazy number
+    if ( numLines > 10000 ) {
+        numLines = 10000;
+    }
+    
     for ( var x=0; x < numLines; x++ ) {
 
         // top x position
