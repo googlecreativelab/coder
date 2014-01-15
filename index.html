@@ -64,14 +64,19 @@
         <div class="setup instructions">
             <div class="switchpanel wired">
                 <div class="step"><img src="assets/images/download.png" /><div class="stepnum">1.</div><p><a href="#download" class="animate">Download</a>, unzip, and run the Coder Installer. You'll need a 4GB SD Card.</p><p>Mac users, just run the provided installer.<br />PC users, check out our <a href="#windows" class="animate">Windows-specific Instructions</a> for more installation details.</p></div>
-                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your Pi and your computer are plugged into the network, and power it up.</p><p>Give your Pi a minute to start up and then move on to step 3.</p></div>
-                <div class="step last"><img src="assets/images/wired.png" /><div class="stepnum">3.</div><p>Visit coder.local in Chrome to connect to your new Coder and start&nbsp;playing.</p></div>
+                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your Pi and your computer are plugged into the network, and power it up.</p><p>The Pi will be your new web server. Give it a minute to start up and then move on to step 3.</p></div>
+                <div class="step last"><img src="assets/images/wired.png" /><div class="stepnum">3.</div><p>On your computer, visit http://coder.local/ in Chrome to connect to your new Coder and start&nbsp;playing.</p>
+                    <p style="margin-top:1.5em">[Note: You will see a warning about Coder's certificate. Unlike a public server, Coder lives on your local network with a private url, so it cannot verified by your browser. Click "proceed anyway".]
+                    </p>
+                </div>
                 <div class="clear"></div>
             </div>
             <div class="switchpanel wifi">
                 <div class="step"><img src="assets/images/download.png" /><div class="stepnum">1.</div><p><a href="#download" class="animate">Download</a> and run the Coder Installer with any 4GB SD Card.</p><p>Mac users, just run the provided installer.<br />PC users, check out our <a href="#windows" class="animate">Windows-specific Instructions</a> for more installation details.</p></div>
-                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your WiFi module is plugged in, and power it up.</p><p>Give your Pi a minute to start up and then move on to step 3.</p></div>
-                <div class="step last"><img src="assets/images/wifi.png" /><div class="stepnum">3.</div><p>Join the new WiFi network "CoderConfig," then visit coder.local in Chrome, and follow the on-screen instructions.</p></div>
+                <div class="step"><img src="assets/images/sdcard.png" /><div class="stepnum">2.</div><p>Insert your new Coder SD card into your Pi, make sure your WiFi module is plugged in, and power it up.</p><p>The Pi will be your new web server. Give it a minute to start up and then move on to step 3.</p></div>
+                <div class="step last"><img src="assets/images/wifi.png" /><div class="stepnum">3.</div><p>On your cmoputer, join the new WiFi network "CoderConfig," then visit http://192.168.0.1/ in Chrome, and follow the on-screen instructions.</p>
+                    <p style="margin-top:1.5em">[Note: You will see a warning about Coder's certificate. Unlike a public server, Coder lives on your local network with a private url, so it cannot verified by your browser. Click "proceed anyway".]
+                </div>
                 <div class="clear"></div>
             </div>
         </div>
@@ -208,7 +213,8 @@
         </div>
         <div class="faq rollup">
             <h3>I’ve never coded before. How do I get started?</h3>
-            <p>There are a ton of resources for learning HTML, CSS and Javascript&mdash;<a class="trackout" href="http://www.codecademy.com/">Codecademy</a> and <a class="trackout" href="https://www.khanacademy.org/cs/tutorials/programming-basics">Khan Academy</a>, to name two&mdash;and you can use Coder to accompany this instruction as you experiment with making your own programs. When you're ready to get started, read through the included Hello Coder application to aquaint yourself with how a Coder program works.</p>
+            <p>To help you get started, we've put together <a href="http://googlecreativelab.github.io/coder-projects/">Coder Projects</a>: simple, fun, and sneakily educational things that can all be made with Coder and Raspberry Pi. There are also a ton of resources for learning HTML, CSS and Javascript&mdash;<a class="trackout" href="http://www.codecademy.com/">Codecademy</a> and <a class="trackout" href="https://www.khanacademy.org/cs/tutorials/programming-basics">Khan
+                Academy</a>, to name two&mdash;and you can use Coder to accompany this instruction as you experiment with making your own programs. </p>
         </div>
         <div class="faq rollup">
             <h3>Can I share my Coder projects with other people?</h3>
