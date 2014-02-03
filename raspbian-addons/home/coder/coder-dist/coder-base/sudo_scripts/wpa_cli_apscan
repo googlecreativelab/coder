@@ -1,2 +1,2 @@
 #!/bin/sh
-/sbin/wpa_cli scan
+/sbin/wpa_cli ap_scan 2
