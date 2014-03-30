@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Coder</title>
+    <meta charset="utf-8">
+    <!-- Standard Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //the app name of the editor
+        var appurl = "{{&app_url}}";
+        var staticurl = "{{&static_url}}";
+        var pagemode = "{{page_mode}}";
+    </script>
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="/static/common/js/jquery.min.js"></script>
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <!-- End Coder Includes -->
+
+    <!-- Links to this app's files -->
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- End links to this apps files -->
+
+</head>
+<body class="">
+    <canvas id="animation"></canvas>
+    <div id="coder_nav" class="">
+        <span id="coder_logo">{{device_name}}</span>
+    </div>
+    <div class="centercontainer">
+    <div class="center">
+        <div id="login_form" class="form" style="display:none">
+            <h1>Welcome to Coder</h1>
+            <div class="instructions">Enter your Coder password to get coding.</div>
+            <div class="formfield textinput">
+                <span class="label">Password</span>
+                <input class="pass" type="password" />
+            </div>
+            <div class="submit disabled">Let's Code</div>
+            <div class="errormessage" style="visibility:hidden"></div>
+        </div>
+        
+        <div id="logout_form" class="form" style="display:none">
+            <h1>You Are Signed Out</h1>
+            <div class="instructions">To get back to coding, enter your Coder password.</div>
+            <div class="formfield textinput">
+                <span class="label">Password</span>
+                <input class="pass" type="password" />
+            </div>
+            <div class="submit disabled">Let's Code</div>
+            <div class="errormessage" style="visibility:hidden"></div>
+        </div>
+
+        <div id="configure_form" class="form" style="display:none">
+            <h1>Welcome to Coder</h1>
+            <div class="instructions">First, let's give your Coder a name.</div>
+            <div class="formfield textinput">
+                <span class="label">Your Coder's Name</span>
+                <input class="device_name" type="text"/>
+            </div>
+            <div class="submit disabled">OK. Save My Coder's Name</div>
+            <div class="errormessage" style="visibility:hidden"></div>
+        </div>
+        
+        
+        <div id="addpassword_form" class="form" style="display:none">
+            <h1>Protect Your Coder</h1>
+            <div class="instructions">Set a password here to make this Coder&nbsp;yours.</div>
+            <div class="formfield textinput">
+                <span class="label">My Password</span>
+                <input class="pass" type="password"/>
+            </div>
+            <div class="formfield textinput">
+                <span class="label">My Password, Again</span>
+                <input class="pass_repeat" type="password"/>
+            </div>
+            <div class="submit disabled">Save My Password</div>
+            <div class="errormessage" style="visibility:hidden"></div>
+        </div>
+        
+        <div id="changepassword_form" class="form" style="display:none">
+            <h1>Change Your Coder Password</h1>
+            <div class="instructions">Confirm your current password, then choose a new one to secure your Coder.</div>
+            <div class="formfield textinput">
+                <span class="label">Old Password</span>
+                <input class="oldpass" type="password"/>
+            </div>
+            <div class="formfield textinput">
+                <span class="label">New Password</span>
+                <input class="pass" type="password"/>
+            </div>
+            <div class="formfield textinput">
+                <span class="label">New Password, Again</span>
+                <input class="pass_repeat" type="password"/>
+            </div>
+            <div class="submit disabled">Save My Password</div>
+            <div class="cancel">Cancel</div>
+            <div class="errormessage" style="visibility:hidden"></div>
+        </div>
+
+    </div>
+    </div>
+</body>
+</html>
+
+
+
+

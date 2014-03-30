@@ -1,0 +1,499 @@
+
+
+
+
+#additem {
+    background-color: #2ecc71;
+}
+
+#applist {
+    line-height:0;
+    padding: 0 0px 24px 24px;
+    position: absolute;
+    top: 60px;
+    bottom: 0px;
+    overflow: auto;
+}
+
+.appitem {
+    display: inline-block;
+    width: 270px;
+    height: 160px;
+    margin: 24px 24px 0 0;
+    position: relative;
+    cursor: pointer;
+}
+
+.appitem .textcenter {
+    display: table;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+.appitem h2 {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-size:24px;
+    line-height:24px;
+    padding: 1em;
+    line-height: 1em;
+    color: #fff;
+}
+
+.appitem .editbutton {
+    color: #fff;
+    font-size: 16px;
+    line-height: 16px;
+    margin:0;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    padding: 12px;
+    opacity: 0.5;
+    font-weight: bold;
+}
+.appitem .editbutton:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#addapp_button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#addapp_icon {
+    height: 40px;
+    width: 40px;
+    left: 50%;
+    top: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+    background-color: transparent;
+    /*border-radius: 4px;*/
+    position: absolute;
+    background-image: url(/static/common/media/coder_icons.png);
+    background-position: -167px 0px;
+    opacity: 0.8;
+}
+#addapp_button:hover #addapp_icon {
+    /*background-color: rgba(255,255,255,0.1);*/
+    opacity: 1;
+    cursor: pointer;
+}
+
+
+
+#createform {
+    position: absolute;
+    padding: 16px 0 0 16px;
+    width: 254px;
+    height: 144px;
+}
+
+
+.formfield {
+    position: relative;
+    margin: 0 0 8px 0;
+}
+.formfield.textinput .label {
+    position: absolute;
+    color: #999;
+    top:10px;
+    left:12px;
+    font-size: 16px;
+    line-height: 18px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.formfield input[type=text], .formfield input[type=password] {
+    border: 2px solid transparent;
+    width: 212px;
+    padding: 8px 10px;
+    background-color: #fff;
+    color: #666;
+    height: 18px;
+    line-height: 18px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 3px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.formfield input.error, .formfield.selectbox .selectbg.error {
+    border-color: rgba(255,0,0,0.5);
+}
+
+
+#additem .colorchit {
+    width: 12px;
+    height: 12px;
+    border: 2px solid transparent;
+    display: block;
+    float: left;
+    border-radius: 4px;
+    margin: 4px 4px 0 0;
+}
+#additem .colorchit.active,
+#additem .colorchit.active:hover {
+    border-color: #fff;
+}
+#additem .colorchit:hover {
+    border-color: rgba(255,255,255,.6);
+    cursor: pointer;
+}
+
+
+
+#createform .submit, 
+#createform .cancel,
+#createform .import {
+    position: absolute;
+    bottom: 16px;
+    width: 70px;
+    padding: 5px;
+    height: 20px;
+    text-align: center;
+    display: block;
+    border-radius: 4px;
+    z-index: 101;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: Arial, sans-serif;
+    color: #000;
+    background-color: #fff;
+    opacity: 0.8;
+}
+#createform .submit:hover, 
+#createform .cancel:hover,
+#createform .import:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+#createform .submit {
+    left: 16px;
+}
+#createform .cancel {
+    /*opacity: 0.4;*/
+    left: 100px;
+}
+#createform .import {
+    right: 16px;
+    width: 20px;
+    overflow: hidden;
+    background-image: url(/static/common/media/coder_icons.png);
+    background-position: -227px -5px;
+    background-color: transparent;
+}
+
+#import_file {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background-color: #f00;
+    cursor: pointer;
+}
+#import_file:hover {
+    cursor: pointer;
+}
+
+
+.buttonlabel {
+    display: block;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+    margin: 9px 15px 0 0;
+    line-height: 30px;
+    color: #aaaaaa;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-size: 16px;
+    text-align:center;
+    z-index: 1;
+    position: absolute;
+    text-transform: uppercase;
+    vertical-align: top;
+    background-image: url(/static/common/media/coder_icons.png);
+}
+.buttonlabel:hover {
+    background-color: rgba( 255,255,255,0.2 );
+    cursor: pointer;
+}
+#settings_button {
+    background-position: -59px 0px;
+    top:0px;
+    right:0px;
+}
+.settingsEnabled #settings_button {
+    background-color: rgba( 255,255,255,.2 );
+    border-color: rgba( 255,255,255,.4 );
+}
+
+
+#settingscontainer {
+    min-height: 100%;
+}
+
+.sidepanel {
+    position: fixed;
+    width: 300px;
+    top: 0px;
+    min-height: 100%;
+    right: 0;
+    z-index:1;
+    display: none;
+    background-color: #414141;
+}
+
+.settingsEnabled #settingscontainer {
+    display: block;
+}
+.settingsEnabled #applist {
+    width: auto;
+    left: 0px;
+    right: 300px;
+    position: absolute;
+}
+.settingsEnabled #coder_nav {
+    width: auto;
+    left: 0px;
+    right: 300px;
+}
+
+.sidepanel h1 {
+    margin:0;
+    padding: 0px 0px 0px 20px;
+    display: block;
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    font-size: 24px;
+    background-color: #2b2b2b;
+}
+
+.sidepanel .save, .sidepanel .cancel {
+    position: absolute;
+    bottom: 24px;
+    width: 70px;
+    padding: 5px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    background-color: #333;
+    border-radius: 4px;
+    color: #fff;
+    z-index: 101;
+    font-size: 14px;
+    line-height: 20px;
+    display:none;
+    font-family: Arial, sans-serif;
+}
+.sidepanel .save, .sidepanel .cancel {
+    color: #333;
+    background-color: rgba( 255,255,255, 0.8 );
+}
+.sidepanel .save:hover, .sidepanel .cancel:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+.sidepanel.changed .save, .sidepanel.changed .cancel {
+    display: block;
+}
+
+
+
+.sidepanel .save {
+    left: 24px;
+}
+.sidepanel .cancel {
+    left: 110px;
+}
+
+
+.sidepanel .logout {
+    position: absolute;
+    top: 15px;
+    right: 24px;
+    width: 70px;
+    padding: 5px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    background-color: #333;
+    border-radius: 4px;
+    color: #fff;
+    z-index: 101;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: rgba( 255,255,255, 0.8 );
+}
+.sidepanel .logout:hover {
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+
+
+.sidepanel .formfield {
+    padding: 20px 20px 0 24px;
+}
+.sidepanel .formfield .label {
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 15px;
+    font-family: Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 8px 0;
+}
+.sidepanel .formfield input[type=text] {
+    border: 0;
+    padding: 10px 10px;
+    background-color: #fff;
+    color: #666;
+    line-height: 20px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-radius: 3px;
+    width: 232px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sidepanel .setupbuttons {
+    padding: 20px 0px 0 0px;
+    margin: 20px 24px 0 24px;
+    border-top: 1px solid #999;
+    border-bottom: 1px solid #999;
+    color: #999;
+}
+
+
+.sidepanel .colorchit {
+    width: 13px;
+    height: 13px;
+    border: 2px solid transparent;
+    display: block;
+    float: left;
+    border-radius: 4px;
+    margin: 4px 4px 0 0;
+}
+.sidepanel .colorchit.active,
+.sidepanel .colorchit.active:hover {
+    border-color: #fff;
+}
+.sidepanel .colorchit:hover {
+    border-color: rgba(255,255,255,.6);
+    cursor: pointer;
+}
+
+.wifisetup, .changepass {
+    width: 210px;
+    padding: 20px;
+    height: 20px;
+    text-align: center;
+    display: block;
+    background-color: rgba(255,255,255,.8);
+    border-radius: 4px;
+    color: #333;
+    z-index: 101;
+    font-size: 16px;
+    line-height: 20px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 12px;
+}
+.changepass {
+    margin-bottom: 24px;
+}
+.wifisetup:hover, .changepass:hover {
+    background-color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+
+#introduction {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:4;
+}
+
+
+.intromessage {
+    width: 450px;
+    position: absolute;
+    top: 400px;
+    color: #fff;
+    left: 50%;
+    margin-left: -200px;
+    text-align: center;
+}
+
+.intromessage h1 {
+    font-size: 28px;
+    line-height: 28px;
+    font-weight: bold;
+    margin:0;
+    padding: 0 0 20px 0;
+}
+.intromessage p {
+    font-size: 21px;
+    line-height: 1.2em;
+    padding: 0 0 20px 0;
+    margin:0;
+}
+.intromessage a, .intromessage a:hover, .intromessage a:active, .intromessage a:visited {
+    color: #333;
+    text-decoration: underline;
+}
+.gotit {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 60px;
+    border-radius: 4px;
+    width: 400px;
+    margin-left:25px;
+    margin-bottom: 24px;
+    background-color: rgba(0,0,0,0.5);
+}
+.gotit:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,1);;
+}
+#dontshow {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+.dontshowmsg {
+    vertical-align: middle;
+}
+
+#myapps_tip {
+    position: absolute;
+    left: 440px;
+    top: 220px;
+}
+#newapp_tip {
+    position: absolute;
+    left: 140px;
+    top: 220px;
+}
+#settings_tip {
+    position: absolute;
+    right: 60px;
+    top: 20px;
+}

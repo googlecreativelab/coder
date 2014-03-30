@@ -1,0 +1,80 @@
+
+.pagecontent {
+    padding: 24px;
+}
+
+html, body {
+  background: #f9de2a;
+  text-align: center;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    height: 80%;
+  }
+
+  50% {
+    height: 0%;
+    top: 50%;
+  }
+
+  100% {
+    height: 80%;
+  }
+}
+
+.circle {
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.eye {
+  box-shadow: 0 20px 0 rgba(0,0,0,0.05);
+  text-align: center;
+  background: #cccccc;
+  display: inline-block;
+  position: absolute;
+  margin-left: -100px;
+  margin-top: -120px;
+  height: 200px;
+  width: 200px;
+  left: 50%;
+  top: 50%;
+}
+.eye .highlight {
+  box-shadow: inset 15px 60px rgba(255, 255, 255, 0.1);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+.eye .container {
+  position: absolute;
+  height: 80%;
+  width: 99%;
+  top: 10%;
+}
+.eye .sclera {
+  background: white;
+  height: 100%;
+  width: 100%;
+}
+.eye .sclera .iris {
+  background: #5dd0cb;
+  height: 100px;
+  width: 100px;
+}
+.eye .sclera .iris .pupil {
+  background: #111111;
+  height: 50%;
+  width: 50%;
+}
+

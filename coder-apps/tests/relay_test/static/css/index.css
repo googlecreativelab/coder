@@ -1,0 +1,63 @@
+
+.pagecontent {
+    padding: 24px;
+    min-width: 880px;
+}
+
+.buttons {
+   /* float: left;
+    width: 240px;
+    */
+}
+.diagram {
+    width: 640px;
+    float: left;
+    padding-bottom: 100px;
+}
+.clear {
+    clear: both;
+}
+
+#buttonval {
+    width: 200px;
+    height: 150px;
+    margin: 24px 0;
+    color: #fff;
+    background-color: #000000;
+    text-align: center;
+    font-weight: bold;
+    line-height: 150px;
+}
+#buttonval.on {
+    background-color: #F03050;
+}
+
+
+.button {
+    cursor: pointer;
+    width: 200px;
+    height: 150px;
+    margin: 24px 0;
+    background-color: #3498D8;
+    line-height: 150px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.button.press {
+    background-color: #2488A8;
+}
+
+
+#output {
+    position: fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height: 100px;
+    color: #fff;
+    background-color: #000;
+    overflow: hidden;
+}

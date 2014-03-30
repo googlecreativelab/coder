@@ -17,7 +17,7 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Coder Server"
 NAME="coder-daemon"
-DAEMON=/usr/bin/nodejs
+DAEMON=/opt/node/bin/node
 DAEMON_ARGS="/home/coder/coder-dist/coder-base/server.js"
 DAEMON_PATH="/home/coder/coder-dist/coder-base/"
 PIDFILE=/var/run/$NAME.pid

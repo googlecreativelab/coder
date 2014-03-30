@@ -1,0 +1,61 @@
+
+CODER FOR RASPBERRY PI 
+The easy way...
+
+Coder for Raspberry Pi is distributed as a Pi SD Card image.
+If you want to go the easy route, please check out the
+documentation at http://goo.gl/coder
+
+
+
+EVERYONE ELSE
+
+If you want to install Coder on something else, or would
+like to install it on an existing Raspberry Pi, you can
+manually install it as well.
+
+BEFORE YOU START: 
+  I recommend you do this as a normal user and not root.
+  The official pi distro has a "coder" user that Coder runs
+  under, and ports 80 and 433 are forwarded to 8080/8081.
+
+MANUAL INSTALL:
+
+1. You need to have node.js and npm installed
+
+2. Download Coder from git.
+   # git clone https://github.com/googlecreativelab/coder.git   
+
+3. In coder-base run "npm install" to download all the
+   needed modules.
+
+4. Install the basic Coder apps.
+   # cd coder-apps
+   # ./install_common.sh
+
+5. Edit config.js to your liking. I recommend starting
+   with the settings in config.js.localhost and running
+   the localhost server.
+
+6. Start Coder
+   # cd coder-base
+   # node localserver.js
+
+
+If you want to run Coder on an external port, you'll need
+to run server.js instead of localserver.js.  This requires
+a bit of port forwarding setup in iptables. Look in
+the raspbian-addons directory to see the customizations that
+were made to the stock raspbian distro.
+
+The raspberry pi version of Coder has some other
+tweaks that allow you to change your wifi settings
+and keep your Pi password in sync with your Coder password.
+There's some convoluted system configuration involved, which is
+probably why you'd want to start with the Coder disk image,
+but the modified apps are available by running ./install_pi.sh
+after step 4. Modifications to the stock raspbian configuration
+can be found in raspbian-addons.
+
+
+

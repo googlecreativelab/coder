@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CoderEdit::{{edit_app_name}}</title>
+    <meta charset="utf-8">
+    <!-- Standard Coder Includes -->
+    <script>
+        var appname = "{{app_name}}"; //the app name of the editor
+        var appurl = "{{&app_url}}";
+        var edit_appname = "{{edit_app_name}}"; //the id of the app we're editing
+    </script>
+    <link href="/static/apps/coderlib/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="/static/common/js/jquery.min.js"></script>
+    <script src="/static/common/js/jquery.ui.widget.js"></script>
+    <script src="/static/common/js/jquery.iframe-transport.js"></script>
+    <script src="/static/common/js/jquery.fileupload.js"></script>
+    <script src="/static/common/ace-min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/apps/coderlib/js/index.js"></script>
+    <!-- End Coder Includes -->
+
+    <!-- Links to this app's files -->
+    <link href="{{&static_url}}/css/index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <script src="{{&static_url}}/js/index.js"></script>
+    <!-- End links to this apps files -->
+</head>
+<body>
+    <div id="appcontainer">
+        <iframe id="app" frameBorder="0" seamless="seamless">
+        </iframe>
+    </div>
+    <div id="mediacontainer" class="sidepanel">
+        <h1>Media</h1>
+        <div id="medialist"></div>
+        <div id="media_item_template" class="mediaitem" style="display:none">
+            <div class="name"></div>
+            <div class="added">Added: <span class="date"></span></div>
+            <div class="copy_button">Paste to Code</div>
+            <div class="delete_button">Delete</div>
+        </div>
+        <form id="uploadform">
+                <div id="addmedia_button">
+                    <input type="file" name="mediaUpload" id="mediaUpload"/>
+                </div>
+        </form>
+    </div>
+    <div id="settingscontainer" class="sidepanel">
+        <h1>Project Settings</h1>
+        <div class="formfield">
+            <div class="label">Name</div>
+            <input type="text" id="app_name" />
+        </div>
+        <div class="formfield">
+            <div class="label">Author</div>
+            <input type="text" id="app_author" />
+        </div>
+        <div class="formfield">
+            <div class="label">Color</div>
+            <div class="colorchit" style="background-color:#16a085;"></div>
+            <div class="colorchit" style="background-color:#1abc9c;"></div>
+            <div class="colorchit" style="background-color:#2ecc71;"></div>
+            <div class="colorchit" style="background-color:#5adf95;"></div>
+            <div class="colorchit" style="background-color:#80d4ea;"></div>
+            <div class="colorchit" style="background-color:#3498d8;"></div>
+            <div class="colorchit" style="background-color:#298089;"></div>
+            <div class="colorchit" style="background-color:#eda5dd;"></div>
+            <div class="colorchit" style="background-color:#d977d4;"></div>
+            <div class="colorchit" style="background-color:#9b59b6;"></div>
+            <div class="colorchit" style="background-color:#8e44ad;"></div>
+            <div class="colorchit" style="background-color:#f9de2a;"></div>
+            <div class="colorchit" style="background-color:#f1c40f;"></div>
+            <div class="colorchit" style="background-color:#f39c12;"></div>
+            <div class="colorchit" style="background-color:#e67e22;"></div>
+            <div class="colorchit" style="background-color:#d35400;"></div>
+            <div class="colorchit" style="background-color:#e74c3c;"></div>
+            <div class="colorchit" style="background-color:#c0392b;"></div>
+            <div class="colorchit" style="background-color:#bdc3c7;"></div>
+            <div class="colorchit" style="background-color:#95a5a6;"></div>
+            <div class="colorchit" style="background-color:#7f8c8d;"></div>
+            <div class="colorchit" style="background-color:#34495e;"></div>
+            <div class="colorchit" style="background-color:#2c3e50;"></div>
+            <div class="colorchit" style="background-color:#3e3e3e;"></div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="appinfo">
+            <div class="item" id="date_created">
+                <span class="label">Date Created:</span>
+                <span class="value"></span>
+            </div>
+            <div class="item" id="last_edited">
+                <span class="label">Last Edited:</span>
+                <span class="value"></span>
+            </div>
+            <div class="remove_app"></div>
+        </div>
+        <div class="save">Save</div>
+        <div class="cancel">Cancel</div>
+        <div class="export_app"></div>
+    </div>
+    <div id="editornav" class="userbgcolor">
+        <div id="coder_home"><a href="/app/coder/">Coder</a></div>
+        <h1 class="application_name"></h1>
+        <div class="tools userbgcolor">
+            <div class="label" id="htmlpanel_button"><div class="hilight"></div>HTML<div class="change_notice">*</div><div class="label_divider before"></div><div class="label_divider"></div></div>
+            <div class="label" id="csspanel_button"><div class="hilight"></div>CSS<div class="change_notice">*</div><div class="label_divider"></div></div>
+            <div class="label" id="jspanel_button"><div class="hilight"></div>JS<div class="change_notice">*</div><div class="label_divider"></div></div>
+            <div class="label" id="apppanel_button"><div class="hilight"></div>Node<div class="change_notice">*</div><div class="label_divider"></div></div>
+            <div class="buttonlabel" id="media_button"><div class="hilight"></div></div>
+            <div class="buttonlabel" id="preview_button"><div class="hilight"></div></div>
+            <div class="buttonlabel" id="settings_button"><div class="hilight"></div></div>
+        </div>
+    </div>
+    <div id="editcontainer" class="">
+        <div id="csspanel" class="editpanel closed">
+            <div id="csseditor" class="editor"></div>
+            <div class="save userbgcolor">Save</div>
+            <div class="cancel ">Revert</div>
+        </div>
+        <div id="htmlpanel" class="editpanel closed">
+            <div id="htmleditor" class="editor"></div>
+            <div class="save userbgcolor">Save</div>
+            <div class="cancel ">Revert</div>
+        </div>
+        <div id="jspanel" class="editpanel closed">
+            <div id="jseditor" class="editor"></div>
+            <div class="save userbgcolor">Save</div>
+            <div class="cancel ">Revert</div>
+        </div>
+        <div id="apppanel" class="editpanel closed">
+            <div id="appeditor" class="editor"></div>
+            <div class="save userbgcolor">Save</div>
+            <div class="cancel ">Revert</div>
+        </div>
+    </div>
+    
+
+</body>
+</html>
