@@ -19,6 +19,8 @@ source_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf.reset"
 dest_wpa_conf="/etc/wpa_supplicant/wpa_supplicant.conf"
 source_device_json="/home/coder/coder-dist/coder-base/device.json.reset"
 dest_device_json="/home/coder/coder-dist/coder-base/device.json"
+source_net_interfaces="/etc/network/interfaces.reset"
+dest_net_interfaces="/etc/network/interfaces"
 
 # copy from source to dest if source exists
 if [ -f $reset_file ]; then
@@ -26,6 +28,10 @@ if [ -f $reset_file ]; then
 	cp $source_wpa_conf $dest_wpa_conf
 	chown root:wpaconfig $dest_wpa_conf
 	chmod 660 $dest_wpa_conf
+	echo "-----RESET NETWORK INTERFACES-----" | $logger
+	cp $source_net_interfaces $dest_net_interfaces
+	chown root:root $dest_net_interfaces
+	chmod 664 $dest_net_interfaces
 	echo "-----RESET DEVICE.JSON-----" | $logger
 	cp $source_device_json $dest_device_json
 	chown coder $dest_device_json

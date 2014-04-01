@@ -1,0 +1,115 @@
+#######################################################
+# Use this file to manually configure your Coder's WiFi
+# settings. You can also use this to set the config
+# network that Coder uses if it can't find a network.
+#
+# Instructions:
+# 1. Make a copy of this file into
+#    /coder_settings/wpa_supplicant.txt
+# 2. Boot Coder with this SD Card. It will copy the 
+#    settings and then delete the file.
+#
+# NOTE: If you are experimenting, make a backup of
+# your changes, as the file will be deleted on boot.
+#######################################################
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+
+#################################
+# Default settings
+#################################
+
+#####
+# This creates a device adhoc network if no connection is found.
+# Change ssid to something else to make Coder boot on another
+# Ad-hoc network if it can't find a WiFi connection.
+#####
+network={
+    ssid="CoderConfig"
+    mode=1
+    key_mgmt=NONE
+    id_str="staticadhoc"
+}
+
+
+
+
+
+
+
+#######################################################
+# Sample settings for typical networks below
+#######################################################
+
+
+
+
+#
+# A typical encypted network using WPA
+#
+network={
+    ssid="Network Name"
+    psk="yourpassword"
+
+    # Change to 0 to enable
+    disabled=1
+    scan_ssid=1
+    priority=4
+}
+
+
+#
+# An unencrypted network
+#
+network={
+    ssid="Network Name"
+    key_mgmt=NONE
+    
+    # Change to 0 to enable
+    disabled=1
+    scan_ssid=1
+    priority=3
+}
+
+#
+# Older WEP network
+#
+network={
+    ssid="Network Name"
+    wep_key0="password"
+
+    # To use WEP hex code, comment out above and use without quotes
+    # Example:
+    # wep_key0=ABCDEF0102
+
+    # Change to 0 to enable
+    disabled=1
+    scan_ssid=1
+    key_mgmt=NONE
+    priority=3
+}
+
+
+
+#
+# Enable to connect to any available open network
+#
+network={
+    ssid=""
+    scan_ssid=1
+    key_mgmt=NONE
+    auth_alg=OPEN
+    priority=2
+    id_str="anyopen"
+    
+    # Change to 0 to enable
+    disabled=1
+}
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:       pull-net-interfaces
+# Required-Start: 
+# Required-Stop:  
+# Should-Start:   
+# Should-Stop:    
+# Default-Start:  S
+# Default-Stop:   
+# Description:    import /etc/network/interfaces from boot partition if it exists
+### END INIT INFO
+
+prog=$(basename $0)
+logger="logger -t $prog"
+
+source_conf="/boot/coder_settings/net_interfaces.txt"
+dest_conf="/etc/network/interfaces"
+
+# copy from source to dest if source exists
+if [ -f $source_conf ]; then
+	echo "-----IMPORTING NET INTERFACES FROM SD-----" | $logger
+	cp $source_conf $dest_conf
+	chown root:root $dest_conf
+	chmod 664 $dest_conf
+	rm -f $source_conf
+fi
+
+
+

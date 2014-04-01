@@ -1,0 +1,8 @@
+# To reset your coder password, make a copy of 
+# this file and place it in /coder_settings/reset.txt
+
+# On the next boot, your coder will reset its password
+# and start up with the configuration screen. None of your
+# programs will be removed.
+
+
