@@ -131,7 +131,7 @@ var handleFileImport = function( ev ) {
         var importfile = files[0];
 
         //console.log( importfile );
-        if (!importfile.type.match('application/zip')) {
+        if (!importfile.type.match('application/zip') && !importfile.name.match(/\.zip$/i)) {
             alert('This doesn\'t appear to be a Coder project zip file');
             return false;
         }
