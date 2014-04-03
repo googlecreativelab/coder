@@ -170,9 +170,9 @@ var readADCData = function() {
                 // The "appdata" event will be received by the Coder.socketConnection 
                 // object in the front end code and sent to the appropriate listener 
                 // that we've defined.    
-                // The "buttonupdate" key refers to a listener we set up on the front
+                // The "analogdata" key refers to a listener we set up on the front
                 // end with the code:
-                // Coder.socketConnection.addListener( "buttonupdate", function... )
+                // Coder.socketConnection.addListener( "analogdata", function... )
                 socket.emit( "appdata", {
                     key: "analogdata",
                     data: val
