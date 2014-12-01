@@ -26,12 +26,18 @@ MANUAL INSTALL:
 2. Download Coder from git.
    # git clone https://github.com/googlecreativelab/coder.git   
 
-3. In coder-base run "npm install" to download all the
-   needed modules.
-
-4. Install the basic Coder apps.
+3. Install the basic Coder apps.
    # cd coder-apps
-   # ./install_common.sh
+   # ./install_common.sh ../coder-base
+   
+   Optional: Raspberry Pi additions to the code can be installed with:
+   # ./install_pi.sh ../coder-base
+   Note that there are a number of additional changes made to the OS.
+   These additional configurations can be found in the raspbian-addons
+   directory. See below.
+
+4. In coder-base run "npm install" to download all the
+   needed modules.
 
 5. Edit config.js to your liking. I recommend starting
    with the settings in config.js.localhost and running
@@ -54,7 +60,7 @@ and keep your Pi password in sync with your Coder password.
 There's some convoluted system configuration involved, which is
 probably why you'd want to start with the Coder disk image,
 but the modified apps are available by running ./install_pi.sh
-after step 4. Modifications to the stock raspbian configuration
+after step 3. Modifications to the stock raspbian configuration
 can be found in raspbian-addons.
 
 
