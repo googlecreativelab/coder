@@ -14,23 +14,29 @@
 prog=$(basename $0)
 logger="logger -t $prog"
 
-source_conf="/boot/coder_settings/hostname.txt"
-dest_conf="/etc/hostname"
+hostname_conf="/boot/coder_settings/hostname.txt"
+hostname_dest_conf="/etc/hostname"
+hosts_conf="/boot/coder_settings/hosts.txt"
+hosts_dest_conf="/etc/hosts"
 
 
 # copy from source to dest if source exists
-if [ -f $source_conf ]; then
-	echo "-----IMPORTING WPA_SUPPLICANT.CONF FROM SD-----" | $logger
-	cp $source_conf $dest_conf
-	chown root:root $dest_conf
-	chmod 644 $dest_conf
+if [ -f $hostname_conf ]; then
+	echo "-----IMPORTING HOSTNAME FROM SD-----" | $logger
+	cp $hostname_conf $hostname_dest_conf
+	chown root:root $hostname_dest_conf
+	chmod 644 $hostname_dest_conf
 
 	HOSTNAME="$(cat /etc/hostname)"
-	hostname "$HOSTNAME"	
-	
-	# Should we delete or re-import every time? 
-	# Opting to import every time.
-	# rm -f $source_conf
+	hostname "$HOSTNAME"
+fi
+
+# copy from source to dest if source exists
+if [ -f $hosts_conf ]; then
+	echo "-----IMPORTING HOSTS FROM SD-----" | $logger
+	cp $hosts_conf $hosts_dest_conf
+	chown root:root $hosts_dest_conf
+	chmod 644 $hosts_dest_conf
 fi
 
 

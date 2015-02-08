@@ -1,17 +1,17 @@
 {
 	"name": "coder-base",
-        "description": "kid-friendly web programming environment for pi",
-        "version": "0.0.1",
-        "private": true,
-        "dependencies": {
-                "express": "3.1.0",
-                "redis": "0.8.2",
-                "mustache": "0.7.2",
-                "consolidate": "0.8.0",
-                "socket.io": "0.9.13",
-                "express-params": "0.0.3",
-		"bcrypt": "0.7.4",
-		"connect": "*",
-		"cookie": "*"
-        }
+  "description": "A simple way to make cool web things",
+  "version": "0.0.7",
+  "private": true,
+  "dependencies": {
+    "express": "3.1.0",
+    "redis": "0.8.2",
+    "mustache": "0.7.2",
+    "consolidate": "0.8.0",
+    "socket.io": "0.9.13",
+    "express-params": "0.0.3",
+    "bcrypt-nodejs": "*",
+    "connect": "*",
+    "cookie": "*"
+  }
 }

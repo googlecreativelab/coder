@@ -1,0 +1,25 @@
+These scripts are intended to assist with deploying the latest
+version of Coder on a clean, stock Raspbian system.
+
+BEFORE PROCEEDING:
+You should have a coder user, group, and the coder environment
+installed in /home/coder/coder-dist
+
+If you have not done this already, run the following commands
+first. Otherwise, proceed to the next step.
+
+sudo ./coder_system_setup.sh
+
+
+
+INSTALLING CODER:
+To update Raspbian with all the necessary changes for Coder
+to run, execute the following:
+
+cd /home/coder/coder-dist/installer/stock_raspbian/scripts
+sudo ./install_all_coder.sh
+
+This will update to the latest version of Raspbain, install
+the necessary dependencies, and make updates to the system
+to support headless booting and mDNS discovery.
+

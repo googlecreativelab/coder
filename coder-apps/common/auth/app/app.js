@@ -21,7 +21,7 @@
 var mustache = require('mustache');
 var util = require('util');
 var fs = require('fs');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 //stores cache of password hash and device name
 var device_settings = {
@@ -534,6 +534,7 @@ exports.api_logout_handler = function( req, res ) {
 
 var saveDeviceSettings = function() {
     err = fs.writeFileSync( process.cwd() + "/device.json", JSON.stringify(device_settings, null, 4), 'utf8' );
+    fs.chmodSync(process.cwd() + '/device.json', '600');
     return err;
 };
 

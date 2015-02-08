@@ -530,6 +530,7 @@ exports.api_logout_handler = function( req, res ) {
 
 var saveDeviceSettings = function() {
     err = fs.writeFileSync( process.cwd() + "/device.json", JSON.stringify(device_settings, null, 4), 'utf8' );
+    fs.chmodSync(process.cwd() + '/device.json', '600');
     return err;
 };
 

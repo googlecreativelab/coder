@@ -8,15 +8,15 @@
 # Required-Stop:     $remote_fs $network $syslog
 # Should-Start:      $local_fs slapd $named
 # Should-Stop:       $local_fs slapd
-# Default-Start:     
-# Default-Stop:      
+# Default-Start:
+# Default-Stop:
 # Short-Description: DHCP server
 # Description:       Dynamic Host Configuration Protocol Server
 ### END INIT INFO
 
 ##commented out only launching from wpa-supplicant
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
+# ORIG-Start:     2 3 4 5
+# ORIG-Stop:      0 1 6
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 

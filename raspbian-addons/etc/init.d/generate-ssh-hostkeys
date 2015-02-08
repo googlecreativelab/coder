@@ -16,21 +16,24 @@ logger="logger -t $prog"
 
 rsa_key="/etc/ssh/ssh_host_rsa_key"
 dsa_key="/etc/ssh/ssh_host_dsa_key"
+ecdsa_key="/etc/ssh/ssh_host_ecdsa_key"
 
 # Exit if the hostkeys already exist
-if [ -f $rsa_key -a -f $dsa_key ]; then
+if [ -f $rsa_key -a -f $dsa_key -a -f $ecdsa_key ]; then
 	exit
 fi
 
 # Generate the ssh host keys
 [ -f $rsa_key ] || ssh-keygen -f $rsa_key -t rsa -C 'host' -N ''
 [ -f $dsa_key ] || ssh-keygen -f $dsa_key -t dsa -C 'host' -N ''
+[ -f $ecdsa_key ] || ssh-keygen -f $ecdsa_key -t ecdsa -C 'host' -N ''
 
 # Output the public keys to the console
 # This allows user to get host keys securely through console log
 echo "-----BEGIN SSH HOST KEY FINGERPRINTS-----" | $logger
 ssh-keygen -l -f $rsa_key.pub | $logger
 ssh-keygen -l -f $dsa_key.pub | $logger
+ssh-keygen -l -f $ecdsa_key.pub | $logger
 echo "------END SSH HOST KEY FINGERPRINTS------" | $logger
 
 
