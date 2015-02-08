@@ -4,6 +4,8 @@
 echo "Removing any generated SSL keys and certs."
 rm /etc/ssh/ssh_host_dsa_key
 rm /etc/ssh/ssh_host_dsa_key.pub
+rm /etc/ssh/ssh_host_ecdsa_key
+rm /etc/ssh/ssh_host_ecdsa_key.pub
 rm /etc/ssh/ssh_host_rsa_key
 rm /etc/ssh/ssh_host_rsa_key.pub
 rm /home/coder/coder-dist/coder-base/certs/server.*
@@ -16,6 +18,7 @@ rm -rf /home/coder/coder-dist/coder-base/tmp/*
 echo ""
 
 echo "Clearing out user history files."
+rm /home/pi/coder_bootstrap_install.sh
 rm /root/.bash_history
 rm /root/.viminfo
 rm /home/pi/.bash_history
