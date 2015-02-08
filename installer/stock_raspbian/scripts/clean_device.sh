@@ -32,6 +32,7 @@ echo "Resetting hostname and hosts files in /boot/coder_settings."
 touch /boot/coder_settings/reset.txt
 cp ../../../raspbian-addons/boot/coder_settings/hosts.txt /boot/coder_settings/hosts.txt
 cp ../../../raspbian-addons/boot/coder_settings/hostname.txt /boot/coder_settings/hostname.txt
+echo "nameserver 8.8.8.8" >/etc/resolv.conf
 echo ""
 
 echo "Resetting wifi and network defaults."
