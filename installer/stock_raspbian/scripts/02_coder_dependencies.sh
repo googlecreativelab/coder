@@ -16,9 +16,9 @@ echo "### Install nodejs and npm."
 # Ideally, we'd do: apt-get -y install nodejs npm
 # For now, we'll install manually from nodejs.org to /opt/node/
 mkdir tmp
-wget http://nodejs.org/dist/v0.10.8/node-v0.10.8-linux-arm-pi.tar.gz -P tmp/
-tar -zxv -C tmp/ -f tmp/node-v0.10.8-linux-arm-pi.tar.gz
-cp -rv tmp/node-v0.10.8-linux-arm-pi /opt/node
+wget http://nodejs.org/dist/v0.10.7/node-v0.10.7-linux-arm-pi.tar.gz -P tmp/
+tar -zxv -C tmp/ -f tmp/node-v0.10.7-linux-arm-pi.tar.gz
+cp -rv tmp/node-v0.10.7-linux-arm-pi /opt/node
 ln -s /opt/node/bin/node /usr/bin/node
 ln -s /opt/node/bin/npm /usr/bin/npm
 rm -rf tmp
