@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "### Fetch all the latest Pi updates."
 apt-get -y update
 apt-get -y dist-upgrade

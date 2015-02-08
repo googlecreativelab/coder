@@ -1,7 +1,19 @@
-bash ./00_latest_updates.sh
-bash ./01_headless_basics.sh
-bash ./02_coder_dependencies.sh
+#!/bin/bash
 
+cat <<EOF
+==================================================================
+Beginning Coder installation.
+
+This will update your Raspberry Pi, install all the required
+packages for Coder, and configure your Pi to be configured
+via a web browser, without the use of a monitor.
+
+EOF
+
+
+./00_latest_updates.sh
+./01_headless_basics.sh
+./02_coder_dependencies.sh
 
 cat <<EOF
 

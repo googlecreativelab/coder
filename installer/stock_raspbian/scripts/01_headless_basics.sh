@@ -1,3 +1,4 @@
+#!/bin/bash
 
 echo "### Add ssh to start up."
 insserv ssh
@@ -32,6 +33,7 @@ cp -v ../../../raspbian-addons/etc/network/interfaces* /etc/network/
 cp -v ../../../raspbian-addons/etc/default/* /etc/default/
 cp -v ../../../raspbian-addons/etc/dhcp/dhcpd.conf /etc/dhcp/
 cp -v ../../../raspbian-addons/etc/modprobe.d/* /etc/modprobe.d/
+cp -v ../../../raspbian-addons/etc/modules /etc/modules
 
 cp -v ../../../raspbian-addons/etc/wpa_supplicant/wpa_supplicant* /etc/wpa_supplicant/
 chown -v root:wpaconfig /etc/wpa_supplicant/wpa_supplicant*

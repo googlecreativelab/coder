@@ -1,3 +1,4 @@
+#!/bin/bash
 
 echo "### Add coder user to [spi, gpio, audio] groups (device access that coder needs)."
 adduser coder spi
@@ -11,8 +12,9 @@ cp -v ../../../raspbian-addons/etc/redis/redis.conf /etc/redis/redis.conf
 echo ""
 
 echo "### Install nodejs and npm."
-#These are really old...
-#apt-get -y install nodejs npm
+# The node packages are really old...
+# Ideally, we'd do: apt-get -y install nodejs npm
+# For now, we'll install manually from nodejs.org to /opt/node/
 mkdir tmp
 wget http://nodejs.org/dist/v0.10.8/node-v0.10.8-linux-arm-pi.tar.gz -P tmp/
 tar -zxv -C tmp/ -f tmp/node-v0.10.8-linux-arm-pi.tar.gz
