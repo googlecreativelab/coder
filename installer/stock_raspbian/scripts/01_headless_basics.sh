@@ -25,6 +25,8 @@ echo ""
 
 echo "### Updating headless boot scripts."
 cp -rv ../../../raspbian-addons/boot/coder_settings/ /boot/
+cp -v /boot/config.txt /boot/config.bak
+cp -v ../../../raspbian-addons/boot/config.txt /boot/config.txt
 
 cp -v ../../../raspbian-addons/etc/iptables.up.rules /etc/
 cp -v ../../../raspbian-addons/etc/network/if-pre-up.d/* /etc/network/if-pre-up.d/
