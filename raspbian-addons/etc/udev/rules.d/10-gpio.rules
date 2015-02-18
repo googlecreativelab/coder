@@ -1,0 +1,5 @@
+# Give the GPIO group access to /sys/class/gpio*
+
+SUBSYSTEM=="gpio", KERNEL!="gpio[0-9]*", ACTION=="add", PROGRAM="/bin/bash -c 'chown -R root:gpio $sys/class/gpio ; chmod 220 $sys/class/gpio/{export,unexport}'"
+
+SUBSYSTEM=="gpio", ACTION=="add", PROGRAM="/bin/bash -c 'chmod -f 755 $sys$devpath ; chmod -f 660 $sys$devpath/{active_low,direction,edge,uevent,value} ; chown -Rf root:gpio $sys/$devpath'"

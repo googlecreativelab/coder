@@ -1,9 +1,19 @@
 #!/bin/bash
 
-echo "### Add coder user to [spi, gpio, audio] groups (device access that coder needs)."
+echo "### Install I2C Tools."
+apt-get -y install i2c-tools
+echo "### Let gpio group access gpio."
+cp -v ../../../raspbian-addons/etc/udev/rules.d/10-gpio.rules /etc/udev/rules.d/10-gpio.rules
+
+echo "### Install Zip."
+apt-get -y install zip
+
+echo "### Add coder user to [spi, gpio, audio, video, i2c] groups (device access that coder needs)."
 adduser coder spi
 adduser coder gpio
 adduser coder audio
+adduser coder video
+adduser coder i2c
 echo ""
 
 echo "### Install redis."
