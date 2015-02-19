@@ -13,7 +13,7 @@
     "bcrypt": "0.7.4",
     "connect": "2.14.3",
     "cookie": "0.1.1",
-    "gpio": "*",
+    "gpio": "git://github.com/jmstriegel/GpiO.git",
     "i2c": "*",
     "pi-spi": "*"
   }
