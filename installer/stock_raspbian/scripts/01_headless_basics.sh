@@ -10,7 +10,9 @@ apt-get -y install vim
 echo ""
 
 echo "### Install avahi daemon (enables mDNS/DNS-SD so you can connect to coder.local)."
-apt-get -y install avahi-daemon
+apt-get -y install avahi-daemon avahi-utils
+cp ../../../raspbian-addons/etc/avahi/avahi-daemon.conf /etc/avahi/avahi-daemon.conf
+cp ../../../raspbian-addons/etc/avahi/services/coder.service /etc/avahi/services/
 echo ""
 
 echo "### Install dhcpd daemon (will be used to give addresses when in ad-hoc hotspot mode)."
