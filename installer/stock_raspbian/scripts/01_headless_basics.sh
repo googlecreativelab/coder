@@ -5,6 +5,10 @@ insserv ssh
 update-rc.d ssh enable
 echo ""
 
+echo "### Install vim."
+apt-get -y install vim
+echo ""
+
 echo "### Install avahi daemon (enables mDNS/DNS-SD so you can connect to coder.local)."
 apt-get -y install avahi-daemon
 echo ""
