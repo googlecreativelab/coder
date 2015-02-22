@@ -50,7 +50,7 @@ if ( len(sys.argv) == 3 and sys.argv[1] == "really" and int(sys.argv[2]) > 0 ):
 
     filesize = os.path.getsize( filepath )
     progresssize = 0
-    command = 'dd bs=2m if=' + filepath + ' of=/dev/rdisk' + str( sdCardDev )
+    command = 'dd bs=2m if="' + filepath + '" of=/dev/rdisk' + str( sdCardDev )
     print( "FORMATTING: " + command )
 
     proc = subprocess.Popen( command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE )

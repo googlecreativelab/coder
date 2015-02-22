@@ -323,7 +323,7 @@ def formatSDDevice():
 
         pythonexe = os.path.dirname(sys.argv[0]) + "/../MacOS/python"
         open( logfile, 'w' ).close()
-        command = "osascript -e 'do shell script \"" + pythonexe + " -u formatsdcard.py really " + str( sdCardDev ) + " > " + logfile + " \" with administrator privileges'"
+        command = "osascript -e 'do shell script \"\\\"" + pythonexe + "\\\" -u formatsdcard.py really " + str( sdCardDev ) + " > " + logfile + " \" with administrator privileges'"
         print( "SYSTEM: " + command )
         #os.system( command )
         
