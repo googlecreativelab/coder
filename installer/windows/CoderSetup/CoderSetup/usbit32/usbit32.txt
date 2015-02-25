@@ -1,0 +1,121 @@
+USB Image Tool 1.57
+COPYRIGHT 2006-2010 Alexander Beug
+http://www.alexpage.de
+
+USB Image Tool can create images of USB flash drives and MP3 players, 
+that are mounted as USB drives. It allows you switch between images 
+with different music styles on your MP3 player or to make an exact 
+backup image of your USB flash drive.
+
+- create raw/compressed image files of USB drives
+- restore images of USB drives
+- show USB device information
+- manage favorite USB images
+
+For USB Image Tool license see license.txt.
+
+USB Image Tool uses zlib/minizip compression routines. zlib by Jean-loup Gailly
+and Mark Adler, minizip by Gilles Vollant.
+-------------------------------------------------------------------------------
+
+USB Image Tool changelog
+========================
+
+
+USB Image Tool 1.57
+- fixed: broken large zip files (using 64bit functions now)
+
+USB Image Tool 1.56
+- fixed: zip file compression (new zlib/minizip versions)
+
+USB Image Tool 1.55
+- fixed: error code 3 on Restore because of unknown file systems (atv-patchstick)
+- fixed: error code 87 as a result of an invalid device image
+
+USB Image Tool 1.54
+- changed: Restore now allows shared read access on image file
+- fixed: catch an exception for strange link open error
+
+USB Image Tool 1.53
+- added: truncate oversize images in device mode
+- fixed: invalid characters in automatic file names
+- changed: device mode is now default when available
+
+USB Image Tool 1.52
+- added: more detailed error messages
+
+USB Image Tool 1.51
+- fixed: invalid progress values caused GUI exception
+- fixed: Remove favorites button was always disabled
+
+USB Image Tool 1.50
+- added: parallel operations on different flash drives
+- added: progress information in command line utility
+- added: show location information (Windows Vista or higher)
+- added: optinal suggestion of the backup file name
+- fixed: read errors due to wrong size information
+- fixed: closing dialog had no effect on leaving the program
+- fixed: show device serial number
+
+USB Image Tool 1.42
+- added: MD5 checksum creation
+
+USB Image Tool 1.41
+- fixed: "Error reading settings!" message
+
+USB Image Tool 1.40
+- fixed: compression routines for zip/imz files
+- fixed: device mode without unplugging the device
+- fixed: progress bar stopped to early on size differences
+- added: compression routines for gzip files
+
+USB Image Tool 1.31
+- fixed: exception when device list focus was lost during file dialog
+- fixed: restore of compressed images in device mode under Windows Vista
+- added: check for corrupted zip files after backup is finished
+- added: check for corrupted zip files before restore is performed
+
+USB Image Tool 1.30
+- added: device mode (supports bootable USB sticks)
+- fixed: compressed file name resolving in command line utility
+
+USB Image Tool 1.28
+- added: command line utility
+- fixed: 64bit compatibility
+
+USB Image Tool 1.27
+- fixed: Windows Vista UAC issues again
+
+USB Image Tool 1.26
+- fixed: activated Windows Vista UAC caused detection errors
+
+USB Image Tool 1.25
+- added: rescan for USB devices
+- changed: unknown volumes are not shown anymore
+
+USB Image Tool 1.24
+- fixed: some more interface issues fixed
+- fixed: size check based on partition size
+- changed: Windows 2000 not supported anymore
+
+USB Image Tool 1.23
+- fixed: XZip 1.3 compression routines (bugfixes)
+- fixed: device scan only when necessary
+- fixed: Favorite Restore button was enabled during transfer
+
+USB Image Tool 1.22
+- fixed: device change caused errors during transfer operations
+- fixed: progress bar did not move when compressing/decompressing
+- added: serial number added to device information
+
+USB Image Tool 1.21
+- fixed: Windows Vista compatibility issues
+
+USB Image Tool 1.20
+- added: read/write compressed images
+
+USB Image Tool 1.11
+- fixed: button position when resizing
+
+USB Image Tool 1.10
+- added: favorite images management
