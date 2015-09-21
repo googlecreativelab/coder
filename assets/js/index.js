@@ -111,8 +111,8 @@ var addVideo = function() {
     var w = $('.videoframe').width();
     var h = $('.videoframe').height();
     vidratio = w/h;
-    $('#introvideo').html('<iframe src="http://www.youtube.com/embed/wH24YwdayFg?rel=0&autoplay=1&autohide=1&showinfo=0&iv_load_policy=3" width="' + w + '" height="' + h + '" frameborder="0" id="videoframe"></iframe>');
-    //$('#introvideo').html('<iframe src="http://www.youtube.com/embed/Jl3-lzlzOJI?autoplay=1" width="' + w + '" height="' + h + '" frameborder="0" id="videoframe"></iframe>');
+    $('#introvideo').html('<iframe src="https://www.youtube.com/embed/wH24YwdayFg?rel=0&autoplay=1&autohide=1&showinfo=0&iv_load_policy=3" width="' + w + '" height="' + h + '" frameborder="0" id="videoframe"></iframe>');
+    //$('#introvideo').html('<iframe src="https://www.youtube.com/embed/Jl3-lzlzOJI?autoplay=1" width="' + w + '" height="' + h + '" frameborder="0" id="videoframe"></iframe>');
     $('#introvideo').unbind('click', addVideo);
 }
 var updateVideoSize = function() {
