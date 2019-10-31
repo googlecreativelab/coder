@@ -17,7 +17,7 @@ The Coder applications that come pre-installed in the Coder distribution
 Modifications and additions to the stock raspian configuration and init structure
 
 #### installer
-Utility for transfering the coder image to an SD Card
+Utility for transferring the coder image to an SD Card
 
 #### findcoder-appengine
 EXPERIMENTAL: A status server that can be run to help locate multiple Coder devices in a classroom scenario
