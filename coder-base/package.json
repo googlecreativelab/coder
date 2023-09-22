@@ -8,7 +8,7 @@
     "redis": "0.8.2",
     "mustache": "0.7.2",
     "consolidate": "0.8.0",
-    "socket.io": "0.9.13",
+    "socket.io": "2.4.0",
     "express-params": "0.0.3",
     "bcrypt-nodejs": "*",
     "connect": "2.14.3",
