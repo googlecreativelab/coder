@@ -12,6 +12,6 @@
     "express-params": "0.0.3",
     "bcrypt-nodejs": "*",
     "connect": "2.14.3",
-    "cookie": "0.1.1"
+    "cookie": "0.7.0"
   }
 }
