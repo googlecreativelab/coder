@@ -6,7 +6,7 @@
   "dependencies": {
     "express": "3.1.0",
     "redis": "0.8.2",
-    "mustache": "0.7.2",
+    "mustache": "2.2.1",
     "consolidate": "0.8.0",
     "socket.io": "0.9.13",
     "express-params": "0.0.3",
